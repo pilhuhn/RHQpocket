@@ -1,0 +1,38 @@
+<TabHost android:id="@android:id/tabhost"
+         android:layout_width="fill_parent"
+         android:layout_height="fill_parent"
+         xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+    			  android:orientation="vertical"
+    			  android:layout_width="fill_parent"
+        	      android:layout_height="fill_parent"
+    			  android:padding="2dp"
+  			  >
+        <TextView android:id="@+id/status_view"
+                  android:hint="@string/not_logged_in"
+                  style="@style/text_std"
+                  />
+        <TextView android:id="@+id/foo_text"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:textSize="16dp"
+                  />
+
+        <fragment android:name="org.rhq.pocket.ChartFragment"
+                  android:id="@+id/chart_fragment"
+                  android:layout_height="400dp"
+                  android:layout_width="400dp"
+                  />
+
+        <TabWidget android:id="@android:id/tabs"
+                   android:layout_width="fill_parent"
+                   android:scrollbars="horizontal"
+                   android:layout_height="wrap_content">
+        </TabWidget>
+        <FrameLayout android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:padding="2dp" />
+	</LinearLayout>
+
+</TabHost>

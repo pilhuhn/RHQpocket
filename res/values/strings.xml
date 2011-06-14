@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RHQpocket</string>
+    <string name="loading">Loading ...</string>
+    <string name="not_logged_in">Not logged in</string>
+</resources>
