@@ -8,6 +8,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -81,5 +85,26 @@ public class StartActivity extends TabActivity
         }, "/resource/r/10001");
         tst.execute();
 
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+
+        inflater.inflate(R.menu.main_menu,menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent i;
+        // Handle item selection
+        switch (item.getItemId()) {
+        case R.id.preferences:
+            i = new Intent(this, Preferences.class);
+            startActivity(i);
+            break;
+        default:
+            Log.e(getClass().getName(),"Unknown menu item :"+ item.toString());
+        }
+        return true;
     }
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference android:defaultValue="172.31.7.7"
+                                       android:key="host"
+                                       android:title="Remote Server"
+                                       android:summary="Remote server to connect to"
+                                       />
+    <EditTextPreference android:defaultValue="7080"
+                                       android:key="port"
+                                       android:title="Remote Port"
+                                       android:summary="Remote server port to connect to"
+                                       />
+</PreferenceScreen>

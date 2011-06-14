@@ -27,7 +27,9 @@ import java.net.URL;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -61,7 +63,8 @@ public class TalkToServerTask extends AsyncTask<JsonNode,Void,JsonNode> {
         long t1 = System.currentTimeMillis();
         try {
 //                              http://localhost:7080/rest/resource/r/10001
-            String urlString = "http://172.31.7.7:7080/rest";
+//            String urlString = "http://172.31.7.7:7080/rest";
+            String urlString = getHostPort() + "/rest";
             urlString =urlString + subUrl;
             URL url = new URL(urlString);
 
@@ -136,4 +139,12 @@ public class TalkToServerTask extends AsyncTask<JsonNode,Void,JsonNode> {
                 callback.onSuccess(inner);
             }
 
+
+    String getHostPort() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+        String host = prefs.getString("host","172.31.7.7");
+        String port = prefs.getString("port","7080");
+
+        return "http://"+host+":"+port; // TODO make https the default
+    }
         }
