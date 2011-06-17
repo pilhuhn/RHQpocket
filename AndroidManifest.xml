@@ -14,6 +14,7 @@
         </activity>
         <activity android:name=".StartActivity"/>
         <activity android:name=".OverviewActivity"/>
+        <activity android:name=".Preferences"/>
 
 
     </application>

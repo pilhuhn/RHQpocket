@@ -30,6 +30,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -46,17 +47,25 @@ public class TalkToServerTask extends AsyncTask<JsonNode,Void,JsonNode> {
     private FinishCallback callback;
     private String subUrl;
     Dialog dialog;
+    private String encodedCredentials;
 
     public TalkToServerTask(Context ctx, FinishCallback callback, String subUrl) {
 
         this.ctx = ctx;
         this.callback = callback;
         this.subUrl = subUrl;
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
+        String username = preferences.getString("username","-notset-");
+        String password = preferences.getString("password","-notset-");
+
+        String s = username + ":" + password;
+        this.encodedCredentials = Base64.encodeToString(s.getBytes(), Base64.NO_WRAP);
     }
 
 
 
     protected JsonNode doInBackground(JsonNode... nodes) {
+
 
         InputStream inputStream = null;
         BufferedReader br=null;
@@ -69,7 +78,9 @@ public class TalkToServerTask extends AsyncTask<JsonNode,Void,JsonNode> {
             URL url = new URL(urlString);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//            conn.setDoOutput(true);
+            conn.setDoOutput(true);
+                conn.setRequestProperty ("Authorization", "Basic " + encodedCredentials);
+
             conn.setRequestMethod("GET");
 //            OutputStream out = conn.getOutputStream();
 
@@ -121,23 +132,27 @@ public class TalkToServerTask extends AsyncTask<JsonNode,Void,JsonNode> {
     }
 
 
-            protected void onPreExecute() {
-                dialog = new Dialog(ctx);
-                dialog.setTitle("Please wait");
-                dialog.setCancelable(false);
-                dialog.show();
-            }
+    protected void onPreExecute() {
+        dialog = new Dialog(ctx);
+        dialog.setTitle("Please wait");
+        dialog.setCancelable(false);
+        dialog.show();
+    }
 
-            protected void onPostExecute(JsonNode jsonNode) {
+    protected void onPostExecute(JsonNode jsonNode) {
 
-                dialog.cancel();
-                dialog.hide();
+        dialog.cancel();
+        dialog.hide();
 
-                // Unwrap Json , as jettison is sending "{type:{" and we only need the inner part
-                JsonNode inner = jsonNode.getElements().next(); // TODO dangerous. Does not work for all types
+        // Unwrap Json , as jettison is sending "{type:{" and we only need the inner part
+        if (jsonNode!=null) {
+            JsonNode inner = jsonNode.getElements().next(); // TODO dangerous. Does not work for all types
 
-                callback.onSuccess(inner);
-            }
+            callback.onSuccess(inner);
+        } else {
+            callback.onFailure(new IllegalArgumentException("Got no result "));
+        }
+    }
 
 
     String getHostPort() {

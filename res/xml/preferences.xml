@@ -11,4 +11,14 @@
                                        android:title="Remote Port"
                                        android:summary="Remote server port to connect to"
                                        />
+    <EditTextPreference
+                                       android:key="username"
+                                       android:title="RHQ user"
+                                       android:summary="User to connect as"
+                                       />
+    <EditTextPreference
+                                       android:key="password"
+                                       android:title="Password"
+                                       android:summary="Password to connect with"
+                                       />
 </PreferenceScreen>
