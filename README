@@ -7,6 +7,6 @@ Using that branch (which is not production ready at all), will require
 a container rebuild, as additional libraries need to be added to the
 container.
 
-Classes in org.rhq.core.domain.rest are copied over manually
-and the JaxB Annotations are stripped of (and JSON one added),
+Classes in org.rhq.core.domain are copied over manually
+and the JaxB Annotations are stripped off (and JSON one added),
 as Android can not (directly) use JAXB classes.

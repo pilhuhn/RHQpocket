@@ -18,6 +18,10 @@
  */
 package org.rhq.pocket;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -26,10 +30,10 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
+import org.rhq.core.domain.measurement.MeasurementUnits;
 import org.rhq.core.domain.rest.MetricAggregate;
 
 /**
@@ -38,15 +42,14 @@ import org.rhq.core.domain.rest.MetricAggregate;
  */
 public class ChartView extends SurfaceView {
 
-    private static final int RADIUS = 2;
+    private static final int RADIUS = 1;
     private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     MetricAggregate metrics;
     private Context context;
     private AttributeSet attrs;
     private ObjectMapper mapper;
     SurfaceHolder surfaceHolder;
-    private int mHeight;
-    private int mWidth;
+    MeasurementUnits mUnits;
 
     public ChartView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -58,6 +61,10 @@ public class ChartView extends SurfaceView {
     public void setMetrics(MetricAggregate metrics) {
 
         this.metrics = metrics;
+    }
+
+    public void setUnit(String units) {
+        mUnits = MeasurementUnits.getUsingDisplayUnits(units);
     }
 
     public void repaint() {
@@ -78,15 +85,18 @@ public class ChartView extends SurfaceView {
         if (metrics==null)
             return; // TODO display some "no metrics" message ?"
 
-        mHeight = canvas.getHeight();
-        mWidth = canvas.getWidth();
+        int mHeight = canvas.getHeight()-20;
+        int mWidth = canvas.getWidth()-60;
 
         // clean up
+        mPaint.setStyle(Paint.Style.FILL);
         mPaint.setColor(Color.BLACK);
-        canvas.drawRect(0,0,mWidth,mHeight,mPaint);
+        canvas.drawRect(0,0, canvas.getWidth(), canvas.getHeight(),mPaint);
 
         // now draw again
 
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setPathEffect(null); // clear out any previous effect
         double band = metrics.getMax()-metrics.getMin();
         double yDelta = band/ mHeight;
 
@@ -95,6 +105,7 @@ public class ChartView extends SurfaceView {
         int xOffset = mWidth / numDots;
         for (MetricAggregate.DataPoint point : metrics.getDataPoints()) {
             if (!Double.isNaN(point.getValue())) {
+                mPaint.setStrokeWidth(2f);
 
                 float yPos = (float) (mHeight -
                                     (point.getValue()-metrics.getMin())/yDelta);
@@ -113,6 +124,7 @@ public class ChartView extends SurfaceView {
                     mPaint.setColor(Color.CYAN);
                     canvas.drawCircle(xPos,lyPos, RADIUS,mPaint);
 
+                    mPaint.setStrokeWidth(1f);
                     mPaint.setColor(Color.GRAY);
                     canvas.drawLine(xPos,lyPos,xPos,hyPos,mPaint);
                 }
@@ -122,12 +134,80 @@ public class ChartView extends SurfaceView {
 
         // now show the avg line
         mPaint.setColor(Color.LTGRAY);
-        mPaint.setStyle(Paint.Style.STROKE);
+//        mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setPathEffect(new DashPathEffect(new float[]{4,2},0));
 
         float aPos = (float) (mHeight -
                             (metrics.getAvg()-metrics.getMin())/yDelta);
 
         canvas.drawLine(0,aPos, mWidth,aPos,mPaint);
+
+        // now add some units
+        mPaint.setPathEffect(null);
+        String units = mUnits.getName();
+
+        // TODO take font metrics into account
+        // TODO take string length into account
+        String tmp = scaleValue(metrics.getAvg(),mUnits);
+        canvas.drawText(tmp, mWidth, aPos, mPaint);
+
+        tmp = scaleValue(metrics.getMin(),mUnits);
+        canvas.drawText(tmp,mWidth,mHeight,mPaint);
+
+        tmp = scaleValue(metrics.getMax(),mUnits);
+        canvas.drawText(tmp,mWidth,15,mPaint);
+
+        // and the time stamps along with some tick marks
+        canvas.drawText("t1",0,mHeight+20,mPaint);
+        canvas.drawText("t2",mWidth/2,mHeight+20,mPaint);
+        canvas.drawText("t3",mWidth,mHeight+20,mPaint);
+
+        canvas.drawLine(0,mHeight+10,0,mHeight,mPaint);
+        canvas.drawLine(mWidth/2,mHeight+10,mWidth/2,mHeight,mPaint);
+        canvas.drawLine(mWidth,mHeight+10,mWidth,mHeight,mPaint);
+
     }
+
+    private  String scaleValue(Double x, MeasurementUnits mu) {
+//        System.out.println(x);
+        BigDecimal bd = BigDecimal.valueOf(x);
+//        System.out.println(bd.scale());
+//        System.out.println(bd.precision());
+        int vorkomma = bd.precision()-bd.scale();
+        int dreier = vorkomma /3;
+        BigDecimal bd2 = bd.movePointLeft(dreier*3);
+//        System.out.println(bd2);
+        BigDecimal bd3 = bd2.setScale(2,BigDecimal.ROUND_HALF_DOWN);
+//        System.out.println(bd3);
+
+
+        List<MeasurementUnits> matching = new ArrayList<MeasurementUnits>();
+        for (MeasurementUnits mu2 : MeasurementUnits.values())
+        {
+            if (!mu2.isComparableTo(mu))
+                continue;
+            matching.add(mu2);
+        }
+
+        MeasurementUnits targetUnit=null;
+        for (int i = 0; i< matching.size();i++) {
+            if (matching.get(i).equals(mu)) {
+                targetUnit = matching.get(i+dreier);
+                break;
+            }
+        }
+        if (targetUnit==null) {
+            System.err.println("No target unit found");
+            targetUnit = mu.getBaseUnits();
+        }
+//        System.out.println("Target unit " + targetUnit.toString());
+        double d = MeasurementUnits.scaleUp(x,targetUnit);
+//        System.out.println(d);
+
+        String result = bd3.toString() + " " + targetUnit.toString();
+
+//        System.out.println("---");
+        return result;
+    }
+
 }

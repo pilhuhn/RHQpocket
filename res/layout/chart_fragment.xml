@@ -7,17 +7,17 @@
     >
 
 
-        <Button android:id="@+id/title"
-                  android:layout_height="wrap_content"
-                  android:layout_width="match_parent"
-                  android:text="Some chart .."
-                  android:background="@color/some_blue"
-            />
-    <!-- android:onClick="doRefresh" is not possible here on fragment level, as the Activity is the receiver and not the Fragment -->
+    <Button android:id="@+id/title"
+              android:layout_height="wrap_content"
+              android:layout_width="match_parent"
+              android:text="Some chart .."
+              android:background="@color/some_blue"
+        />
+    <!-- android:onClick="doRefresh" is not possible here on fragment level, as the Activity would be the receiver and not the Fragment -->
     <org.rhq.pocket.ChartView
               android:id="@+id/chart_view"
               android:layout_height="320dp"
-              android:layout_width="360dp"
+              android:layout_width="600dp"
               android:paddingLeft="10dp"
               android:paddingRight="10dp"
               android:layout_below="@id/title"

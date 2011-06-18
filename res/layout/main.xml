@@ -20,8 +20,8 @@
 
         <fragment android:name="org.rhq.pocket.ChartFragment"
                   android:id="@+id/chart_fragment"
-                  android:layout_height="400dp"
-                  android:layout_width="400dp"
+                  android:layout_height="420dp"
+                  android:layout_width="600dp"
                   />
 
         <TabWidget android:id="@android:id/tabs"

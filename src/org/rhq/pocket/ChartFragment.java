@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -46,7 +44,6 @@ public class ChartFragment extends Fragment implements View.OnClickListener {
                 MetricAggregate metrics;
                 try {
                     metrics = mapper.readValue(result,MetricAggregate.class);
-//                    refreshButton.setText("Data obtained ...");
                     chartView.setMetrics(metrics);
                     chartView.repaint();
 
@@ -70,6 +67,7 @@ public class ChartFragment extends Fragment implements View.OnClickListener {
                 try {
                     MetricSchedule schedule = mapper.readValue(result,MetricSchedule.class);
                     refreshButton.setText(schedule.getDisplayName());
+                    chartView.setUnit(schedule.getUnit());
                 } catch (IOException e) {
                     e.printStackTrace();  // TODO: Customise this generated block
                 }
