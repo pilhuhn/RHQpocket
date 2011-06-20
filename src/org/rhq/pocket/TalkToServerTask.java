@@ -19,6 +19,7 @@
 package org.rhq.pocket;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -46,16 +47,18 @@ public class TalkToServerTask extends AsyncTask<JsonNode,Void,JsonNode> {
     private Context ctx;
     private FinishCallback callback;
     private String subUrl;
+    private boolean isList;
     Dialog dialog;
     private String encodedCredentials;
 
-    public TalkToServerTask(Context ctx, FinishCallback callback, String subUrl) {
+    public TalkToServerTask(Context ctx, FinishCallback callback, String subUrl, boolean isList) {
 
         this.ctx = ctx;
         this.callback = callback;
         this.subUrl = subUrl;
+        this.isList = isList;
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
-        String username = preferences.getString("username","-notset-");
+        String username = preferences.getString("username", "-notset-");
         String password = preferences.getString("password","-notset-");
 
         String s = username + ":" + password;
@@ -71,15 +74,16 @@ public class TalkToServerTask extends AsyncTask<JsonNode,Void,JsonNode> {
         BufferedReader br=null;
         long t1 = System.currentTimeMillis();
         try {
-//                              http://localhost:7080/rest/resource/r/10001
-//            String urlString = "http://172.31.7.7:7080/rest";
+            // Example remote url
+            //   http://localhost:7080/rest/resource/r/10001
             String urlString = getHostPort() + "/rest";
             urlString =urlString + subUrl;
             URL url = new URL(urlString);
+            System.out.println("Going for " + urlString);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true);
-                conn.setRequestProperty ("Authorization", "Basic " + encodedCredentials);
+            conn.setRequestProperty ("Authorization", "Basic " + encodedCredentials);
 
             conn.setRequestMethod("GET");
 //            OutputStream out = conn.getOutputStream();
@@ -99,6 +103,7 @@ public class TalkToServerTask extends AsyncTask<JsonNode,Void,JsonNode> {
 //            out.close();
 
             int responseCode = conn.getResponseCode();
+            System.out.println("response code was "+ responseCode);
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 inputStream = conn.getInputStream();
             } else {
@@ -128,6 +133,14 @@ public class TalkToServerTask extends AsyncTask<JsonNode,Void,JsonNode> {
             Log.w(getClass().getName(),e);
             callback.onFailure(e);
         }
+        finally {
+            if (br!=null)
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();  // TODO: Customise this generated block
+                }
+        }
         return null;
     }
 
@@ -144,11 +157,15 @@ public class TalkToServerTask extends AsyncTask<JsonNode,Void,JsonNode> {
         dialog.cancel();
         dialog.hide();
 
-        // Unwrap Json , as jettison is sending "{type:{" and we only need the inner part
         if (jsonNode!=null) {
-            JsonNode inner = jsonNode.getElements().next(); // TODO dangerous. Does not work for all types
-
-            callback.onSuccess(inner);
+            // Unwrap Json , as jettison is sending "{type:{" and we only need the inner part, but only if it is no list
+            // TODO can we peek at jsonNode to find this out?
+            if (isList)
+                callback.onSuccess(jsonNode);
+            else {
+                JsonNode inner = jsonNode.getElements().next();
+                callback.onSuccess(inner);
+            }
         } else {
             callback.onFailure(new IllegalArgumentException("Got no result "));
         }

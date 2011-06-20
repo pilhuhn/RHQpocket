@@ -24,20 +24,19 @@ public class ChartFragment extends Fragment implements View.OnClickListener {
 
     ChartView chartView;
     private Button refreshButton;
+    private MetricSchedule schedule;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.chart_fragment, container,false);
 
         chartView = (ChartView) view.findViewById(R.id.chart_view);
         refreshButton = (Button) view.findViewById(R.id.title);
-        refreshButton.setText("Getting data ...");
-        getMetrics(10007);
-        getSchedule(10007);
+        refreshButton.setText("Select a metric ...");
         refreshButton.setOnClickListener(this);
         return view;
     }
 
-    public void getMetrics(int scheduleId) {
+    public void fetchMetrics(int scheduleId) {
         new TalkToServerTask(getActivity(), new FinishCallback() {
             public void onSuccess(JsonNode result) {
                 ObjectMapper mapper = new ObjectMapper();
@@ -56,7 +55,7 @@ public class ChartFragment extends Fragment implements View.OnClickListener {
                 // TODO: Customise this generated block
                 Log.e(getClass().getName(), e.getLocalizedMessage());
             }
-        }, "/metric/data/" + scheduleId).execute();
+        }, "/metric/data/" + scheduleId, false).execute();
 
     }
 
@@ -76,13 +75,24 @@ public class ChartFragment extends Fragment implements View.OnClickListener {
             public void onFailure(Exception e) {
                 // TODO: Customise this generated block
             }
-        },"/resource/schedule/" + scheduleId).execute();
+        },"/resource/schedule/" + scheduleId, false).execute();
     }
 
 
     public void onClick(View view) {
         if (view.equals(refreshButton)) {
-            getMetrics(10007);
+            fetchMetrics(schedule.getScheduleId());
         }
+    }
+
+    public void setScheduleId(MetricSchedule schedule) {
+        if (schedule.getScheduleId()==0) {
+         // TODO   chartView.clear()
+        }
+
+        this.schedule = schedule;
+        refreshButton.setText(schedule.getDisplayName());
+        chartView.setUnit(schedule.getUnit());
+        fetchMetrics(schedule.getScheduleId());
     }
 }

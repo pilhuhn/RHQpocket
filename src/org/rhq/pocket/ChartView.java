@@ -28,6 +28,7 @@ import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -82,8 +83,10 @@ public class ChartView extends SurfaceView {
 
     private void paint(Canvas canvas) {
 
-        if (metrics==null)
+        if (metrics==null) {
+            Log.w(getClass().getName(),"Got no metrics");
             return; // TODO display some "no metrics" message ?"
+        }
 
         int mHeight = canvas.getHeight()-20;
         int mWidth = canvas.getWidth()-60;
@@ -170,6 +173,9 @@ public class ChartView extends SurfaceView {
 
     private  String scaleValue(Double x, MeasurementUnits mu) {
 //        System.out.println(x);
+        if (x.isInfinite() || x.isNaN())
+            return "??";
+
         BigDecimal bd = BigDecimal.valueOf(x);
 //        System.out.println(bd.scale());
 //        System.out.println(bd.precision());

@@ -3,17 +3,28 @@
          android:layout_height="fill_parent"
          xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
-    			  android:orientation="vertical"
+    			  android:orientation="horizontal"
     			  android:layout_width="fill_parent"
         	      android:layout_height="fill_parent"
     			  android:padding="2dp"
   			  >
+
+        <fragment android:name="org.rhq.pocket.ResourceListFragement"
+                  android:id="@+id/resource_list_fragment"
+                  android:layout_height="match_parent"
+                  android:layout_width="wrap_content"
+                  />
+        <fragment android:name="org.rhq.pocket.ScheduleListFragement"
+                  android:id="@+id/schedule_list_fragment"
+                  android:layout_height="match_parent"
+                  android:layout_width="wrap_content"
+                  />
         <TextView android:id="@+id/status_view"
                   android:hint="@string/not_logged_in"
                   style="@style/text_std"
                   />
         <TextView android:id="@+id/foo_text"
-                  android:layout_width="match_parent"
+                  android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:textSize="16dp"
                   />
@@ -23,6 +34,7 @@
                   android:layout_height="420dp"
                   android:layout_width="600dp"
                   />
+<!--
 
         <TabWidget android:id="@android:id/tabs"
                    android:layout_width="fill_parent"
@@ -33,6 +45,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:padding="2dp" />
+-->
 	</LinearLayout>
 
 </TabHost>

@@ -3,7 +3,7 @@ package org.rhq.pocket;
 
 import java.io.IOException;
 
-import android.app.TabActivity;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,7 +20,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import org.rhq.core.domain.rest.ResourceWithType;
 
-public class StartActivity extends TabActivity
+public class StartActivity extends Activity
 {
 
     SharedPreferences preferences ;
@@ -32,6 +32,7 @@ public class StartActivity extends TabActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+/*
         tabHost = getTabHost();
 
         Intent intent = new Intent().setClass(this,OverviewActivity.class);
@@ -56,6 +57,7 @@ public class StartActivity extends TabActivity
                 .setIndicator("Groups") // TODO add icon
                 .setContent(intent);
         tabHost.addTab(homeSpec);
+*/
 
     }
 
@@ -82,7 +84,7 @@ public class StartActivity extends TabActivity
             public void onFailure(Exception e) {
                 // TODO: Customise this generated block
             }
-        }, "/resource/r/10001");
+        }, "/resource/r/10001", false);
         tst.execute();
 
     }
