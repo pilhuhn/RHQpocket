@@ -59,7 +59,7 @@ public class ChartFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    private void getSchedule(int scheduleId) {
+    private void fetchSchedule(int scheduleId) {
         new TalkToServerTask(getActivity(), new FinishCallback() {
             public void onSuccess(JsonNode result) {
                 ObjectMapper mapper = new ObjectMapper();

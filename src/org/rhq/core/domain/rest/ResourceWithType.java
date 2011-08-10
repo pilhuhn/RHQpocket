@@ -22,6 +22,9 @@
  */
 package org.rhq.core.domain.rest;
 
+import java.util.List;
+
+import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  * A (partial) resource with some type information
@@ -29,14 +32,19 @@ package org.rhq.core.domain.rest;
  */
 public class ResourceWithType {
 
-    String resourceName;
+    @JsonProperty("@resourceId")
     int resourceId;
+    String resourceName;
     String typeName;
     int typeId;
     String pluginName;
     int pluginId;
     String parentName;
     int parentId;
+    @JsonProperty("atom.link")
+    List<Object> links;
+    @JsonProperty("resourceWithType")
+    ResourceWithType parent;
 
     public ResourceWithType() {
     }

@@ -8,5 +8,5 @@ a container rebuild, as additional libraries need to be added to the
 container.
 
 Classes in org.rhq.core.domain are copied over manually
-and the JaxB Annotations are stripped off (and JSON one added),
+and the JaxB Annotations are stripped off (if needed )
 as Android can not (directly) use JAXB classes.

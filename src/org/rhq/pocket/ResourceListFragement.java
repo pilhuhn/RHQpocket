@@ -73,7 +73,7 @@ public class ResourceListFragement extends ListFragment {
                 // TODO: Customise this generated block
                 e.printStackTrace();
             }
-        },"/resource/p", true).execute();
+        },"/resource/platforms", true).execute();
 
         return view;
 

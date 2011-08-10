@@ -38,6 +38,7 @@ public class MetricAggregate {
     double max;
     int numDataPoints;
     List<DataPoint> dataPoints;
+    Integer scheduleId;
 
     public MetricAggregate() {
     }
@@ -94,7 +95,14 @@ public class MetricAggregate {
         this.numDataPoints = numDataPoints;
     }
 
-//    @XmlRootElement
+    public Integer getScheduleId() {
+        return scheduleId;
+    }
+
+    public void setScheduleId(Integer scheduleId) {
+        this.scheduleId = scheduleId;
+    }
+
     public static class DataPoint {
         long timeStamp;
         double value;

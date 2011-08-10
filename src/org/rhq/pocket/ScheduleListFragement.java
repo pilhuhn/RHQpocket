@@ -77,7 +77,7 @@ public class ScheduleListFragement extends ListFragment {
                 // TODO: Customise this generated block
                 e.printStackTrace();
             }
-        },"/resource/r/" + resourceId + "/s", true).execute();
+        },"/resource/" + resourceId + "/schedules", true).execute();
     }
 
     public void setResourceId(int scheduleId) {

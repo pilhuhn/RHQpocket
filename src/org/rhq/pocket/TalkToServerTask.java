@@ -75,8 +75,8 @@ public class TalkToServerTask extends AsyncTask<JsonNode,Void,JsonNode> {
         long t1 = System.currentTimeMillis();
         try {
             // Example remote url
-            //   http://localhost:7080/rest/resource/r/10001
-            String urlString = getHostPort() + "/rest";
+            //   http://localhost:7080/rest/1/resource/10001
+            String urlString = getHostPort() + "/rest/1";
             urlString =urlString + subUrl;
             URL url = new URL(urlString);
             System.out.println("Going for " + urlString);
@@ -121,6 +121,7 @@ public class TalkToServerTask extends AsyncTask<JsonNode,Void,JsonNode> {
                 }
 
                 String outcome;
+                System.err.println("Response: " + builder.toString());
                 JsonNode operationResult=null;
                 if (builder !=null) {
                     outcome= builder.toString();

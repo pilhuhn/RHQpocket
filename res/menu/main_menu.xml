@@ -5,4 +5,8 @@
     <item android:title="Preferences"
           android:id="@+id/preferences"
           />
+    <item android:title="Pick resource"
+          android:id="@+id/pick_resource"
+          android:showAsAction="always"
+        />
 </menu>

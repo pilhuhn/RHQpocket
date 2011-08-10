@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:paddingLeft="8dp"
+              android:paddingRight="8dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+    >
+
+    <ListView android:id="@id/android:list"
+              android:layout_width="320dp"
+              android:layout_height="400dp"
+              android:background="#000000"
+              android:drawSelectorOnTop="true"/>
+
+    <TextView android:id="@+id/selected_resource"
+              android:layout_width="320dp"
+              android:layout_height="wrap_content"
+              android:background="#FF0000"
+              android:hint="Nothing selected"
+              android:textSize="14pt"
+        />
+
+    <LinearLayout android:orientation="horizontal"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+        >
+        <Button android:id="@+id/back"
+                android:text="Back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+        />
+    <Button android:id="@+id/pick_resource"
+            android:text="Pick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            />
+    </LinearLayout>
+
+</LinearLayout>
