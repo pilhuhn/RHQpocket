@@ -5,6 +5,9 @@ import java.io.IOException;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -111,14 +114,22 @@ public class StartActivity extends Activity
             startActivity(i);
             break;
         case R.id.pick_resource:
-            dialog = new Dialog(this);
 
+            // Taken from Android docs:
+            //
+            // DialogFragment.show() will take care of adding the fragment
+            // in a transaction.  We also want to remove any currently showing
+            // dialog, so make our own transaction and take care of that here.
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+            if (prev != null) {
+                ft.remove(prev);
+            }
+            ft.addToBackStack(null);
 
-
-            dialog.setContentView(R.layout.resource_picker);
-            dialog.setCancelable(true);
-            dialog.setTitle("Pick a resource");
-            dialog.show();
+            // Create and show the dialog.
+            DialogFragment newFragment = new ResourcePickerFragement();
+            newFragment.show(ft, "dialog");
             break;
 
         default:

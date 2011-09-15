@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import android.app.ListFragment;
+import android.app.DialogFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -27,12 +28,15 @@ import org.rhq.core.domain.rest.ResourceWithType;
  * Fragment that allows to pick a resource
  * @author Heiko W. Rupp
  */
-public class ResourcePickerFragement extends ListFragment implements View.OnClickListener{
+public class ResourcePickerFragement extends DialogFragment implements AdapterView.OnItemClickListener,View.OnClickListener{
 
     List<ResourceWithType> resourcesWithTypes = new ArrayList<ResourceWithType>() ;
     Button pickButton;
     TextView selectedResourceView;
     ResourceWithType selectedResource;
+    ListView listView;
+
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -40,6 +44,8 @@ public class ResourcePickerFragement extends ListFragment implements View.OnClic
 
         pickButton = (Button) view.findViewById(R.id.pick_resource);
         selectedResourceView = (TextView) view.findViewById(R.id.selected_resource);
+        listView = (ListView) view.findViewById(android.R.id.list);
+        listView.setOnItemClickListener(this);
 
         pickButton.setOnClickListener(this);
 
@@ -69,7 +75,7 @@ public class ResourcePickerFragement extends ListFragment implements View.OnClic
                     }
 
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, names);
-                    setListAdapter(adapter);
+                    listView.setAdapter(adapter);
                 } catch (IOException e) {
                     e.printStackTrace();  // TODO: Customise this generated block
                 }
@@ -89,7 +95,7 @@ public class ResourcePickerFragement extends ListFragment implements View.OnClic
     }
 
     // Get children
-    public void onListItemClick(ListView l, View v, int position, long id) {
+    public void onItemClick(AdapterView l, View v, int position, long id) {
 
         selectedResource = resourcesWithTypes.get(position);
         selectedResourceView.setText(selectedResource.getResourceName());
@@ -121,7 +127,7 @@ public class ResourcePickerFragement extends ListFragment implements View.OnClic
                     }
 
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, names);
-                    setListAdapter(adapter);
+                    listView.setAdapter(adapter);
                 } catch (IOException e) {
                     e.printStackTrace();  // TODO: Customise this generated block
                 }
@@ -155,5 +161,6 @@ public class ResourcePickerFragement extends ListFragment implements View.OnClic
             fragment.setResourceId(selectedResource.getResourceId());
 
         }
+        dismiss(); // close the dialog
     }
 }
