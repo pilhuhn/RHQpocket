@@ -77,16 +77,18 @@ public class ScheduleListFragement extends ListFragment {
                 // TODO: Customise this generated block
                 e.printStackTrace();
             }
-        },"/resource/" + resourceId + "/schedules", true).execute();
+        },"/resource/" + resourceId + "/schedules.json", true).execute();
     }
 
-    public void setResourceId(int scheduleId) {
-        this.resourceId = scheduleId;
+    public void setResourceId(int resourceId) {
+        this.resourceId = resourceId;
         ChartFragment fragment = (ChartFragment) getFragmentManager().findFragmentById(R.id.chart_fragment);
         if (fragment==null)
             return;
 
-        fragment.setScheduleId(new MetricSchedule());
+
+//        fragment.setSchedule(new MetricSchedule()); // dummy schedule as the user needs to first pick one
+
 
 
         setAdapterForList();
@@ -97,6 +99,6 @@ public class ScheduleListFragement extends ListFragment {
         if (fragment==null)
             return;
 
-        fragment.setScheduleId(metricSchedules.get(position));
+        fragment.setSchedule(metricSchedules.get(position));
     }
 }

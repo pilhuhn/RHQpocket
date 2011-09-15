@@ -20,6 +20,7 @@ package org.rhq.pocket;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
@@ -27,6 +28,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
+import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -161,9 +163,10 @@ public class ChartView extends SurfaceView {
         canvas.drawText(tmp,mWidth,15,mPaint);
 
         // and the time stamps along with some tick marks
-        canvas.drawText("t1",0,mHeight+20,mPaint);
-        canvas.drawText("t2",mWidth/2,mHeight+20,mPaint);
-        canvas.drawText("t3",mWidth,mHeight+20,mPaint);
+        canvas.drawText((String) DateFormat.format("h:mma", new Date(metrics.getMinTimeStamp())),0,mHeight+20,mPaint);
+        long t2= (metrics.getMaxTimeStamp()+metrics.getMinTimeStamp())/2;
+        canvas.drawText((String) DateFormat.format("h:mma",new Date(t2)),mWidth/2,mHeight+20,mPaint);
+        canvas.drawText((String) DateFormat.format("h:mma",new Date(metrics.getMaxTimeStamp())),mWidth,mHeight+20,mPaint);
 
         canvas.drawLine(0,mHeight+10,0,mHeight,mPaint);
         canvas.drawLine(mWidth/2,mHeight+10,mWidth/2,mHeight,mPaint);

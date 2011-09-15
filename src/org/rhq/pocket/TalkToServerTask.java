@@ -76,7 +76,7 @@ public class TalkToServerTask extends AsyncTask<JsonNode,Void,JsonNode> {
         try {
             // Example remote url
             //   http://localhost:7080/rest/1/resource/10001
-            String urlString = getHostPort() + "/rest/1";
+            String urlString = getHostPort() + "/rest/1"; // TODO put into preferences
             urlString =urlString + subUrl;
             URL url = new URL(urlString);
             System.out.println("Going for " + urlString);
@@ -84,6 +84,7 @@ public class TalkToServerTask extends AsyncTask<JsonNode,Void,JsonNode> {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true);
             conn.setRequestProperty ("Authorization", "Basic " + encodedCredentials);
+            conn.setRequestProperty("Accepts","application/json");
 
             conn.setRequestMethod("GET");
 //            OutputStream out = conn.getOutputStream();

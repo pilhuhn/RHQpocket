@@ -39,6 +39,9 @@ public class MetricAggregate {
     int numDataPoints;
     List<DataPoint> dataPoints;
     Integer scheduleId;
+    long minTimeStamp;
+    long maxTimeStamp;
+
 
     public MetricAggregate() {
     }
@@ -101,6 +104,22 @@ public class MetricAggregate {
 
     public void setScheduleId(Integer scheduleId) {
         this.scheduleId = scheduleId;
+    }
+
+    public long getMinTimeStamp() {
+        return minTimeStamp;
+    }
+
+    public void setMinTimeStamp(long minTimeStamp) {
+        this.minTimeStamp = minTimeStamp;
+    }
+
+    public long getMaxTimeStamp() {
+        return maxTimeStamp;
+    }
+
+    public void setMaxTimeStamp(long maxTimeStamp) {
+        this.maxTimeStamp = maxTimeStamp;
     }
 
     public static class DataPoint {

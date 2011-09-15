@@ -81,11 +81,12 @@ public class ChartFragment extends Fragment implements View.OnClickListener {
 
     public void onClick(View view) {
         if (view.equals(refreshButton)) {
-            fetchMetrics(schedule.getScheduleId());
+            if (schedule !=null)
+                fetchMetrics(schedule.getScheduleId());
         }
     }
 
-    public void setScheduleId(MetricSchedule schedule) {
+    public void setSchedule(MetricSchedule schedule) {
         if (schedule.getScheduleId()==0) {
          // TODO   chartView.clear()
         }
