@@ -175,6 +175,9 @@ public class ChartView extends SurfaceView {
     }
 
     private  String scaleValue(Double x, MeasurementUnits mu) {
+        if (mu==MeasurementUnits.NONE)
+            return x.toString();  // TODO get some surrogates so that the string won't be too long
+
 //        System.out.println(x);
         if (x.isInfinite() || x.isNaN())
             return "??";

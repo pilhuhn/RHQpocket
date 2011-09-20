@@ -34,12 +34,7 @@ public class ScheduleListFragement extends ListFragment {
 
         View view = inflater.inflate(R.layout.schedule_list_fragment, container);
 
-        System.out.println("Inflated view");
-
-
-
         return view;
-
     }
 
     private void setAdapterForList() {
@@ -95,10 +90,17 @@ public class ScheduleListFragement extends ListFragment {
     }
 
     public void onListItemClick(ListView l, View v, int position, long id) {
-        ChartFragment fragment = (ChartFragment) getFragmentManager().findFragmentById(R.id.chart_fragment);
-        if (fragment==null)
+        ChartFragment chartFragment = (ChartFragment) getFragmentManager().findFragmentById(R.id.chart_fragment);
+        if (chartFragment==null)
             return;
 
-        fragment.setSchedule(metricSchedules.get(position));
+        chartFragment.setSchedule(metricSchedules.get(position));
+
+        ScheduleDetailFragment sdFragment = (ScheduleDetailFragment) getFragmentManager().findFragmentById(R.id.schedule_detail_fragment);
+        if (sdFragment==null)
+            return;
+
+        sdFragment.setSchedule(metricSchedules.get(position));
+
     }
 }

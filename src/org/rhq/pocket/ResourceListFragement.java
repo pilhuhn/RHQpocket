@@ -34,47 +34,6 @@ public class ResourceListFragement extends ListFragment {
 
         System.out.println("Inflated view");
 
-
-        new TalkToServerTask(getActivity(),new FinishCallback() {
-            public void onSuccess(JsonNode result) {
-                System.out.println("got data :" +  result.toString());
-                System.out.println("is array. " + result.isArray());
-                System.out.println("is object. " + result.isObject());
-                ObjectMapper objectMapper = new ObjectMapper();
-                List<String> names = new ArrayList<String>();
-
-                try {
-                    List<Map<String,ResourceWithType>> resources = objectMapper.readValue(result,new TypeReference<List<Map<String,ResourceWithType>>>() {});
-                    System.out.println(resources);
-                    resourcesWithTypes.clear();
-
-                    for (Map<String,ResourceWithType> map : resources) {
-
-                        System.out.println("is map ");
-                        Set<Map.Entry<String,ResourceWithType>> set = map.entrySet();
-                        for (Map.Entry entry : set) {
-                            ResourceWithType rwt = (ResourceWithType) entry.getValue();
-                            names.add(rwt.getResourceName());
-                            resourcesWithTypes.add(rwt);
-                        }
-                    }
-
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, names);
-                    setListAdapter(adapter);
-                } catch (IOException e) {
-                    e.printStackTrace();  // TODO: Customise this generated block
-                }
-
-
-                // TODO: Customise this generated block
-            }
-
-            public void onFailure(Exception e) {
-                // TODO: Customise this generated block
-                e.printStackTrace();
-            }
-        },"/resource/platforms", true).execute();
-
         return view;
 
     }

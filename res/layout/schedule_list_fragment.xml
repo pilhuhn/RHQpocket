@@ -17,6 +17,6 @@
               android:layout_width="160dp"
               android:layout_height="fill_parent"
               android:background="#660000"
-              android:text="Select a resource"/>
+              android:text="Select a schedule"/>
 
 </LinearLayout>

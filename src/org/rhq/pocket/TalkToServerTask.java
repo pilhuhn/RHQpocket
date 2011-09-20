@@ -33,16 +33,15 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Base64;
 import android.util.Log;
-import android.widget.TextView;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 
 /**
- * // TODO: Document this
+ * Async task doing the communication with the RHQ server
  * @author Heiko W. Rupp
  */
-public class TalkToServerTask extends AsyncTask<JsonNode,Void,JsonNode> {
+public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
 
     private Context ctx;
     private FinishCallback callback;
@@ -50,6 +49,7 @@ public class TalkToServerTask extends AsyncTask<JsonNode,Void,JsonNode> {
     private boolean isList;
     Dialog dialog;
     private String encodedCredentials;
+    private String mode = "GET";
 
     public TalkToServerTask(Context ctx, FinishCallback callback, String subUrl, boolean isList) {
 
@@ -65,9 +65,13 @@ public class TalkToServerTask extends AsyncTask<JsonNode,Void,JsonNode> {
         this.encodedCredentials = Base64.encodeToString(s.getBytes(), Base64.NO_WRAP);
     }
 
+    public TalkToServerTask(Context ctx, FinishCallback callback, String subUrl, String mode, boolean isList) {
+        this(ctx,callback,subUrl,isList);
+        this.mode = mode;
+    }
 
 
-    protected JsonNode doInBackground(JsonNode... nodes) {
+    protected JsonNode doInBackground(Object... objects) {
 
 
         InputStream inputStream = null;
@@ -84,25 +88,32 @@ public class TalkToServerTask extends AsyncTask<JsonNode,Void,JsonNode> {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true);
             conn.setRequestProperty ("Authorization", "Basic " + encodedCredentials);
-            conn.setRequestProperty("Accepts","application/json");
+            conn.setRequestProperty("Accept","application/json");
 
-            conn.setRequestMethod("GET");
-//            OutputStream out = conn.getOutputStream();
-
+            conn.setRequestMethod(mode);
             ObjectMapper mapper = new ObjectMapper();
-/*
-            String result = mapper.writeValueAsString(operation);
-            if (verbose) {
-                System.out.println("Json to send: " + result);
-                System.out.flush();
+
+            if (objects!=null && objects.length>0) {
+                conn.setRequestProperty("content-type","application/json");
+                OutputStream out = conn.getOutputStream();
+
+                String result = mapper.writeValueAsString(objects[0]);
+                result = "{\"metricAggregate\":" + result + "}";
+
+                if (true) {
+                    System.out.println("Json to send: " + result);
+                    System.out.flush();
+                }
+//                out.write("{metricSchedule:".getBytes());
+//                mapper.writeValue(out, objects[0]);
+//                out.write("}".getBytes());
+
+
+                conn.connect();
+                out.flush();
+                out.close();
+
             }
-            mapper.writeValue(out, operation);
-*/
-
-            conn.connect();
-//            out.flush();
-//            out.close();
-
             int responseCode = conn.getResponseCode();
             System.out.println("response code was "+ responseCode);
             if (responseCode == HttpURLConnection.HTTP_OK) {
@@ -181,4 +192,4 @@ public class TalkToServerTask extends AsyncTask<JsonNode,Void,JsonNode> {
 
         return "http://"+host+":"+port; // TODO make https the default
     }
-        }
+}
