@@ -10,3 +10,4 @@ container.
 Classes in org.rhq.core.domain are copied over manually
 and the JaxB Annotations are stripped off (if needed )
 as Android can not (directly) use JAXB classes.
+This file was modified by IntelliJ IDEA 10.0.2 for binding GitHub repository
