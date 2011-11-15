@@ -17,7 +17,9 @@ import android.util.Base64;
 import android.util.Log;
 
 import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.SerializationConfig;
 
 /**
  * Async task doing the communication with the RHQ server
@@ -74,24 +76,25 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
 
             conn.setRequestMethod(mode);
             ObjectMapper mapper = new ObjectMapper();
+            // set into lenient mode
+            mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            // pretty print
+            mapper.configure(SerializationConfig.Feature.INDENT_OUTPUT,true);
 
             if (objects!=null && objects.length>0) {
-                conn.setRequestProperty("content-type","application/json");
+                conn.setRequestProperty("Content-Type","application/json");
                 OutputStream out = conn.getOutputStream();
+                conn.connect();
 
                 String result = mapper.writeValueAsString(objects[0]);
-                result = "{\"metricAggregate\":" + result + "}";
 
                 if (true) {
-                    System.out.println("Json to send: " + result);
+                    System.out.println("Json to send: \n" + result);
                     System.out.flush();
                 }
-//                out.write("{metricSchedule:".getBytes());
-//                mapper.writeValue(out, objects[0]);
-//                out.write("}".getBytes());
+                mapper.writeValue(out, objects[0]);
 
 
-                conn.connect();
                 out.flush();
                 out.close();
 
@@ -155,12 +158,7 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
         if (jsonNode!=null) {
             // Unwrap Json , as jettison is sending "{type:{" and we only need the inner part, but only if it is no list
             // TODO can we peek at jsonNode to find this out?
-            if (isList)
-                callback.onSuccess(jsonNode);
-            else {
-                JsonNode inner = jsonNode.getElements().next();
-                callback.onSuccess(inner);
-            }
+            callback.onSuccess(jsonNode);
         } else {
             callback.onFailure(new IllegalArgumentException("Got no result "));
         }

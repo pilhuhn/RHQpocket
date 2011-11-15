@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 
@@ -41,22 +42,18 @@ public class ScheduleListFragement extends ListFragment {
         new TalkToServerTask(getActivity(),new FinishCallback() {
             public void onSuccess(JsonNode result) {
                 ObjectMapper objectMapper = new ObjectMapper();
+                objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
                 List<String> names = new ArrayList<String>();
 
                 try {
-                    List<Map<String,MetricSchedule>> resources = objectMapper.readValue(result,new TypeReference<List<Map<String,MetricSchedule>>>() {});
-                    System.out.println(resources);
+                    List<MetricSchedule> schedules = objectMapper.readValue(result,new TypeReference<List<MetricSchedule>>() {});
+                    System.out.println(schedules);
                     metricSchedules.clear();
 
-                    for (Map<String,MetricSchedule> map : resources) {
-
-                        Set<Map.Entry<String,MetricSchedule>> set = map.entrySet();
-                        for (Map.Entry entry : set) {
-                            MetricSchedule schedule = (MetricSchedule) entry.getValue();
-                            if (schedule.getType().equalsIgnoreCase("MEASUREMENT")) { // filter for numeric metrics
-                                names.add(schedule.getDisplayName());
-                                metricSchedules.add(schedule);
-                            }
+                     for(   MetricSchedule schedule :schedules ) {
+                        if (schedule.getType().equalsIgnoreCase("MEASUREMENT")) { // filter for numeric metrics
+                            names.add(schedule.getDisplayName());
+                            metricSchedules.add(schedule);
                         }
                     }
 

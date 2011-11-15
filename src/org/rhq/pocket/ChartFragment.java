@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import org.rhq.core.domain.rest.MetricAggregate;
@@ -40,6 +41,7 @@ public class ChartFragment extends Fragment implements View.OnClickListener {
         new TalkToServerTask(getActivity(), new FinishCallback() {
             public void onSuccess(JsonNode result) {
                 ObjectMapper mapper = new ObjectMapper();
+                mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
                 MetricAggregate metrics;
                 try {
                     metrics = mapper.readValue(result,MetricAggregate.class);

@@ -56,22 +56,17 @@ public class ResourcePickerFragement extends DialogFragment implements AdapterVi
                 System.out.println("is array. " + result.isArray());
                 System.out.println("is object. " + result.isObject());
                 ObjectMapper objectMapper = new ObjectMapper();
+                objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
                 List<String> names = new ArrayList<String>();
 
                 try {
-                    List<Map<String,ResourceWithType>> resources = objectMapper.readValue(result,new TypeReference<List<Map<String,ResourceWithType>>>() {});
+                    List<ResourceWithType> resources = objectMapper.readValue(result,new TypeReference<List<ResourceWithType>>() {});
                     System.out.println(resources);
                     resourcesWithTypes.clear();
 
-                    for (Map<String,ResourceWithType> map : resources) {
-
-                        System.out.println("is map ");
-                        Set<Map.Entry<String,ResourceWithType>> set = map.entrySet();
-                        for (Map.Entry entry : set) {
-                            ResourceWithType rwt = (ResourceWithType) entry.getValue();
+                    for (ResourceWithType rwt: resources) {
                             names.add(rwt.getResourceName());
                             resourcesWithTypes.add(rwt);
-                        }
                     }
 
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, names);
@@ -111,19 +106,13 @@ public class ResourcePickerFragement extends DialogFragment implements AdapterVi
                 List<String> names = new ArrayList<String>();
 
                 try {
-                    List<Map<String,ResourceWithType>> resources = objectMapper.readValue(result,new TypeReference<List<Map<String,ResourceWithType>>>() {});
+                    List<ResourceWithType> resources = objectMapper.readValue(result,new TypeReference<List<ResourceWithType>>() {});
                     System.out.println(resources);
                     resourcesWithTypes.clear();
 
-                    for (Map<String,ResourceWithType> map : resources) {
-
-                        System.out.println("is map ");
-                        Set<Map.Entry<String,ResourceWithType>> set = map.entrySet();
-                        for (Map.Entry entry : set) {
-                            ResourceWithType rwt = (ResourceWithType) entry.getValue();
-                            names.add(rwt.getResourceName());
-                            resourcesWithTypes.add(rwt);
-                        }
+                    for (ResourceWithType rwt :resources ) {
+                        names.add(rwt.getResourceName());
+                        resourcesWithTypes.add(rwt);
                     }
 
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, names);

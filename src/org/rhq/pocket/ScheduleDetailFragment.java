@@ -47,18 +47,20 @@ public class ScheduleDetailFragment extends Fragment implements View.OnClickList
     }
 
     public void onClick(View view) {
-        if (view.equals(enabledBox)) {
+        if (view.equals(schedule_update_button)) {
 
             schedule.setEnabled(enabledBox.isChecked());
-            schedule.setCollectionInterval(Long.getLong(collectionInterval.getText().toString()));
+            schedule.setCollectionInterval(Long.parseLong(collectionInterval.getText().toString()));
 
             new TalkToServerTask(getActivity(),new FinishCallback() {
                 public void onSuccess(JsonNode result) {
                     // TODO: Customise this generated block
+                    System.out.println(result);
                 }
 
                 public void onFailure(Exception e) {
                     // TODO: Customise this generated block
+                    System.err.println("error" + e);
                 }
             },"/metric/schedule/" + schedule.getScheduleId(),"PUT",false)
             .execute(schedule);
