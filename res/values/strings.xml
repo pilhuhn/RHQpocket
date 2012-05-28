@@ -8,4 +8,7 @@
   <string name="set">Set</string>
   <string name="invalid">Invalid</string>
   <string name="some_chart_hint">Some chart ..</string>
+  <string name="edit_schedule">Edit schedule</string>
+  <string name="pick_resource">Pick resource</string>
+  <string name="preferences">Preferences</string>
 </resources>

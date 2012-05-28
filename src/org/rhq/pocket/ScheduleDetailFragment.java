@@ -1,5 +1,6 @@
 package org.rhq.pocket;
 
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,7 +19,7 @@ import org.rhq.core.domain.rest.MetricSchedule;
  * Show details about a schedule
  * @author Heiko W. Rupp
  */
-public class ScheduleDetailFragment extends Fragment implements View.OnClickListener {
+public class ScheduleDetailFragment extends DialogFragment implements View.OnClickListener {
 
     TextView nameView;
     EditText collectionInterval;
@@ -34,16 +35,18 @@ public class ScheduleDetailFragment extends Fragment implements View.OnClickList
         enabledBox = (CheckBox) view.findViewById(R.id.schedule_enabled);
         schedule_update_button = (Button)view.findViewById(R.id.schedule_update_button);
         schedule_update_button.setOnClickListener(this);
-        return view;
-    }
 
-    public void setSchedule(MetricSchedule schedule) {
-        this.schedule = schedule;
         if (schedule!=null) {
             nameView.setText(schedule.getDisplayName());
             collectionInterval.setText(""+schedule.getCollectionInterval());
             enabledBox.setChecked(schedule.isEnabled());
         }
+
+        return view;
+    }
+
+    public void setSchedule(MetricSchedule schedule) {
+        this.schedule = schedule;
     }
 
     public void onClick(View view) {

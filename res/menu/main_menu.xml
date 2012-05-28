@@ -2,11 +2,14 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Preferences"
+    <item android:title="@string/preferences"
           android:id="@+id/preferences"
           />
-    <item android:title="Pick resource"
+    <item android:title="@string/pick_resource"
           android:id="@+id/pick_resource"
           android:showAsAction="always"
+        />
+  <item android:title="@string/edit_schedule"
+        android:id="@+id/edit_schedule"
         />
 </menu>

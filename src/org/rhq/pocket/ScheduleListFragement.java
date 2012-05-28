@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ListFragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,11 +93,15 @@ public class ScheduleListFragement extends ListFragment {
 
         chartFragment.setSchedule(metricSchedules.get(position));
 
+        RHQPocket.getInstance().currentSchedule = metricSchedules.get(position);
+
+/*
         ScheduleDetailFragment sdFragment = (ScheduleDetailFragment) getFragmentManager().findFragmentById(R.id.schedule_detail_fragment);
         if (sdFragment==null)
             return;
 
         sdFragment.setSchedule(metricSchedules.get(position));
+*/
 
     }
 }

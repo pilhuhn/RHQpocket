@@ -22,11 +22,13 @@
                       android:layout_height="match_parent"
                       android:layout_width="600dp"
                       />
+<!--
             <fragment android:name="org.rhq.pocket.ScheduleDetailFragment"
                       android:id="@+id/schedule_detail_fragment"
                       android:layout_height="wrap_content"
                       android:layout_width="600dp"
                       />
+-->
         </LinearLayout>
 	</LinearLayout>
 

@@ -15,6 +15,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TabHost;
 
+import org.rhq.core.domain.rest.MetricSchedule;
+
 public class StartActivity extends Activity
 {
 
@@ -35,6 +37,7 @@ public class StartActivity extends Activity
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
+        // If the user has previously picked a resource, re-use it
         int resourceId = preferences.getInt("currentResourceId",-1);
         if (resourceId!=-1) {
             String resourceName = preferences.getString("currentResourceName","");
@@ -64,6 +67,10 @@ public class StartActivity extends Activity
 
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent i;
+        FragmentTransaction ft;
+        Fragment prev;
+        DialogFragment newFragment;
+
         // Handle item selection
         switch (item.getItemId()) {
         case R.id.preferences:
@@ -77,18 +84,37 @@ public class StartActivity extends Activity
             // DialogFragment.show() will take care of adding the fragment
             // in a transaction.  We also want to remove any currently showing
             // dialog, so make our own transaction and take care of that here.
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+            ft = getFragmentManager().beginTransaction();
+            prev = getFragmentManager().findFragmentByTag("dialog");
             if (prev != null) {
                 ft.remove(prev);
             }
             ft.addToBackStack(null);
 
             // Create and show the dialog.
-            DialogFragment newFragment = new ResourcePickerFragement();
+            newFragment = new ResourcePickerFragement();
             newFragment.setCancelable(true);
             newFragment.show(ft, "dialog");
             break;
+
+        case R.id.edit_schedule:
+            ft = getFragmentManager().beginTransaction();
+            prev = getFragmentManager().findFragmentByTag("dialog");
+            if (prev != null) {
+                ft.remove(prev);
+            }
+            ft.addToBackStack(null);
+
+            // Create and show the dialog.
+            newFragment = new ScheduleDetailFragment();
+
+            MetricSchedule schedule = RHQPocket.getInstance().currentSchedule;
+            ((ScheduleDetailFragment)newFragment).setSchedule(schedule);
+
+            newFragment.setCancelable(true);
+            newFragment.show(ft, "dialog");
+            break;
+
 
         default:
             Log.e(getClass().getName(),"Unknown menu item :"+ item.toString());

@@ -8,15 +8,15 @@
 
     <TextView android:layout_height="wrap_content"
               android:layout_width="wrap_content"
-              android:textSize="14pt"
-              android:text="Info about the schedule"/>
+              android:text="Info about the schedule"
+              android:textStyle="bold"
+        />
 
     <TextView android:id="@+id/schedule_name"
               android:layout_height="wrap_content"
               android:layout_width="wrap_content"
               android:text="Name"
               android:hint="Schedule Name"
-              android:textSize="12pt"
 
         />
 
@@ -25,14 +25,12 @@
               android:layout_width="wrap_content"
               android:text="Interval"
               android:hint="Collection Interval"
-              android:textSize="12pt"
               android:editable="true"
 
         />
     <CheckBox android:id="@+id/schedule_enabled"
               android:layout_height="wrap_content"
               android:layout_width="wrap_content"
-              android:textSize="12pt"
               android:text="Enabled?"
               />
     <Button android:id="@+id/schedule_update_button"
