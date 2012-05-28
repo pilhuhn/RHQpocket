@@ -1,8 +1,5 @@
 package org.rhq.pocket;
 
-
-import java.io.IOException;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -16,20 +13,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TabHost;
-import android.widget.TextView;
-
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.ObjectMapper;
-
-import org.rhq.core.domain.rest.ResourceWithType;
 
 public class StartActivity extends Activity
 {
 
     SharedPreferences preferences ;
-    TabHost tabHost;
     Dialog dialog;
 
     /** Called when the activity is first created. */
@@ -38,33 +27,6 @@ public class StartActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-/*
-        tabHost = getTabHost();
-
-        Intent intent = new Intent().setClass(this,OverviewActivity.class);
-        TabHost.TabSpec homeSpec;
-
-        homeSpec = tabHost.newTabSpec("overview")
-                .setIndicator("Overview") // TODO add icon
-                .setContent(intent);
-        tabHost.addTab(homeSpec);
-
-        homeSpec = tabHost.newTabSpec("favorites")
-                .setIndicator("Favorites") // TODO add icon
-                .setContent(intent);
-        tabHost.addTab(homeSpec);
-
-        homeSpec = tabHost.newTabSpec("resources")
-                .setIndicator("Resources") // TODO add icon
-                .setContent(intent);
-        tabHost.addTab(homeSpec);
-
-        homeSpec = tabHost.newTabSpec("groups")
-                .setIndicator("Groups") // TODO add icon
-                .setContent(intent);
-        tabHost.addTab(homeSpec);
-*/
-
     }
 
     @Override
@@ -73,28 +35,23 @@ public class StartActivity extends Activity
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-/*
-        final TextView foo = (TextView) findViewById(R.id.foo_text);
-        foo.setText("---- unset -----");
-
-        TalkToServerTask tst = new TalkToServerTask(this, new FinishCallback() {
-            public void onSuccess(JsonNode result) {
-                ObjectMapper objectMapper = new ObjectMapper();
-                try {
-                    ResourceWithType rwt = objectMapper.readValue(result,ResourceWithType.class);
-                    foo.setText("Resource: " + rwt.getResourceName() + ", type= " + rwt.getTypeName());
-                } catch (IOException e) {
-                    e.printStackTrace();  // TODO: Customise this generated block
-                    System.out.println(result.toString());
-                }
+        int resourceId = preferences.getInt("currentResourceId",-1);
+        if (resourceId!=-1) {
+            String resourceName = preferences.getString("currentResourceName","");
+            if (!resourceName.equals("")) {
+                getActionBar().setSubtitle(resourceName);
             }
+            // User has already picked one, lets use it
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ScheduleListFragement fragment  =
+                (ScheduleListFragement) getFragmentManager().findFragmentById(R.id.schedule_list_fragment);
 
-            public void onFailure(Exception e) {
-                // TODO: Customise this generated block
-            }
-        }, "/resource/10001", false);
-        tst.execute();
-*/
+            if (fragment==null)
+                return;
+
+            fragment.setResourceId(resourceId);
+        }
+
 
     }
 
@@ -129,6 +86,7 @@ public class StartActivity extends Activity
 
             // Create and show the dialog.
             DialogFragment newFragment = new ResourcePickerFragement();
+            newFragment.setCancelable(true);
             newFragment.show(ft, "dialog");
             break;
 

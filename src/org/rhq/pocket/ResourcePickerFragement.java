@@ -3,11 +3,11 @@ package org.rhq.pocket;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import android.app.DialogFragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,9 +52,6 @@ public class ResourcePickerFragement extends DialogFragment implements AdapterVi
 
         new TalkToServerTask(getActivity(),new FinishCallback() {
             public void onSuccess(JsonNode result) {
-                System.out.println("got data :" +  result.toString());
-                System.out.println("is array. " + result.isArray());
-                System.out.println("is object. " + result.isObject());
                 ObjectMapper objectMapper = new ObjectMapper();
                 objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
                 List<String> names = new ArrayList<String>();
@@ -83,7 +80,7 @@ public class ResourcePickerFragement extends DialogFragment implements AdapterVi
                 // TODO: Customise this generated block
                 e.printStackTrace();
             }
-        },"/resource/platforms", true).execute();
+        },"/resource/platforms").execute();
 
         return view;
 
@@ -129,7 +126,7 @@ public class ResourcePickerFragement extends DialogFragment implements AdapterVi
                 // TODO: Customise this generated block
                 e.printStackTrace();
             }
-        },"/resource/" + selectedResource.getResourceId() +"/children", true).execute();
+        },"/resource/" + selectedResource.getResourceId() +"/children").execute();
 
     }
 
@@ -137,7 +134,14 @@ public class ResourcePickerFragement extends DialogFragment implements AdapterVi
         if (view.equals(pickButton)) {
             System.err.println("Picked resource: " + selectedResource);
 
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt("currentResourceId",selectedResource.getResourceId());
+            editor.putString("currentResourceName",selectedResource.getResourceName());
+            editor.commit();
+
             StartActivity activity= (StartActivity) getActivity();
+            activity.getActionBar().setSubtitle(selectedResource.getResourceName());
             if (activity.dialog!=null)
                 activity.dialog.cancel();
 

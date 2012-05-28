@@ -3,8 +3,6 @@ package org.rhq.pocket;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import android.app.ListFragment;
 import android.os.Bundle;
@@ -69,7 +67,7 @@ public class ScheduleListFragement extends ListFragment {
                 // TODO: Customise this generated block
                 e.printStackTrace();
             }
-        },"/resource/" + resourceId + "/schedules.json", true).execute();
+        },"/resource/" + resourceId + "/schedules.json").execute();
     }
 
     public void setResourceId(int resourceId) {

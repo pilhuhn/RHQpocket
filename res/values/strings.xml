@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">RHQpocket</string>
-    <string name="loading">Loading ...</string>
+    <string name="loading">Loading …</string>
     <string name="not_logged_in">Not logged in</string>
+  <string name="app_description">Provides an Android client to RHQ</string>
+  <string name="unset">Unset</string>
+  <string name="set">Set</string>
+  <string name="invalid">Invalid</string>
+  <string name="some_chart_hint">Some chart ..</string>
 </resources>

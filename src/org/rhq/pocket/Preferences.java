@@ -18,19 +18,69 @@
  */
 package org.rhq.pocket;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
+
+import org.codehaus.jackson.JsonNode;
 
 /**
  * Handling of the Preferences
  * @author Heiko W. Rupp
  */
-public class Preferences extends PreferenceActivity {
+public class Preferences extends PreferenceActivity  implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     /** Called when the activity is first created. */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
+//        getPreferences(MODE_PRIVATE).registerOnSharedPreferenceChangeListener(this);
+        getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
     }
 
+    public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, String key) {
+
+        final Preference p = findPreference(key);
+        if (key.equals("host")) {
+            p.setSummary(sharedPreferences.getString("host",""));
+        }
+
+        if (key.equals("port")) {
+            p.setSummary(sharedPreferences.getString("port",""));
+        }
+
+        if (key.equals("username")) {
+            p.setSummary(sharedPreferences.getString("username",""));
+        }
+
+        if (key.equals("password")) {
+
+            new TalkToServerTask(this,new FinishCallback() {
+                @Override
+                public void onSuccess(JsonNode result) {
+                    setPasswordSummary(sharedPreferences, p);
+//                    Toast.makeText(Preferences.this,R.string.set,Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+//                    Toast.makeText(Preferences.this,"Login failed",Toast.LENGTH_SHORT).show();
+                    p.setSummary(R.string.invalid);
+                }
+            },"status").execute();
+
+
+        }
+    }
+
+
+
+    private void setPasswordSummary(SharedPreferences sharedPreferences, Preference p) {
+        String ril_password = sharedPreferences.getString("password", "");
+        if (ril_password.equals(""))
+            p.setSummary(R.string.unset);
+        else
+            p.setSummary(R.string.set);
+    }
 }

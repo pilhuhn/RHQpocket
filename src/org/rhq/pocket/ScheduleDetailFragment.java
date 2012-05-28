@@ -62,7 +62,7 @@ public class ScheduleDetailFragment extends Fragment implements View.OnClickList
                     // TODO: Customise this generated block
                     System.err.println("error" + e);
                 }
-            },"/metric/schedule/" + schedule.getScheduleId(),"PUT",false)
+            },"/metric/schedule/" + schedule.getScheduleId(),"PUT")
             .execute(schedule);
         }
     }

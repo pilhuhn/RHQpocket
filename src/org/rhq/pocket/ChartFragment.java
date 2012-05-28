@@ -57,7 +57,7 @@ public class ChartFragment extends Fragment implements View.OnClickListener {
                 // TODO: Customise this generated block
                 Log.e(getClass().getName(), e.getLocalizedMessage());
             }
-        }, "/metric/data/" + scheduleId, false).execute();
+        }, "/metric/data/" + scheduleId).execute();
 
     }
 
@@ -77,7 +77,7 @@ public class ChartFragment extends Fragment implements View.OnClickListener {
             public void onFailure(Exception e) {
                 // TODO: Customise this generated block
             }
-        },"/resource/schedule/" + scheduleId, false).execute();
+        },"/resource/schedule/" + scheduleId).execute();
     }
 
 

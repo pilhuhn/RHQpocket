@@ -8,7 +8,8 @@
                                        />
     <EditTextPreference android:defaultValue="7080"
                                        android:key="port"
-                                       android:title="Remote Port"
+                                       android:inputType="number"
+                                       android:title="Remote Port "
                                        android:summary="Remote server port to connect to"
                                        />
     <EditTextPreference
@@ -19,6 +20,7 @@
     <EditTextPreference
                                        android:key="password"
                                        android:title="Password"
+                                       android:inputType="textVisiblePassword"
                                        android:summary="Password to connect with"
                                        />
 </PreferenceScreen>

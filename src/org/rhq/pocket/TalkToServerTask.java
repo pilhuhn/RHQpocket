@@ -30,17 +30,15 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
     private Context ctx;
     private FinishCallback callback;
     private String subUrl;
-    private boolean isList;
     Dialog dialog;
     private String encodedCredentials;
     private String mode = "GET";
 
-    public TalkToServerTask(Context ctx, FinishCallback callback, String subUrl, boolean isList) {
+    public TalkToServerTask(Context ctx, FinishCallback callback, String subUrl) {
 
         this.ctx = ctx;
         this.callback = callback;
         this.subUrl = subUrl;
-        this.isList = isList;
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
         String username = preferences.getString("username", "-notset-");
         String password = preferences.getString("password","-notset-");
@@ -49,8 +47,8 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
         this.encodedCredentials = Base64.encodeToString(s.getBytes(), Base64.NO_WRAP);
     }
 
-    public TalkToServerTask(Context ctx, FinishCallback callback, String subUrl, String mode, boolean isList) {
-        this(ctx,callback,subUrl,isList);
+    public TalkToServerTask(Context ctx, FinishCallback callback, String subUrl, String mode) {
+        this(ctx,callback,subUrl);
         this.mode = mode;
     }
 
@@ -70,21 +68,28 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
             System.out.println("Going for " + urlString);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setDoOutput(true);
+            conn.setRequestMethod(mode);
+
+            conn.setDoInput(true);
             conn.setRequestProperty ("Authorization", "Basic " + encodedCredentials);
             conn.setRequestProperty("Accept","application/json");
 
-            conn.setRequestMethod(mode);
             ObjectMapper mapper = new ObjectMapper();
             // set into lenient mode
             mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             // pretty print
             mapper.configure(SerializationConfig.Feature.INDENT_OUTPUT,true);
 
+            conn.setRequestProperty("Content-Type","application/json");
+
             if (objects!=null && objects.length>0) {
-                conn.setRequestProperty("Content-Type","application/json");
+                conn.setDoOutput(true);
+            }
+            conn.connect();
+
+            if (objects!=null && objects.length>0) {
+
                 OutputStream out = conn.getOutputStream();
-                conn.connect();
 
                 String result = mapper.writeValueAsString(objects[0]);
 
@@ -156,8 +161,6 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
         dialog.hide();
 
         if (jsonNode!=null) {
-            // Unwrap Json , as jettison is sending "{type:{" and we only need the inner part, but only if it is no list
-            // TODO can we peek at jsonNode to find this out?
             callback.onSuccess(jsonNode);
         } else {
             callback.onFailure(new IllegalArgumentException("Got no result "));
