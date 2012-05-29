@@ -1,11 +1,7 @@
 Testbed to create an application for Andorid(TM)-based devices
 as management frontend for RHQ (http://rhq-project.org/).
 
-Currently it needs the heiko-rest branch from RHQ source. See
-http://git.fedorahosted.org/git/?p=rhq/rhq.git;a=shortlog;h=refs/heads/heiko-rest
-Using that branch (which is not production ready at all), will require
-a container rebuild, as additional libraries need to be added to the
-container.
+The client runs against RHQ 4.4 and later. 
 
 Classes in org.rhq.core.domain are copied over manually
 and the JaxB Annotations are stripped off (if needed )
