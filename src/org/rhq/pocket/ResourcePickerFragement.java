@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -84,6 +85,13 @@ public class ResourcePickerFragement extends DialogFragment implements AdapterVi
 
         return view;
 
+    }
+
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+        dialog.setTitle(R.string.pick_resource);
+        return dialog;
     }
 
     // Get children

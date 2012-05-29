@@ -11,4 +11,10 @@
   <string name="edit_schedule">Edit schedule</string>
   <string name="pick_resource">Pick resource</string>
   <string name="preferences">Preferences</string>
+  <string name="name">Name</string>
+  <string name="interval_sec">Interval (sec)</string>
+  <string name="collection_interval_sec">Collection Interval (sec)</string>
+  <string name="enabled">Enabled</string>
+  <string name="update">Update!</string>
+  <string name="info_about_schedule">Info about the schedule</string>
 </resources>

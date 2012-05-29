@@ -1,5 +1,6 @@
 package org.rhq.pocket;
 
+import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.os.Bundle;
@@ -38,11 +39,19 @@ public class ScheduleDetailFragment extends DialogFragment implements View.OnCli
 
         if (schedule!=null) {
             nameView.setText(schedule.getDisplayName());
-            collectionInterval.setText(""+schedule.getCollectionInterval());
+            // Display is in seconds
+            collectionInterval.setText(""+schedule.getCollectionInterval()/1000);
             enabledBox.setChecked(schedule.isEnabled());
         }
 
         return view;
+    }
+
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+        dialog.setTitle(R.string.edit_schedule);
+        return dialog;
     }
 
     public void setSchedule(MetricSchedule schedule) {
@@ -53,7 +62,8 @@ public class ScheduleDetailFragment extends DialogFragment implements View.OnCli
         if (view.equals(schedule_update_button)) {
 
             schedule.setEnabled(enabledBox.isChecked());
-            schedule.setCollectionInterval(Long.parseLong(collectionInterval.getText().toString()));
+            // Display is in seconds, RHQ wants millis
+            schedule.setCollectionInterval(Long.parseLong(collectionInterval.getText().toString())*1000);
 
             new TalkToServerTask(getActivity(),new FinishCallback() {
                 public void onSuccess(JsonNode result) {
