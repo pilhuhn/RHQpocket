@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TabHost;
 
 import org.rhq.core.domain.rest.MetricSchedule;
 
@@ -46,8 +45,8 @@ public class StartActivity extends Activity
             }
             // User has already picked one, lets use it
             FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ScheduleListFragement fragment  =
-                (ScheduleListFragement) getFragmentManager().findFragmentById(R.id.schedule_list_fragment);
+            ScheduleListFragment fragment  =
+                (ScheduleListFragment) getFragmentManager().findFragmentById(R.id.schedule_list_fragment);
 
             if (fragment==null)
                 return;

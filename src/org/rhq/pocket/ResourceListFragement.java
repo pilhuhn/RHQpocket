@@ -1,22 +1,14 @@
 package org.rhq.pocket;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import android.app.ListFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.TypeReference;
 
 import org.rhq.core.domain.rest.ResourceWithType;
 
@@ -43,8 +35,8 @@ public class ResourceListFragement extends ListFragment {
         ResourceWithType rwt = resourcesWithTypes.get(position);
 
         // TODO we need a different list item(?) to distinguish clicking for children or for other stuff
-        ScheduleListFragement fragment  =
-            (ScheduleListFragement) getFragmentManager().findFragmentById(R.id.schedule_list_fragment);
+        ScheduleListFragment fragment  =
+            (ScheduleListFragment) getFragmentManager().findFragmentById(R.id.schedule_list_fragment);
 
         if (fragment==null)
             return;

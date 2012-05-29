@@ -25,7 +25,7 @@ import org.rhq.core.domain.rest.MetricSchedule;
  * Fragment that shows a list of metric schedules
  * @author Heiko W. Rupp
  */
-public class ScheduleListFragement extends ListFragment {
+public class ScheduleListFragment extends ListFragment {
 
     int resourceId = 0;
     List<MetricSchedule> metricSchedules = new ArrayList<MetricSchedule>();

@@ -153,8 +153,8 @@ public class ResourcePickerFragement extends DialogFragment implements AdapterVi
             if (activity.dialog!=null)
                 activity.dialog.cancel();
 
-            ScheduleListFragement fragment  =
-                (ScheduleListFragement) getFragmentManager().findFragmentById(R.id.schedule_list_fragment);
+            ScheduleListFragment fragment  =
+                (ScheduleListFragment) getFragmentManager().findFragmentById(R.id.schedule_list_fragment);
 
             if (fragment==null)
                 return;
