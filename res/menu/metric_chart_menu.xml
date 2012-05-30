@@ -2,6 +2,11 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+  <item
+        android:actionLayout="@layout/chart_table_switch"
+        android:showAsAction="always"
+        />
+
     <item android:title="@string/preferences"
           android:id="@+id/preferences"
           />

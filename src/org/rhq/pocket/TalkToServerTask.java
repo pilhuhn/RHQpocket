@@ -52,6 +52,13 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
         this.mode = mode;
     }
 
+    @SuppressWarnings("unchecked")
+    public AsyncTask<Object,Void,JsonNode> execute() {
+
+        return super.execute();
+
+    }
+
 
     protected JsonNode doInBackground(Object... objects) {
 

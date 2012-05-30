@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:gravity="center"
+              style="@style/table_text"
+    >
+
+  <TableRow>
+    <TextView style="@style/table_text"
+              android:text="@string/name"
+              />
+    <TextView android:id="@+id/name_view"
+              style="@style/table_text"
+              />
+  </TableRow>
+  <TableRow>
+    <TextView style="@style/table_text"
+              android:text="@string/min"
+              />
+    <TextView android:id="@+id/min_val_view"
+              style="@style/table_text"              />
+  </TableRow>
+  <TableRow>
+    <TextView style="@style/table_text"
+              android:text="@string/avg"
+              />
+    <TextView android:id="@+id/avg_val_view"
+              style="@style/table_text"
+              />
+  </TableRow>
+  <TableRow>
+    <TextView style="@style/table_text"
+              android:text="@string/max"
+              />
+    <TextView android:id="@+id/max_val_view"
+              style="@style/table_text"              />
+  </TableRow>
+<!--
+  <TableRow>
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/last"
+              />
+    <TextView android:id="@+id/last_val_view"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              />
+  </TableRow>
+-->
+
+</TableLayout>

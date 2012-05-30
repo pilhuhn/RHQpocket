@@ -77,7 +77,7 @@ public class MetricChartActivity extends Activity
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
 
-        inflater.inflate(R.menu.main_menu,menu);
+        inflater.inflate(R.menu.metric_chart_menu,menu);
         return true;
     }
 
@@ -117,7 +117,7 @@ public class MetricChartActivity extends Activity
         case R.id.edit_schedule:
 
             if (RHQPocket.getInstance().getCurrentSchedule()==null) {
-                Toast.makeText(this,"Please select a metric first",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,getString(R.string.select_metric_first),Toast.LENGTH_SHORT).show();
             } else {
 
                 ft = getFragmentManager().beginTransaction();
@@ -148,12 +148,35 @@ public class MetricChartActivity extends Activity
             else {
                 l.setVisibility(View.VISIBLE);
             }
-            // TODO how to trigger a repaint of the chart view -- after the size change has taken effect?
+            // trigger a repaint of the chart view
+            MetricDetailContainer cont = (MetricDetailContainer) getFragmentManager().findFragmentById(R.id.chart_container);
+            cont.update();
             break;
 
         default:
             Log.e(getClass().getName(),"Unknown menu item :"+ item.toString());
         }
         return true;
+    }
+
+    public void toggleChartAndTable(View v) {
+
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        Fragment fragment = fm.findFragmentById(R.id.chart_container);
+        Fragment newFragment;
+        if (fragment instanceof ChartFragment) {
+            newFragment = new MetricDetailFragment();
+        }
+        else {
+            newFragment = new ChartFragment();
+            ((ChartFragment)newFragment).setSchedule(RHQPocket.getInstance().currentSchedule);
+        }
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ft.remove(fragment);
+        ft.add(R.id.chart_container,newFragment);
+        ft.commit();
+
+
     }
 }

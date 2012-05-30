@@ -75,7 +75,7 @@ public class ScheduleListFragment extends ListFragment {
 
     public void setResourceId(int resourceId) {
         this.resourceId = resourceId;
-        ChartFragment fragment = (ChartFragment) getFragmentManager().findFragmentById(R.id.chart_container);
+        MetricDetailContainer fragment = (MetricDetailContainer) getFragmentManager().findFragmentById(R.id.chart_container);
         if (fragment==null) {
             Log.d("SLF","Did not find the chart container + fragment");
             return;
@@ -90,13 +90,15 @@ public class ScheduleListFragment extends ListFragment {
     }
 
     public void onListItemClick(ListView l, View v, int position, long id) {
-        ChartFragment chartFragment = (ChartFragment) getFragmentManager().findFragmentById(R.id.chart_container);
-        if (chartFragment==null)
+        MetricDetailContainer detailFragment = (MetricDetailContainer) getFragmentManager().findFragmentById(R.id.chart_container);
+        if (detailFragment==null)
             return;
 
-        chartFragment.setSchedule(metricSchedules.get(position));
+        detailFragment.setSchedule(metricSchedules.get(position));
 
         RHQPocket.getInstance().currentSchedule = metricSchedules.get(position);
+
+        detailFragment.update();
 
 /*
         ScheduleDetailFragment sdFragment = (ScheduleDetailFragment) getFragmentManager().findFragmentById(R.id.schedule_detail_fragment);

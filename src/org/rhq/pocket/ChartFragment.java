@@ -2,6 +2,7 @@ package org.rhq.pocket;
 
 import java.io.IOException;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,19 +22,31 @@ import org.rhq.core.domain.rest.MetricSchedule;
  * Fragment to display charts
  * @author Heiko W. Rupp
  */
-public class ChartFragment extends Fragment implements View.OnClickListener {
+public class ChartFragment extends Fragment implements View.OnClickListener, MetricDetailContainer {
 
     ChartView chartView;
     private Button refreshButton;
     private MetricSchedule schedule;
+    private View view;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.chart_fragment, container,false);
+        view = inflater.inflate(R.layout.chart_fragment, container,false);
 
         chartView = (ChartView) view.findViewById(R.id.chart_view);
         refreshButton = (Button) view.findViewById(R.id.title);
         refreshButton.setText("Select a metric ...");
         refreshButton.setOnClickListener(this);
+
+        if (schedule!=null) {
+            if (schedule.getDisplayName()!=null)
+                refreshButton.setText(schedule.getDisplayName());
+            if (schedule.getUnit()!=null)
+                chartView.setUnit(schedule.getUnit());
+
+            fetchMetrics(schedule.getScheduleId());
+        }
+
+        System.out.println("CF: onCreateView");
         return view;
     }
 
@@ -88,14 +101,28 @@ public class ChartFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        update();
+    }
+
     public void setSchedule(MetricSchedule schedule) {
         if (schedule.getScheduleId()==0) {
          // TODO   chartView.clear()
         }
+        System.out.println("CF: setSchedule");
 
         this.schedule = schedule;
-        refreshButton.setText(schedule.getDisplayName());
-        chartView.setUnit(schedule.getUnit());
-        fetchMetrics(schedule.getScheduleId());
+    }
+
+    @Override
+    public void update() {
+        if (chartView!=null && schedule!=null) {
+            fetchMetrics(schedule.getScheduleId());
+            refreshButton.setText(schedule.getDisplayName());
+            chartView.setUnit(schedule.getUnit());
+        }
     }
 }

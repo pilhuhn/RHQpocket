@@ -18,4 +18,9 @@
   <string name="update">Update!</string>
   <string name="info_about_schedule">Info about the schedule</string>
   <string name="cancel">Cancel</string>
+  <string name="min">Min</string>
+  <string name="avg">Avg</string>
+  <string name="max">Max</string>
+  <string name="last">Last</string>
+  <string name="select_metric_first">Please select a metric first</string>
 </resources>
