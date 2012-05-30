@@ -36,7 +36,7 @@ public class ResourceListFragement extends ListFragment {
 
         // TODO we need a different list item(?) to distinguish clicking for children or for other stuff
         ScheduleListFragment fragment  =
-            (ScheduleListFragment) getFragmentManager().findFragmentById(R.id.schedule_list_fragment);
+            (ScheduleListFragment) getFragmentManager().findFragmentById(R.layout.schedule_list_fragment);
 
         if (fragment==null)
             return;

@@ -1,20 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-    >
-
-  <TextView android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="@string/info_about_schedule"
-            android:textStyle="bold"
-      />
   <TableLayout
+      xmlns:android="http://schemas.android.com/apk/res/android"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:stretchColumns="1"
+
       android:shrinkColumns="1"
       android:showDividers="middle"
       >
@@ -57,11 +47,16 @@
                 android:layout_width="wrap_content"
           />
     </TableRow>
+    <TableRow>
+      <Button android:id="@+id/schedule_update_button"
+              android:layout_height="wrap_content"
+              android:layout_width="wrap_content"
+              android:text="@string/update"
+          />
+      <Button android:id="@+id/cancel_button"
+              android:layout_height="wrap_content"
+              android:layout_width="wrap_content"
+              android:text="@string/cancel"
+          />
+    </TableRow>
   </TableLayout>
-  <Button android:id="@+id/schedule_update_button"
-          android:layout_height="wrap_content"
-          android:layout_width="wrap_content"
-          android:text="@string/update"
-      />
-
-</LinearLayout>

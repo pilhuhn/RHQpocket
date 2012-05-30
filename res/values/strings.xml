@@ -17,4 +17,5 @@
   <string name="enabled">Enabled</string>
   <string name="update">Update!</string>
   <string name="info_about_schedule">Info about the schedule</string>
+  <string name="cancel">Cancel</string>
 </resources>

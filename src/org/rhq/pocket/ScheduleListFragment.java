@@ -8,6 +8,7 @@ import android.app.ListFragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +34,7 @@ public class ScheduleListFragment extends ListFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.schedule_list_fragment, container);
+        View view = inflater.inflate(R.layout.schedule_list_fragment, container,false);
 
         return view;
     }
@@ -74,9 +75,11 @@ public class ScheduleListFragment extends ListFragment {
 
     public void setResourceId(int resourceId) {
         this.resourceId = resourceId;
-        ChartFragment fragment = (ChartFragment) getFragmentManager().findFragmentById(R.id.chart_fragment);
-        if (fragment==null)
+        ChartFragment fragment = (ChartFragment) getFragmentManager().findFragmentById(R.id.chart_container);
+        if (fragment==null) {
+            Log.d("SLF","Did not find the chart container + fragment");
             return;
+        }
 
 
 //        fragment.setSchedule(new MetricSchedule()); // dummy schedule as the user needs to first pick one
@@ -87,7 +90,7 @@ public class ScheduleListFragment extends ListFragment {
     }
 
     public void onListItemClick(ListView l, View v, int position, long id) {
-        ChartFragment chartFragment = (ChartFragment) getFragmentManager().findFragmentById(R.id.chart_fragment);
+        ChartFragment chartFragment = (ChartFragment) getFragmentManager().findFragmentById(R.id.chart_container);
         if (chartFragment==null)
             return;
 

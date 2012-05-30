@@ -9,12 +9,14 @@ import android.app.DialogFragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -148,18 +150,23 @@ public class ResourcePickerFragement extends DialogFragment implements AdapterVi
             editor.putString("currentResourceName",selectedResource.getResourceName());
             editor.commit();
 
-            StartActivity activity= (StartActivity) getActivity();
+            MetricChartActivity activity= (MetricChartActivity) getActivity();
             activity.getActionBar().setSubtitle(selectedResource.getResourceName());
             if (activity.dialog!=null)
                 activity.dialog.cancel();
 
             ScheduleListFragment fragment  =
-                (ScheduleListFragment) getFragmentManager().findFragmentById(R.id.schedule_list_fragment);
+                (ScheduleListFragment) getFragmentManager().findFragmentById(R.id.left_picker);
 
-            if (fragment==null)
-                return;
-
-            fragment.setResourceId(selectedResource.getResourceId());
+            if (fragment==null) {
+                Log.d("ResPicker", "Did not find the target fragment");
+            } else {
+                fragment.setResourceId(selectedResource.getResourceId());
+                FrameLayout parent = (FrameLayout) fragment.getView().getParent();
+                if (parent.getVisibility()==View.GONE) {
+                    parent.setVisibility(View.VISIBLE);
+                }
+            }
 
         }
         dismiss(); // close the dialog

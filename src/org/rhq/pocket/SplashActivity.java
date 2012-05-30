@@ -77,7 +77,7 @@ public class SplashActivity extends Activity
 
 
             // Forward to the main activity
-            Intent i = new Intent(context,StartActivity.class);
+            Intent i = new Intent(context,MetricChartActivity.class);
             startActivity(i);
 
         }

@@ -80,8 +80,7 @@ public class ChartView extends SurfaceView {
                 surfaceHolder.unlockCanvasAndPost(c);
             }
         }
-}
-
+    }
 
     private void paint(Canvas canvas) {
 
@@ -177,6 +176,11 @@ public class ChartView extends SurfaceView {
     private  String scaleValue(Double x, MeasurementUnits mu) {
         if (mu==MeasurementUnits.NONE)
             return x.toString();  // TODO get some surrogates so that the string won't be too long
+
+        if (mu==MeasurementUnits.PERCENTAGE) { // THose are in the 0..1 range, scale up to be readable
+            x = 100*x;
+            return String.format("%.2f%%",x);
+        }
 
 //        System.out.println(x);
         if (x.isInfinite() || x.isNaN())

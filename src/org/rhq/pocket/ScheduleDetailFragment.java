@@ -27,6 +27,7 @@ public class ScheduleDetailFragment extends DialogFragment implements View.OnCli
     CheckBox enabledBox;
     MetricSchedule schedule;
     Button schedule_update_button;
+    Button cancel_button;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.schedule_detail_fragment, container,false);
@@ -36,6 +37,9 @@ public class ScheduleDetailFragment extends DialogFragment implements View.OnCli
         enabledBox = (CheckBox) view.findViewById(R.id.schedule_enabled);
         schedule_update_button = (Button)view.findViewById(R.id.schedule_update_button);
         schedule_update_button.setOnClickListener(this);
+        cancel_button = (Button)view.findViewById(R.id.cancel_button);
+        cancel_button.setOnClickListener(this);
+
 
         if (schedule!=null) {
             nameView.setText(schedule.getDisplayName());
@@ -69,6 +73,7 @@ public class ScheduleDetailFragment extends DialogFragment implements View.OnCli
                 public void onSuccess(JsonNode result) {
                     // TODO: Customise this generated block
                     System.out.println(result);
+                    getDialog().dismiss();
                 }
 
                 public void onFailure(Exception e) {
@@ -77,6 +82,9 @@ public class ScheduleDetailFragment extends DialogFragment implements View.OnCli
                 }
             },"/metric/schedule/" + schedule.getScheduleId(),"PUT")
             .execute(schedule);
+        }
+        if (view.equals(cancel_button)) {
+            getDialog().cancel();
         }
     }
 }

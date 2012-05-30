@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,10 +14,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import org.rhq.core.domain.rest.MetricSchedule;
 
-public class StartActivity extends Activity
+public class MetricChartActivity extends Activity
 {
 
     SharedPreferences preferences ;
@@ -27,7 +30,21 @@ public class StartActivity extends Activity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.metric_chart_layout);
+
+        FragmentManager fm = getFragmentManager();
+        ChartFragment cf = (ChartFragment) fm.findFragmentById(R.id.chart_container);
+        ScheduleListFragment slf = (ScheduleListFragment) fm.findFragmentById(R.id.left_picker);
+
+        FragmentTransaction ft = fm.beginTransaction();
+        if (cf==null) {
+            ft.add(R.id.chart_container, new ChartFragment());
+        }
+
+        if (slf==null) {
+            ft.add(R.id.left_picker, new ScheduleListFragment());
+        }
+        ft.commit();
     }
 
     @Override
@@ -46,7 +63,7 @@ public class StartActivity extends Activity
             // User has already picked one, lets use it
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             ScheduleListFragment fragment  =
-                (ScheduleListFragment) getFragmentManager().findFragmentById(R.id.schedule_list_fragment);
+                (ScheduleListFragment) getFragmentManager().findFragmentById(R.id.left_picker);
 
             if (fragment==null)
                 return;
@@ -94,26 +111,45 @@ public class StartActivity extends Activity
             newFragment = new ResourcePickerFragement();
             newFragment.setCancelable(true);
             newFragment.show(ft, "dialog");
+            // No need to ft.commit()
             break;
 
         case R.id.edit_schedule:
-            ft = getFragmentManager().beginTransaction();
-            prev = getFragmentManager().findFragmentByTag("dialog");
-            if (prev != null) {
-                ft.remove(prev);
+
+            if (RHQPocket.getInstance().getCurrentSchedule()==null) {
+                Toast.makeText(this,"Please select a metric first",Toast.LENGTH_SHORT).show();
+            } else {
+
+                ft = getFragmentManager().beginTransaction();
+                prev = getFragmentManager().findFragmentByTag("dialog");
+                if (prev != null) {
+                    ft.remove(prev);
+                }
+                ft.addToBackStack(null);
+
+                // Create and show the dialog.
+                newFragment = new ScheduleDetailFragment();
+
+                MetricSchedule schedule = RHQPocket.getInstance().currentSchedule;
+                ((ScheduleDetailFragment)newFragment).setSchedule(schedule);
+
+                newFragment.setCancelable(true);
+                newFragment.show(ft, "dialog");
+                // No need to ft.commit()
             }
-            ft.addToBackStack(null);
-
-            // Create and show the dialog.
-            newFragment = new ScheduleDetailFragment();
-
-            MetricSchedule schedule = RHQPocket.getInstance().currentSchedule;
-            ((ScheduleDetailFragment)newFragment).setSchedule(schedule);
-
-            newFragment.setCancelable(true);
-            newFragment.show(ft, "dialog");
             break;
 
+        case android.R.id.home:
+            // check if the schedule picker is visible and toggle its state
+            View l = findViewById(R.id.left_picker);
+            if (l.getVisibility()==View.VISIBLE) {
+                l.setVisibility(View.GONE);
+            }
+            else {
+                l.setVisibility(View.VISIBLE);
+            }
+            // TODO how to trigger a repaint of the chart view -- after the size change has taken effect?
+            break;
 
         default:
             Log.e(getClass().getName(),"Unknown menu item :"+ item.toString());
