@@ -6,19 +6,23 @@
               android:orientation="vertical"
     >
 
-    <Button android:id="@+id/title"
+    <TextView android:id="@+id/title"
               android:layout_height="wrap_content"
               android:layout_width="match_parent"
               android:hint="@string/some_chart_hint"
               android:background="@color/some_blue"
+              android:textStyle="italic"
+              android:gravity="center"
+              android:padding="3dp"
         />
-    <!-- android:onClick="doRefresh" is not possible here on fragment level, as the Activity would be the receiver and not the Fragment -->
     <org.rhq.pocket.ChartView
               android:id="@+id/chart_view"
               android:layout_height="match_parent"
               android:layout_width="match_parent"
               android:paddingLeft="10dp"
               android:paddingRight="10dp"
+              android:paddingTop="3dp"
+              android:paddingBottom="3dp"
               />
 
 </LinearLayout>

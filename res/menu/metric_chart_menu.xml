@@ -2,6 +2,10 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+  <item android:id="@+id/progress_thing"
+        android:actionLayout="@layout/progress_thingy"
+        android:showAsAction="always"/>
+
   <item
         android:actionLayout="@layout/chart_table_switch"
         android:showAsAction="always"
@@ -9,6 +13,7 @@
 
     <item android:title="@string/preferences"
           android:id="@+id/preferences"
+          android:icon="@drawable/ic_menu_preferences"
           />
     <item android:title="@string/pick_resource"
           android:id="@+id/pick_resource"

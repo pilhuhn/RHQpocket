@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.DeserializationConfig;
@@ -25,7 +26,7 @@ import org.rhq.core.domain.rest.MetricSchedule;
 public class ChartFragment extends Fragment implements View.OnClickListener, MetricDetailContainer {
 
     ChartView chartView;
-    private Button refreshButton;
+    private TextView refreshButton;
     private MetricSchedule schedule;
     private View view;
 
@@ -33,7 +34,7 @@ public class ChartFragment extends Fragment implements View.OnClickListener, Met
         view = inflater.inflate(R.layout.chart_fragment, container,false);
 
         chartView = (ChartView) view.findViewById(R.id.chart_view);
-        refreshButton = (Button) view.findViewById(R.id.title);
+        refreshButton = (TextView) view.findViewById(R.id.title);
         refreshButton.setText("Select a metric ...");
         refreshButton.setOnClickListener(this);
 

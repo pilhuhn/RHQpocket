@@ -15,15 +15,19 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import org.rhq.core.domain.rest.MetricSchedule;
 
-public class MetricChartActivity extends Activity
+public class MetricChartActivity extends Activity implements Refreshable
 {
 
     SharedPreferences preferences ;
     Dialog dialog;
+    private FrameLayout progressLayout;
 
     /** Called when the activity is first created. */
     @Override
@@ -33,11 +37,11 @@ public class MetricChartActivity extends Activity
         setContentView(R.layout.metric_chart_layout);
 
         FragmentManager fm = getFragmentManager();
-        ChartFragment cf = (ChartFragment) fm.findFragmentById(R.id.chart_container);
+        MetricDetailContainer container= (MetricDetailContainer) fm.findFragmentById(R.id.chart_container);
         ScheduleListFragment slf = (ScheduleListFragment) fm.findFragmentById(R.id.left_picker);
 
         FragmentTransaction ft = fm.beginTransaction();
-        if (cf==null) {
+        if (container==null) {
             ft.add(R.id.chart_container, new ChartFragment());
         }
 
@@ -78,6 +82,7 @@ public class MetricChartActivity extends Activity
         MenuInflater inflater = getMenuInflater();
 
         inflater.inflate(R.menu.metric_chart_menu,menu);
+        progressLayout = (FrameLayout) menu.findItem(R.id.progress_thing).getActionView();
         return true;
     }
 
@@ -147,6 +152,14 @@ public class MetricChartActivity extends Activity
             cont.update();
             break;
 
+        case R.id.progress_thing:
+            MetricDetailContainer mcont = (MetricDetailContainer) getFragmentManager().findFragmentById(
+                    R.id.chart_container);
+            mcont.update();
+
+            break;
+
+
         default:
             Log.e(getClass().getName(),"Unknown menu item :"+ item.toString());
         }
@@ -189,5 +202,43 @@ public class MetricChartActivity extends Activity
         ft.commit();
 
 
+    }
+
+    @Override
+    public void showProgress() {
+        if (progressLayout!=null) {
+
+            ProgressBar pb = new ProgressBar(this);
+            pb.setIndeterminate(true);
+            pb.setVisibility(View.VISIBLE);
+
+            progressLayout.removeAllViews();
+            progressLayout.addView(pb);
+        }
+    }
+
+    @Override
+    public void hideProgress() {
+        if (progressLayout!=null) {
+
+            ImageButton ib = new ImageButton(this);
+            ib.setImageResource(R.drawable.ic_menu_refresh);
+            ib.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    refresh(view);
+                }
+            });
+            progressLayout.removeAllViews();
+            progressLayout.addView(ib);
+
+        }
+    }
+
+    @Override
+    public void refresh(View v) {
+        MetricDetailContainer container = (MetricDetailContainer) getFragmentManager().findFragmentById(R.id.chart_container);
+        if (container!=null)
+            container.update();
     }
 }

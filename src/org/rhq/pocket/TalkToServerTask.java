@@ -8,6 +8,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -33,12 +35,17 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
     Dialog dialog;
     private String encodedCredentials;
     private String mode = "GET";
+    private ActionBar actionBar;
+    private Refreshable refreshable;
 
     public TalkToServerTask(Context ctx, FinishCallback callback, String subUrl) {
 
         this.ctx = ctx;
         this.callback = callback;
         this.subUrl = subUrl;
+
+        if (ctx instanceof Refreshable)
+            refreshable = (Refreshable) ctx;
 
         String username = RHQPocket.getInstance().username;
         String password = RHQPocket.getInstance().password;
@@ -156,16 +163,30 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
 
 
     protected void onPreExecute() {
-        dialog = new Dialog(ctx);
-        dialog.setTitle("Please wait");
-        dialog.setCancelable(false);
-        dialog.show();
+
+
+        if (refreshable!=null) {
+            refreshable.showProgress();
+        } else {
+            dialog = new Dialog(ctx);
+            dialog.setTitle("Please wait");
+            dialog.setCancelable(false);
+            dialog.show();
+        }
+
+
     }
 
     protected void onPostExecute(JsonNode jsonNode) {
 
-        dialog.cancel();
-        dialog.hide();
+        if (refreshable!=null) {
+            refreshable.hideProgress();
+        } else {
+            if (dialog!=null) {
+                dialog.cancel();
+                dialog.hide();
+            }
+        }
 
         if (jsonNode!=null) {
             callback.onSuccess(jsonNode);
