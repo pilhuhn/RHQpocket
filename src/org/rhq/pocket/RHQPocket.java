@@ -9,6 +9,9 @@ import org.rhq.core.domain.rest.MetricSchedule;
 public class RHQPocket {
     private static RHQPocket ourInstance = new RHQPocket();
     MetricSchedule currentSchedule;
+    public String password;
+    public String username
+            ;
 
     public static RHQPocket getInstance() {
         return ourInstance;

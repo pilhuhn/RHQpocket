@@ -4,8 +4,10 @@ package org.rhq.pocket;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 public class SplashActivity extends Activity
 {
@@ -51,6 +53,13 @@ public class SplashActivity extends Activity
         protected Void doInBackground(Void... params) {
 
             ////////////// do the initialization work here vvvvvvvv
+
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            String username = preferences.getString("username", "-notset-");
+            String password = preferences.getString("password","-notset-");
+
+            RHQPocket.getInstance().username = username;
+            RHQPocket.getInstance().password = password;
 
 
             ////////////// do the initialization work here ^^^^^^^^

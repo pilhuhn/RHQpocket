@@ -141,13 +141,7 @@ public class MetricChartActivity extends Activity
 
         case android.R.id.home:
             // check if the schedule picker is visible and toggle its state
-            View l = findViewById(R.id.left_picker);
-            if (l.getVisibility()==View.VISIBLE) {
-                l.setVisibility(View.GONE);
-            }
-            else {
-                l.setVisibility(View.VISIBLE);
-            }
+            viewHideScheduleList();
             // trigger a repaint of the chart view
             MetricDetailContainer cont = (MetricDetailContainer) getFragmentManager().findFragmentById(R.id.chart_container);
             cont.update();
@@ -159,6 +153,16 @@ public class MetricChartActivity extends Activity
         return true;
     }
 
+    private void viewHideScheduleList() {
+        View l = findViewById(R.id.left_picker);
+        if (l.getVisibility()==View.VISIBLE) {
+            l.setVisibility(View.GONE);
+        }
+        else {
+            l.setVisibility(View.VISIBLE);
+        }
+    }
+
     public void toggleChartAndTable(View v) {
 
         FragmentManager fm = getFragmentManager();
@@ -166,7 +170,14 @@ public class MetricChartActivity extends Activity
         Fragment fragment = fm.findFragmentById(R.id.chart_container);
         Fragment newFragment;
         if (fragment instanceof ChartFragment) {
-            newFragment = new MetricDetailFragment();
+            newFragment = new MetricAggregatesFragment();
+            int resourceId = preferences.getInt("currentResourceId",-1);
+            if (resourceId>-1) {
+                ((MetricAggregatesFragment)newFragment).setResourceId(resourceId);
+                viewHideScheduleList();
+            }
+            else
+                Toast.makeText(this,"Pick a resource first",Toast.LENGTH_SHORT).show();
         }
         else {
             newFragment = new ChartFragment();

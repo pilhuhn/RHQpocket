@@ -109,6 +109,9 @@ public class ChartFragment extends Fragment implements View.OnClickListener, Met
     }
 
     public void setSchedule(MetricSchedule schedule) {
+        if (schedule==null)
+            return;
+
         if (schedule.getScheduleId()==0) {
          // TODO   chartView.clear()
         }

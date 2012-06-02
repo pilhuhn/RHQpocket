@@ -39,9 +39,9 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
         this.ctx = ctx;
         this.callback = callback;
         this.subUrl = subUrl;
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
-        String username = preferences.getString("username", "-notset-");
-        String password = preferences.getString("password","-notset-");
+
+        String username = RHQPocket.getInstance().username;
+        String password = RHQPocket.getInstance().password;
 
         String s = username + ":" + password;
         this.encodedCredentials = Base64.encodeToString(s.getBytes(), Base64.NO_WRAP);
