@@ -1,9 +1,10 @@
 package org.rhq.pocket;
 
 import org.rhq.core.domain.rest.MetricSchedule;
+import org.rhq.pocket.helper.DisplayRange;
 
 /**
- * // TODO: Document this
+ * Singleton to hold some more global app state
  * @author Heiko W. Rupp
  */
 public class RHQPocket {
@@ -12,6 +13,8 @@ public class RHQPocket {
     public String password;
     public String username
             ;
+    public int displayRangeValue;
+    public DisplayRange displayRangeUnits;
 
     public static RHQPocket getInstance() {
         return ourInstance;

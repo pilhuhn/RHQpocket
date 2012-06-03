@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,6 +21,7 @@ import org.codehaus.jackson.type.TypeReference;
 import org.rhq.core.domain.measurement.MeasurementUnits;
 import org.rhq.core.domain.rest.MetricAggregate;
 import org.rhq.core.domain.rest.MetricSchedule;
+import org.rhq.pocket.helper.DisplayRange;
 import org.rhq.pocket.helper.MetricsUnitConverter;
 
 /**
@@ -42,12 +42,12 @@ public class MetricAggregatesFragment extends Fragment implements MetricDetailCo
         return this.tableLayout;
     }
 
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onStart() {
+        super.onStart();
 
 
 
-        new TalkToServerTask(activity,new FinishCallback() {
+        new TalkToServerTask(getActivity(),new FinishCallback() {
             public void onSuccess(JsonNode result) {
                 ObjectMapper objectMapper = new ObjectMapper();
                 objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -109,6 +109,16 @@ public class MetricAggregatesFragment extends Fragment implements MetricDetailCo
     @Override
     public void update() {
 
+        DisplayRange range = RHQPocket.getInstance().displayRangeUnits;
+        int displayRangeValue = RHQPocket.getInstance().displayRangeValue;
+        if (range==null) {
+            range = DisplayRange.HOUR;
+            displayRangeValue = 8;
+        }
+        long tRange = range.getAsMillis(displayRangeValue);
+        long now = System.currentTimeMillis();
+        long startTime = now - tRange;
+
         new TalkToServerTask(getActivity(), new FinishCallback() {
             @Override
             public void onSuccess(JsonNode result) {
@@ -149,7 +159,7 @@ public class MetricAggregatesFragment extends Fragment implements MetricDetailCo
             public void onFailure(Exception e) {
                 // TODO: Customise this generated block
             }
-        },"/metric/data/resource/" + resourceId ).execute();
+        },"/metric/data/resource/" + resourceId + "?startTime=" + startTime + "&endTime="+now ).execute();
     }
 
     public void setResourceId(int resourceId) {

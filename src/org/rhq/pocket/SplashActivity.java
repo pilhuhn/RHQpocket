@@ -9,6 +9,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
+import org.rhq.pocket.helper.DisplayRange;
+
 public class SplashActivity extends Activity
 {
 
@@ -61,6 +63,8 @@ public class SplashActivity extends Activity
             RHQPocket.getInstance().username = username;
             RHQPocket.getInstance().password = password;
 
+            RHQPocket.getInstance().displayRangeUnits= DisplayRange.HOUR;
+            RHQPocket.getInstance().displayRangeValue=8;
 
             ////////////// do the initialization work here ^^^^^^^^
 

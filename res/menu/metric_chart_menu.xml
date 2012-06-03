@@ -22,4 +22,7 @@
   <item android:title="@string/edit_schedule"
         android:id="@+id/edit_schedule"
         />
+  <item android:title="@string/pick_display_range"
+        android:id="@+id/pick_display_range"
+        />
 </menu>

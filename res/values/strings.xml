@@ -23,4 +23,10 @@
   <string name="max">Max</string>
   <string name="last">Last</string>
   <string name="select_metric_first">Please select a metric first</string>
+  <string name="pick_display_range">Pick display range</string>
+  <string name="Minutes">Minutes</string>
+  <string name="Hours">Hours</string>
+  <string name="Days">Days</string>
+  <string name="Weeks">Weeks</string>
+  <string name="last_duration">( last %1$s %2$s) </string>
 </resources>

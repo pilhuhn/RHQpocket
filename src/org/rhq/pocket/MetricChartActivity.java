@@ -144,6 +144,18 @@ public class MetricChartActivity extends Activity implements Refreshable
             }
             break;
 
+        case R.id.pick_display_range:
+            ft = getFragmentManager().beginTransaction();
+            prev = getFragmentManager().findFragmentByTag("dialog");
+            if (prev != null) {
+                ft.remove(prev);
+            }
+            ft.addToBackStack(null);
+
+            newFragment = new MetricDisplayRangeDialogFragment();
+            newFragment.setCancelable(true);
+            newFragment.show(ft,"dialog");
+
         case android.R.id.home:
             // check if the schedule picker is visible and toggle its state
             viewHideScheduleList();

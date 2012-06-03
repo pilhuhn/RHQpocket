@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical"
+    >
+
+  <SeekBar android:id="@+id/seekBar"
+           android:layout_height="wrap_content"
+           android:layout_width="match_parent"
+           />
+
+  <TextView android:id="@+id/valueView"
+            style="@style/text_std"
+            />
+
+  <RadioGroup android:id="@+id/unit_selector"
+               android:layout_height="wrap_content"
+               android:layout_width="match_parent"
+      >
+             <RadioButton style="@style/text_std"
+                          android:id="@+id/minutes_button"
+                          android:text="@string/Minutes"/>
+             <RadioButton style="@style/text_std"
+                          android:id="@+id/hours_button"
+                          android:text="@string/Hours"/>
+             <RadioButton style="@style/text_std"
+                          android:id="@+id/days_button"
+                          android:text="@string/Days"/>
+             <RadioButton style="@style/text_std"
+                          android:id="@+id/weeks_button"
+                          android:text="@string/Weeks"/>
+  </RadioGroup>
+
+  <include layout="@layout/cancel_pick_layout"/>
+
+</LinearLayout>
