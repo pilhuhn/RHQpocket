@@ -29,4 +29,10 @@
   <string name="Days">Days</string>
   <string name="Weeks">Weeks</string>
   <string name="last_duration">( last %1$s %2$s) </string>
+  <string name="Phone">Phone</string>
+  <string name="Email">Email</string>
+  <string name="Name">Name</string>
+  <string name="Login">Login</string>
+  <string name="First_name">First name</string>
+  <string name="Last_name">Last name</string>
 </resources>

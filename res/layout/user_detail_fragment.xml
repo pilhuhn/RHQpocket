@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:padding="3dp"
+              android:shrinkColumns="1"
+              android:stretchColumns="1"
+    >
+
+  <TableRow>
+    <TextView android:text="@string/Login"
+              style="@style/table_header"
+              android:paddingRight="2dp"
+              />
+    <TextView android:id="@+id/user_detail_login"
+              style="@style/table_cell"
+              android:padding="2dp"
+              />
+  </TableRow>
+  <TableRow>
+    <TextView android:text="@string/First_name"
+              style="@style/table_header"
+              android:paddingRight="2dp"
+              />
+    <TextView android:id="@+id/user_detail_firstName"
+              style="@style/table_cell"
+              android:padding="2dp"
+              />
+  </TableRow>
+  <TableRow>
+    <TextView android:text="@string/Last_name"
+              style="@style/table_header"
+              android:paddingRight="2dp"
+              />
+    <TextView android:id="@+id/user_detail_lastName"
+              style="@style/table_cell"
+              android:padding="2dp"
+              />
+  </TableRow>
+  <TableRow>
+    <TextView android:text="@string/Email"
+              style="@style/table_header"
+              android:paddingRight="2dp"
+              />
+    <TextView android:id="@+id/user_detail_email"
+              style="@style/table_cell"
+              android:autoLink="email"
+              android:padding="2dp"
+              />
+  </TableRow>
+  <TableRow>
+    <TextView android:text="@string/Phone"
+              style="@style/table_header"
+              android:paddingRight="2dp"
+              />
+    <TextView android:id="@+id/user_detail_phone"
+              style="@style/table_cell"
+              android:autoLink="phone"
+              android:padding="2dp"
+              />
+  </TableRow>
+
+</TableLayout>
