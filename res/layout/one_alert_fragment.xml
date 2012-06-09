@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical"
+    >
+
+  <TextView style="@style/text_std" android:text="One ALert" android:id="@+id/one_alert_name"/>
+  <TextView style="@style/text_std" android:text="One ALert" android:id="@+id/one_alert_id"/>
+  <TextView style="@style/text_std" android:text="One ALert" android:id="@+id/one_alert_descr"/>
+  <TextView style="@style/text_std" android:text="One ALert" android:id="@+id/one_alert_date"/>
+
+  <Button style="@style/text_std" android:text="bla"
+          android:id="@+id/one_alert_details_button"
+      />
+</LinearLayout>

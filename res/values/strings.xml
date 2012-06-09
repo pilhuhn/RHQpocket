@@ -35,4 +35,5 @@
   <string name="Login">Login</string>
   <string name="First_name">First name</string>
   <string name="Last_name">Last name</string>
+  <string name="number_of_alerts">Alerts (%d)</string>
 </resources>

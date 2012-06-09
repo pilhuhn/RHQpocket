@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical"
+              android:gravity="center"
+    >
+
+  <Button style="@style/text_std"
+            android:id="@+id/overview_alert_count"
+            android:onClick="listAlerts"
+            />
+
+
+  <Button style="@style/text_std"
+          android:text="Metrics"
+          android:onClick="showMetrics"/>
+
+
+</LinearLayout>

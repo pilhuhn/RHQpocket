@@ -82,10 +82,6 @@ public class ScheduleListFragment extends ListFragment {
         }
 
 
-//        fragment.setSchedule(new MetricSchedule()); // dummy schedule as the user needs to first pick one
-
-
-
         setAdapterForList();
     }
 
@@ -99,14 +95,6 @@ public class ScheduleListFragment extends ListFragment {
         RHQPocket.getInstance().currentSchedule = metricSchedules.get(position);
 
         detailFragment.update();
-
-/*
-        ScheduleDetailFragment sdFragment = (ScheduleDetailFragment) getFragmentManager().findFragmentById(R.id.schedule_detail_fragment);
-        if (sdFragment==null)
-            return;
-
-        sdFragment.setSchedule(metricSchedules.get(position));
-*/
 
     }
 }

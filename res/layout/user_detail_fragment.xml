@@ -17,6 +17,15 @@
               style="@style/table_cell"
               android:padding="2dp"
               />
+    <TextView android:text="@string/Phone"
+              style="@style/table_header"
+              android:paddingRight="2dp"
+              />
+    <TextView android:id="@+id/user_detail_phone"
+              style="@style/table_cell"
+              android:autoLink="phone"
+              android:padding="2dp"
+              />
   </TableRow>
   <TableRow>
     <TextView android:text="@string/First_name"
@@ -37,8 +46,6 @@
               style="@style/table_cell"
               android:padding="2dp"
               />
-  </TableRow>
-  <TableRow>
     <TextView android:text="@string/Email"
               style="@style/table_header"
               android:paddingRight="2dp"
@@ -49,16 +56,4 @@
               android:padding="2dp"
               />
   </TableRow>
-  <TableRow>
-    <TextView android:text="@string/Phone"
-              style="@style/table_header"
-              android:paddingRight="2dp"
-              />
-    <TextView android:id="@+id/user_detail_phone"
-              style="@style/table_cell"
-              android:autoLink="phone"
-              android:padding="2dp"
-              />
-  </TableRow>
-
 </TableLayout>

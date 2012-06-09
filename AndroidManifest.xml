@@ -6,7 +6,7 @@
       android:installLocation="preferExternal"
     >
 
-    <application android:label="RHQ Pocket" android:icon="@drawable/rhq_logo"
+    <application android:label="RHQ Pocket" android:icon="@drawable/rhq_icon"
                  android:debuggable="true"
                  android:allowBackup="true"
                  android:description="@string/app_description"
@@ -22,6 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MetricChartActivity" android:screenOrientation="landscape"/>
+        <activity android:name=".AlertActivity" android:screenOrientation="landscape"/>
         <activity android:name=".OverviewActivity" android:screenOrientation="landscape"/>
         <activity android:name=".Preferences"/>
 
