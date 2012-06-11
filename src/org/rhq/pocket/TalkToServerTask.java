@@ -5,11 +5,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -35,7 +34,6 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
     Dialog dialog;
     private String encodedCredentials;
     private String mode = "GET";
-    private ActionBar actionBar;
     private Refreshable refreshable;
 
     public TalkToServerTask(Context ctx, FinishCallback callback, String subUrl) {
@@ -79,7 +77,7 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
             String urlString = getHostPort() + "/rest/1"; // TODO put into preferences
             urlString =urlString + subUrl;
             URL url = new URL(urlString);
-            System.out.println("Going for " + urlString);
+            System.out.println("Going for " +mode + " " + urlString);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod(mode);
@@ -146,9 +144,12 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
                 }
                 return operationResult;
             }
+        } catch (ConnectException ce) {
+            callback.onFailure(ce); // TODO  move to post-execute
+            Log.w(getClass().getName(),ce);
         } catch (Exception e) {
             Log.w(getClass().getName(),e);
-            callback.onFailure(e);
+            callback.onFailure(e); // TODO  move to post-execute
         }
         finally {
             if (br!=null)

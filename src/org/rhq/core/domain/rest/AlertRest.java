@@ -32,6 +32,7 @@ public class AlertRest {
     long alertTime;
     String description;
     private int resourceId;
+    AlertDefinition alertDefinition;
 
     public AlertRest() {
     }
@@ -51,10 +52,6 @@ public class AlertRest {
         this.name = name;
     }
 
-//    public void setAlertDefinition(AlertDefinitionRest alertDefinitionId) {
-//        this.alertDefinition = alertDefinitionId;
-//    }
-
     public String getId() {
         return ""+id;
     }
@@ -62,11 +59,6 @@ public class AlertRest {
     public String getName() {
         return name;
     }
-
-//    public AlertDefinitionRest getAlertDefinition() {
-//        return alertDefinition;
-//    }
-
 
     public boolean isDefinitionEnabled() {
         return definitionEnabled;
@@ -108,7 +100,7 @@ public class AlertRest {
         this.description = description;
     }
 
-    ResourceWithType getResource() {
+    public ResourceWithType getResource() {
         return resource;
     }
 
@@ -120,4 +112,11 @@ public class AlertRest {
         return resourceId;
     }
 
+    public AlertDefinition getAlertDefinition() {
+        return alertDefinition;
+    }
+
+    public void setAlertDefinition(AlertDefinition alertDefinition) {
+        this.alertDefinition = alertDefinition;
+    }
 }

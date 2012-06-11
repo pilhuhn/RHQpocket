@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -37,13 +38,6 @@ public class AlertListFragment extends ListFragment {
 
         View view = inflater.inflate(R.layout.alert_list_fragment,container,false);
 
-        List<String> names = new ArrayList<String>();
-        names.add("Hello");
-        names.add("World");
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, names);
-        setListAdapter(adapter);
-
-
         return view;
     }
 
@@ -60,13 +54,10 @@ public class AlertListFragment extends ListFragment {
                 ObjectMapper objectMapper = new ObjectMapper();
                 objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-                List<String> alerts = new ArrayList<String>();
                 try {
                     alertList = objectMapper.readValue(result,new TypeReference<List<AlertRest>>() {});
-                    for(AlertRest alertRest : alertList) {
-                        alerts.add(alertRest.getName() + " :" + alertRest.getId());
-                    }
-                    setListAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,alerts));
+                    setListAdapter(new AlertListItemAdapter(getActivity(),R.layout.alert_list_item,alertList));
+                    getListView().requestLayout();
                 } catch (IOException e) {
                     e.printStackTrace();  // TODO: Customise this generated block
                 }
@@ -104,6 +95,7 @@ public class AlertListFragment extends ListFragment {
             OneAlertFragment fragment1 = (OneAlertFragment) fragment;
             fragment1.setAlert(alert);
             fragment1.fillFields();
+            fragment1.hideDetails();
 
         }
 

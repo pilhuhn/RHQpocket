@@ -1,7 +1,9 @@
 <resources>
-    <style name="text_std">
+    <style name="wrap_content">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
+    </style>
+    <style name="text_std" parent="wrap_content">
     </style>
   <style name="table_text" parent="text_std">
     <item name="android:textSize">16dp</item>

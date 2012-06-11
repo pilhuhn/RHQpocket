@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical"
+    >
+  <TextView android:id="@+id/name_view" style="@style/table_header"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            />
+  <TextView android:id="@+id/resource_view" style="@style/table_text"
+            android:textSize="11dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+
+            />
+
+</LinearLayout>

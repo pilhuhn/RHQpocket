@@ -1,6 +1,5 @@
 package org.rhq.pocket;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
@@ -16,18 +15,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import org.rhq.core.domain.rest.MetricSchedule;
 
-public class MetricChartActivity extends Activity implements Refreshable
+public class MetricChartActivity extends RHQActivity implements Refreshable
 {
 
     SharedPreferences preferences ;
     Dialog dialog;
-    private FrameLayout progressLayout;
 
     /** Called when the activity is first created. */
     @Override
@@ -214,37 +210,6 @@ public class MetricChartActivity extends Activity implements Refreshable
         ft.commit();
 
 
-    }
-
-    @Override
-    public void showProgress() {
-        if (progressLayout!=null) {
-
-            ProgressBar pb = new ProgressBar(this);
-            pb.setIndeterminate(true);
-            pb.setVisibility(View.VISIBLE);
-
-            progressLayout.removeAllViews();
-            progressLayout.addView(pb);
-        }
-    }
-
-    @Override
-    public void hideProgress() {
-        if (progressLayout!=null) {
-
-            ImageButton ib = new ImageButton(this);
-            ib.setImageResource(R.drawable.ic_menu_refresh);
-            ib.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    refresh(view);
-                }
-            });
-            progressLayout.removeAllViews();
-            progressLayout.addView(ib);
-
-        }
     }
 
     @Override

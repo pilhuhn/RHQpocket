@@ -1,17 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  android:orientation="vertical"
+    >
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
-              android:orientation="vertical"
+              android:stretchColumns="1,2,3,4"
+              android:shrinkColumns="1,2,3,4"
+              android:showDividers="middle"
     >
 
-  <TextView style="@style/text_std" android:text="One ALert" android:id="@+id/one_alert_name"/>
-  <TextView style="@style/text_std" android:text="One ALert" android:id="@+id/one_alert_id"/>
-  <TextView style="@style/text_std" android:text="One ALert" android:id="@+id/one_alert_descr"/>
-  <TextView style="@style/text_std" android:text="One ALert" android:id="@+id/one_alert_date"/>
+  <TableRow>
+    <TextView style="@style/table_header" android:text="@string/Name"/>
+    <TextView style="@style/text_std" android:hint="@string/Name" android:id="@+id/one_alert_name"/>
+    <TextView style="@style/table_header" android:text="@string/Id"/>
+    <TextView style="@style/text_std" android:hint="@string/Id" android:id="@+id/one_alert_id"/>
+  </TableRow>
+  <TableRow>
+    <TextView style="@style/table_header" android:text="@string/FireDate"/>
+    <TextView style="@style/text_std" android:hint="@string/FireDate" android:id="@+id/one_alert_date"/>
+    <TextView style="@style/table_header" android:text="@string/Priority"/>
+    <TextView style="@style/text_std" android:hint="@string/Medium" android:id="@+id/one_alert_priority"
+        />
+  </TableRow>
+  <TableRow>
+    <TextView style="@style/table_header" android:text="@string/DefEnabled" android:lines="2" android:clickable="false"/>
+    <CheckBox style="@style/text_std"  android:id="@+id/one_alert_enabled"/>
+    <TextView style="@style/text_std"/>
+    <Button style="@style/text_std" android:id="@+id/one_alert_button_enable" android:tag="enable_button"/>
+  </TableRow>
 
-  <Button style="@style/text_std" android:text="bla"
-          android:id="@+id/one_alert_details_button"
-      />
+  <TableRow>
+    <TextView style="@style/table_header" android:text="@string/ack" android:clickable="false"/>
+    <CheckBox style="@style/text_std"  android:id="@+id/one_alert_ack"/>
+    <TextView style="@style/table_header" android:text="@string/by"/>
+    <FrameLayout style="@style/text_std" android:id="@+id/one_alert_ack_frame"/>
+  </TableRow>
+
+  <!--
+    <Button style="@style/text_std" android:text="bla"
+            android:id="@+id/one_alert_details_button"
+        />
+  -->
+</TableLayout>
+    <TextView style="@style/text_std" android:hint="@string/Description" android:id="@+id/one_alert_descr"
+        android:padding="4dp"/>
+
 </LinearLayout>

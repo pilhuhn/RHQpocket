@@ -2,10 +2,12 @@ package org.rhq.pocket;
 
 import java.io.IOException;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import org.codehaus.jackson.JsonNode;
@@ -17,7 +19,7 @@ import org.codehaus.jackson.type.TypeReference;
  * Show the system overview ("Dashboard")
  * @author Heiko W. Rupp
  */
-public class OverviewActivity extends Activity {
+public class OverviewActivity extends RHQActivity implements Refreshable {
 
     private TextView alertCountView;
 
@@ -62,6 +64,21 @@ public class OverviewActivity extends Activity {
                 // TODO: Customise this generated block
             }
         },"/alert/count").execute();
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+
+        inflater.inflate(R.menu.overview_menu,menu);
+        progressLayout = (FrameLayout) menu.findItem(R.id.progress_thing).getActionView();
+        return true;
+    }
+
+
+
+    @Override
+    public void refresh(View v) {
+        getNumberOfAlerts();
     }
 
     public void listAlerts(View v) {

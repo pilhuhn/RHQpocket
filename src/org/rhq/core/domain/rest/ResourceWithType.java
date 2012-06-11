@@ -45,6 +45,7 @@ public class ResourceWithType {
     List<Object> links;
     @JsonProperty("resourceWithType")
     ResourceWithType parent;
+    String ancestry;
 
     public ResourceWithType() {
     }
@@ -119,5 +120,13 @@ public class ResourceWithType {
 
     public void setParentId(int parentId) {
         this.parentId = parentId;
+    }
+
+    public String getAncestry() {
+        return ancestry;
+    }
+
+    public void setAncestry(String ancestry) {
+        this.ancestry = ancestry;
     }
 }

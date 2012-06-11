@@ -36,4 +36,14 @@
   <string name="First_name">First name</string>
   <string name="Last_name">Last name</string>
   <string name="number_of_alerts">Alerts (%d)</string>
+  <string name="Medium">Medium</string>
+  <string name="ack">Ack?</string>
+  <string name="Id">Id</string>
+  <string name="Description">Description</string>
+  <string name="FireDate">Fire date</string>
+  <string name="Priority">Priority</string>
+  <string name="by">by</string>
+  <string name="DefEnabled">Definition\nEnabled</string>
+  <string name="Disable">Disable</string>
+  <string name="Enable">Enable</string>
 </resources>
