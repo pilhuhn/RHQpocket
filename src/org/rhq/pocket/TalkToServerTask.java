@@ -1,6 +1,7 @@
 package org.rhq.pocket;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -16,6 +17,7 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.DeserializationConfig;
@@ -28,6 +30,8 @@ import org.codehaus.jackson.map.SerializationConfig;
  */
 public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
 
+    public static final String CNAME ="TalkToServerTask";
+
     private Context ctx;
     private FinishCallback callback;
     private String subUrl;
@@ -35,6 +39,7 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
     private String encodedCredentials;
     private String mode = "GET";
     private Refreshable refreshable;
+    private Exception storedException; // Created in background, fetched later in UI thread for further processing
 
     public TalkToServerTask(Context ctx, FinishCallback callback, String subUrl) {
 
@@ -67,8 +72,10 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
 
     protected JsonNode doInBackground(Object... objects) {
 
+        if (mode.equals("DELETE") && objects!=null && objects.length>0)
+            throw new IllegalArgumentException("DELETE supports not attached objects");
 
-        InputStream inputStream = null;
+        InputStream inputStream;
         BufferedReader br=null;
         long t1 = System.currentTimeMillis();
         try {
@@ -103,22 +110,26 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
 
                 OutputStream out = conn.getOutputStream();
 
-                String result = mapper.writeValueAsString(objects[0]);
-
+/*
                 if (true) {
+                    String result = mapper.writeValueAsString(objects[0]);
                     System.out.println("Json to send: \n" + result);
                     System.out.flush();
                 }
+*/
                 mapper.writeValue(out, objects[0]);
-
 
                 out.flush();
                 out.close();
-
             }
+
             int responseCode = conn.getResponseCode();
-            System.out.println("response code was "+ responseCode);
-            if (responseCode == HttpURLConnection.HTTP_OK) {
+            Log.d(CNAME,"response code was "+ responseCode);
+            if (responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
+                // Fake a response for further processing
+                inputStream = new ByteArrayInputStream("{\"value\":\"ok\"}".getBytes());
+            }
+            else if (responseCode == HttpURLConnection.HTTP_OK) {
                 inputStream = conn.getInputStream();
             } else {
                 inputStream = conn.getErrorStream();
@@ -135,7 +146,7 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
                 }
 
                 String outcome;
-                System.err.println("Response: " + builder.toString());
+                Log.d(CNAME,"Response: " + builder.toString());
                 JsonNode operationResult=null;
                 if (builder !=null) {
                     outcome= builder.toString();
@@ -144,19 +155,17 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
                 }
                 return operationResult;
             }
-        } catch (ConnectException ce) {
-            callback.onFailure(ce); // TODO  move to post-execute
-            Log.w(getClass().getName(),ce);
         } catch (Exception e) {
-            Log.w(getClass().getName(),e);
-            callback.onFailure(e); // TODO  move to post-execute
+            storedException = e;
         }
         finally {
+            long t2 = System.currentTimeMillis();
+            Log.d(CNAME,"Request took " + (t2-t1) + "ms");
             if (br!=null)
                 try {
                     br.close();
                 } catch (IOException e) {
-                    e.printStackTrace();  // TODO: Customise this generated block
+                    Log.w("TTST, closing of stream", e.getMessage());
                 }
         }
         return null;
@@ -164,7 +173,6 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
 
 
     protected void onPreExecute() {
-
 
         if (refreshable!=null) {
             refreshable.showProgress();
@@ -174,8 +182,6 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
             dialog.setCancelable(false);
             dialog.show();
         }
-
-
     }
 
     protected void onPostExecute(JsonNode jsonNode) {
@@ -186,6 +192,15 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
             if (dialog!=null) {
                 dialog.cancel();
                 dialog.hide();
+            }
+        }
+
+        if (storedException!=null) {
+            Log.w(CNAME,storedException);
+            if (storedException instanceof ConnectException) {
+                Toast.makeText(ctx,ctx.getString(R.string.can_not_connect_to_server),Toast.LENGTH_LONG).show();
+            } else {
+                callback.onFailure(storedException);
             }
         }
 
