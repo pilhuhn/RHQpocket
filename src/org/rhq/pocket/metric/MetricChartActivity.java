@@ -28,6 +28,7 @@ public class MetricChartActivity extends RHQActivity implements Refreshable
 
     SharedPreferences preferences ;
     public Dialog dialog;
+    private int resourceId=-1;
 
     /** Called when the activity is first created. */
     @Override
@@ -49,6 +50,12 @@ public class MetricChartActivity extends RHQActivity implements Refreshable
             ft.add(R.id.left_picker, new ScheduleListFragment());
         }
         ft.commit();
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle!=null && bundle.containsKey("resourceId")) {
+            resourceId = bundle.getInt("resourceId");
+        }
+
     }
 
     @Override
@@ -58,8 +65,10 @@ public class MetricChartActivity extends RHQActivity implements Refreshable
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         // If the user has previously picked a resource, re-use it
-        int resourceId = preferences.getInt("currentResourceId",-1);
-        if (resourceId!=-1) {
+        // If we got a resource in (e.g. from favs), don't use the one from prevs
+        if (resourceId==-1 )
+            resourceId = preferences.getInt("currentResourceId",-1);
+        if (resourceId !=-1) {
             String resourceName = preferences.getString("currentResourceName","");
             if (!resourceName.equals("")) {
                 getActionBar().setSubtitle(resourceName);

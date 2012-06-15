@@ -55,6 +55,7 @@ public abstract class RHQActivity extends Activity implements Refreshable {
         if (item.getItemId()==R.id.preferences) {
             Intent i = new Intent(this, Preferences.class);
             startActivity(i);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

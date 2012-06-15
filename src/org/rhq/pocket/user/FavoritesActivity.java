@@ -3,6 +3,7 @@ package org.rhq.pocket.user;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +19,8 @@ import org.rhq.pocket.FinishCallback;
 import org.rhq.pocket.R;
 import org.rhq.pocket.RHQActivity;
 import org.rhq.pocket.TalkToServerTask;
+import org.rhq.pocket.alert.AlertActivity;
+import org.rhq.pocket.metric.MetricChartActivity;
 
 /**
  * Deal with favorites
@@ -68,26 +71,41 @@ public class FavoritesActivity extends RHQActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()) {
-        case R.id.remove_from_favorites:
-            removeCurrentFavorite();
-            break;
-
-        case R.id.list_alerts:
-            ;
-            break;
-
-        case R.id.show_metrics:
-            ;
-            break;
-        default:
-            return super.onOptionsItemSelected(item);
+        ResourceWithType favorite=null;
+        Intent intent;
+        FragmentManager fm = getFragmentManager();
+        FavoriteDetailFragment detailFragment = (FavoriteDetailFragment) fm.findFragmentById(R.id.detail_container);
+        if (detailFragment!=null) {
+            favorite = detailFragment.getFavorite();
         }
 
-        return true;
+        if (favorite==null) {
+            Toast.makeText(this,"No fav selected", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        switch (item.getItemId()) {
+        case R.id.remove_from_favorites:
+            removeCurrentFavorite(favorite);
+            return true;
+
+        case R.id.list_alerts:
+            intent = new Intent(this, AlertActivity.class);
+            intent.putExtra("resourceId",favorite.getResourceId());
+            startActivity(intent);
+            return true;
+
+        case R.id.show_metrics:
+            intent = new Intent(this, MetricChartActivity.class);
+            intent.putExtra("resourceId", favorite.getResourceId());
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
-    private void removeCurrentFavorite() {
+    private void removeCurrentFavorite(ResourceWithType resourceWithType) {
         FragmentManager fm = getFragmentManager();
         FavoriteDetailFragment detailFragment = (FavoriteDetailFragment) fm.findFragmentById(R.id.detail_container);
         if (detailFragment!=null) {

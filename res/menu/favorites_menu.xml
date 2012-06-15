@@ -18,11 +18,9 @@
 
   <item android:title="Show metrics"
         android:id="@+id/show_metrics"
-        android:enabled="false"
         />
 
   <item android:title="List alerts"
         android:id="@+id/list_alerts"
-        android:enabled="false"
       />
 </menu>

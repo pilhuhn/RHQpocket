@@ -22,7 +22,6 @@ import org.codehaus.jackson.type.TypeReference;
 import org.rhq.core.domain.rest.AlertDefinition;
 import org.rhq.core.domain.rest.AlertRest;
 import org.rhq.pocket.FinishCallback;
-import org.rhq.pocket.alert.OneAlertFragment;
 import org.rhq.pocket.R;
 import org.rhq.pocket.TalkToServerTask;
 
@@ -33,6 +32,7 @@ import org.rhq.pocket.TalkToServerTask;
 public class AlertListFragment extends ListFragment {
 
     private List<AlertRest> alertList;
+    private int resourceId = -1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,12 +43,26 @@ public class AlertListFragment extends ListFragment {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Bundle bundle = getActivity().getIntent().getExtras();
+        if (bundle!=null && bundle.containsKey("resourceId")) {
+            resourceId = bundle.getInt("resourceId");
+        }
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         fetchAlerts();
     }
 
     protected void fetchAlerts() {
+        String subUrl = "/alert";
+        if (resourceId > 0) {
+            subUrl = subUrl + "?resourceId=" + resourceId;
+        }
         new TalkToServerTask(getActivity(),new FinishCallback() {
             @Override
             public void onSuccess(JsonNode result) {
@@ -69,7 +83,7 @@ public class AlertListFragment extends ListFragment {
                 // TODO: Customise this generated block
                 e.printStackTrace();
             }
-        },"/alert").execute();
+        }, subUrl).execute();
     }
 
     @Override
