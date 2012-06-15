@@ -36,7 +36,7 @@ public class SplashActivity extends Activity
 
     private class ForwardAction extends AsyncTask<Void,Void,Void> {
 
-        static final long SPLASH_MIN_SECONDS = 1 * 1000L;
+        static final long SPLASH_MIN_MILLIS = 1 * 500L;
         Context context;
         long time;
 
@@ -71,10 +71,10 @@ public class SplashActivity extends Activity
 
             long diffTime = System.currentTimeMillis() - time;
 
-            if (diffTime < SPLASH_MIN_SECONDS) {
+            if (diffTime < SPLASH_MIN_MILLIS) {
                 try {
                     // Display slash a little longer
-                    Thread.sleep(SPLASH_MIN_SECONDS - diffTime);
+                    Thread.sleep(SPLASH_MIN_MILLIS - diffTime);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

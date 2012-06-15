@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical"
+    >
+
+  <TextView android:id="@+id/resource_name"
+            style="@style/text_std"
+            android:hint="Resource name"
+            />
+  <TextView android:id="@+id/resource_id"
+            style="@style/text_std"
+            android:hint="Resource id"
+            />
+  <TextView android:id="@+id/resource_ancestry"
+            style="@style/text_std"
+            android:hint="Resource ancestry"
+            />
+
+</LinearLayout>

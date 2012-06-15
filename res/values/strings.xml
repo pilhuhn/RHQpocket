@@ -46,4 +46,12 @@
   <string name="DefEnabled">Definition\nEnabled</string>
   <string name="Disable">Disable</string>
   <string name="Enable">Enable</string>
+  <string name="ack_alert">Acknowledge Alert</string>
+  <string name="delete_alert">Delete Alert</string>
+  <string name="Description_not_provided">There is no description provided by the server</string>
+  <string name="can_not_connect_to_server">Can not connect to server. Are the address and credentials ok?</string>
+  <string name="Favorites">Favorites</string>
+  <string name="Metrics">Metrics</string>
+  <string name="Alerts">Alerts</string>
+  <string name="RemoveFavorite">Remove from Favorites</string>
 </resources>

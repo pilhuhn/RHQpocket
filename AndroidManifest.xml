@@ -25,6 +25,7 @@
         <activity android:name=".AlertActivity" android:screenOrientation="landscape"/>
         <activity android:name=".OverviewActivity" android:screenOrientation="landscape"/>
         <activity android:name=".Preferences"/>
+      <activity android:name=".user.FavoritesActivity"/>
 
 
     </application>

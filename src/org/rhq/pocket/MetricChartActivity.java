@@ -90,10 +90,6 @@ public class MetricChartActivity extends RHQActivity implements Refreshable
 
         // Handle item selection
         switch (item.getItemId()) {
-        case R.id.preferences:
-            i = new Intent(this, Preferences.class);
-            startActivity(i);
-            break;
         case R.id.pick_resource:
 
             // Taken from Android docs:
@@ -169,7 +165,7 @@ public class MetricChartActivity extends RHQActivity implements Refreshable
 
 
         default:
-            Log.e(getClass().getName(),"Unknown menu item :"+ item.toString());
+            return super.onOptionsItemSelected(item);
         }
         return true;
     }

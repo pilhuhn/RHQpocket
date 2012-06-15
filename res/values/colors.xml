@@ -1,3 +1,4 @@
 <resources>
     <color name="some_blue">#6666bb</color>
+  <color name="darker_blue">#444488</color>
 </resources>

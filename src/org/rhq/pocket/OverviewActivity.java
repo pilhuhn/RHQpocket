@@ -15,6 +15,8 @@ import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 
+import org.rhq.pocket.user.FavoritesActivity;
+
 /**
  * Show the system overview ("Dashboard")
  * @author Heiko W. Rupp
@@ -29,8 +31,6 @@ public class OverviewActivity extends RHQActivity implements Refreshable {
 
         setContentView(R.layout.overview);
         alertCountView = (TextView) findViewById(R.id.overview_alert_count);
-        alertCountView.setText(getString(R.string.number_of_alerts,42) );
-
 
     }
 
@@ -90,6 +90,11 @@ public class OverviewActivity extends RHQActivity implements Refreshable {
     public void showMetrics(View v) {
 
         Intent i = new Intent(this,MetricChartActivity.class);
+        startActivity(i);
+    }
+
+    public void showFavorites(View v) {
+        Intent i = new Intent(this,FavoritesActivity.class);
         startActivity(i);
     }
 }

@@ -40,6 +40,9 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
     private String mode = "GET";
     private Refreshable refreshable;
     private Exception storedException; // Created in background, fetched later in UI thread for further processing
+    private String jsonSent;
+    private String jsonReceived;
+    private boolean isError=false;
 
     public TalkToServerTask(Context ctx, FinishCallback callback, String subUrl) {
 
@@ -84,7 +87,7 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
             String urlString = getHostPort() + "/rest/1"; // TODO put into preferences
             urlString =urlString + subUrl;
             URL url = new URL(urlString);
-            System.out.println("Going for " +mode + " " + urlString);
+            Log.d(CNAME,"Going for " +mode + " " + urlString);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod(mode);
@@ -110,13 +113,9 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
 
                 OutputStream out = conn.getOutputStream();
 
-/*
-                if (true) {
-                    String result = mapper.writeValueAsString(objects[0]);
-                    System.out.println("Json to send: \n" + result);
-                    System.out.flush();
-                }
-*/
+                // Remember for later in case of error
+                jsonSent = mapper.writeValueAsString(objects[0]);
+
                 mapper.writeValue(out, objects[0]);
 
                 out.flush();
@@ -133,6 +132,7 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
                 inputStream = conn.getInputStream();
             } else {
                 inputStream = conn.getErrorStream();
+                isError=true;
             }
 
             if (inputStream!=null) {
@@ -146,7 +146,11 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
                 }
 
                 String outcome;
-                Log.d(CNAME,"Response: " + builder.toString());
+                if (isError) {
+                    jsonReceived = builder.toString();
+                    return null;
+                }
+
                 JsonNode operationResult=null;
                 if (builder !=null) {
                     outcome= builder.toString();
@@ -204,7 +208,10 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
             }
         }
 
-        if (jsonNode!=null) {
+        if (isError) {
+            Log.w(CNAME,"Call failed, we sent: \n"+ jsonSent + "\n we got:  \n" + jsonReceived);
+            callback.onFailure(new IllegalArgumentException(jsonReceived));
+        } else if (jsonNode!=null) {
             callback.onSuccess(jsonNode);
         } else {
             callback.onFailure(new IllegalArgumentException("Got no result "));

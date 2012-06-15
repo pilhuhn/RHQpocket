@@ -1,18 +1,22 @@
 package org.rhq.pocket;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 /**
- * // TODO: Document this
+ * Base activity with some common functionality
  * @author Heiko W. Rupp
  */
 public abstract class RHQActivity extends Activity implements Refreshable {
 
-    FrameLayout progressLayout;
+    protected FrameLayout progressLayout;
+    protected Menu menu;
 
     @Override
     public void showProgress() {
@@ -45,4 +49,14 @@ public abstract class RHQActivity extends Activity implements Refreshable {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId()==R.id.preferences) {
+            Intent i = new Intent(this, Preferences.class);
+            startActivity(i);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }
