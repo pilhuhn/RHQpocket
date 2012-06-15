@@ -21,6 +21,7 @@ import org.rhq.pocket.RHQActivity;
 import org.rhq.pocket.TalkToServerTask;
 import org.rhq.pocket.alert.AlertActivity;
 import org.rhq.pocket.metric.MetricChartActivity;
+import org.rhq.pocket.resource.ResourceDetailFragment;
 
 /**
  * Deal with favorites
@@ -74,7 +75,7 @@ public class FavoritesActivity extends RHQActivity {
         ResourceWithType favorite=null;
         Intent intent;
         FragmentManager fm = getFragmentManager();
-        FavoriteDetailFragment detailFragment = (FavoriteDetailFragment) fm.findFragmentById(R.id.detail_container);
+        ResourceDetailFragment detailFragment = (ResourceDetailFragment) fm.findFragmentById(R.id.detail_container);
         if (detailFragment!=null) {
             favorite = detailFragment.getFavorite();
         }
@@ -107,7 +108,7 @@ public class FavoritesActivity extends RHQActivity {
 
     private void removeCurrentFavorite(ResourceWithType resourceWithType) {
         FragmentManager fm = getFragmentManager();
-        FavoriteDetailFragment detailFragment = (FavoriteDetailFragment) fm.findFragmentById(R.id.detail_container);
+        ResourceDetailFragment detailFragment = (ResourceDetailFragment) fm.findFragmentById(R.id.detail_container);
         if (detailFragment!=null) {
             ResourceWithType favorite = detailFragment.getFavorite();
             FragmentTransaction ft = fm.beginTransaction();

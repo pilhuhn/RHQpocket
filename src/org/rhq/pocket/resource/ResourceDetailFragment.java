@@ -1,4 +1,4 @@
-package org.rhq.pocket.user;
+package org.rhq.pocket.resource;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -11,10 +11,10 @@ import org.rhq.core.domain.rest.ResourceWithType;
 import org.rhq.pocket.R;
 
 /**
- * Show the details of a favorite resource
+ * Show the details of a resource
  * @author Heiko W. Rupp
  */
-public class FavoriteDetailFragment extends Fragment {
+public class ResourceDetailFragment extends Fragment {
 
     private View layout;
     private ResourceWithType favorite;

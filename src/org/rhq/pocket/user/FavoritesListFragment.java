@@ -24,6 +24,7 @@ import org.rhq.core.domain.rest.ResourceWithType;
 import org.rhq.pocket.FinishCallback;
 import org.rhq.pocket.R;
 import org.rhq.pocket.TalkToServerTask;
+import org.rhq.pocket.resource.ResourceDetailFragment;
 
 /**
  * List the favorites
@@ -89,9 +90,9 @@ public class FavoritesListFragment extends ListFragment {
         ResourceWithType favorite = favoriteList.get(position);
 
         FragmentManager fm = getFragmentManager();
-        FavoriteDetailFragment fragment = (FavoriteDetailFragment) fm.findFragmentById(R.id.detail_container);
+        ResourceDetailFragment fragment = (ResourceDetailFragment) fm.findFragmentById(R.id.detail_container);
         if (fragment==null) {
-            fragment = new FavoriteDetailFragment();
+            fragment = new ResourceDetailFragment();
             FragmentTransaction ft = fm.beginTransaction();
             ft.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             ft.add(R.id.detail_container,fragment);
