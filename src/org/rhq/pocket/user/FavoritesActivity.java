@@ -49,7 +49,7 @@ public class FavoritesActivity extends RHQActivity {
         if (listFragment ==null) {
             listFragment = new FavoritesListFragment();
             FragmentTransaction ft = fm.beginTransaction();
-            ft.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            ft.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             ft.add(R.id.list_container, listFragment);
 
             ft.commit();

@@ -17,7 +17,7 @@ import org.rhq.pocket.metric.ScheduleListFragment;
  * Fragment that shows a list of resources
  * @author Heiko W. Rupp
  */
-public class ResourceListFragement extends ListFragment {
+public class ResourceListFragment extends ListFragment {
 
     List<ResourceWithType> resourcesWithTypes = new ArrayList<ResourceWithType>() ;
 

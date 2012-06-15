@@ -6,7 +6,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,7 +20,6 @@ import org.codehaus.jackson.type.TypeReference;
 
 import org.rhq.core.domain.rest.AlertRest;
 import org.rhq.pocket.FinishCallback;
-import org.rhq.pocket.alert.OneAlertFragment;
 import org.rhq.pocket.R;
 import org.rhq.pocket.RHQActivity;
 import org.rhq.pocket.Refreshable;
@@ -46,7 +44,7 @@ public class AlertActivity extends RHQActivity implements Refreshable {
         if (alertListFragment==null) {
             alertListFragment = new AlertListFragment();
             FragmentTransaction ft = fm.beginTransaction();
-
+            ft.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             ft.add(R.id.alert_list_container,alertListFragment);
 
             ft.commit();
@@ -143,7 +141,7 @@ public class AlertActivity extends RHQActivity implements Refreshable {
             FragmentTransaction ft = fm.beginTransaction();
 
             ft.add(R.id.alert_list_container,alertListFragment);
-
+            ft.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             ft.commit();
         }
 

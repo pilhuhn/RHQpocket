@@ -33,7 +33,7 @@ import org.rhq.pocket.metric.ScheduleListFragment;
  * Fragment that allows to pick a resource
  * @author Heiko W. Rupp
  */
-public class ResourcePickerFragement extends DialogFragment implements AdapterView.OnItemClickListener,View.OnClickListener{
+public class ResourcePickerFragment extends DialogFragment implements AdapterView.OnItemClickListener,View.OnClickListener{
 
     List<ResourceWithType> resourcesWithTypes = new ArrayList<ResourceWithType>() ;
     Button pickButton;

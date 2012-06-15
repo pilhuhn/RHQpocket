@@ -86,7 +86,7 @@ public class AlertListFragment extends ListFragment {
             ((OneAlertFragment)fragment).setAlert(alert);
 
             FragmentTransaction ft = fm.beginTransaction();
-            ft.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            ft.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             ft.add(R.id.one_alert_container,fragment);
             ft.commit();
 

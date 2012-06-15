@@ -21,7 +21,7 @@ import org.rhq.pocket.R;
 import org.rhq.pocket.RHQActivity;
 import org.rhq.pocket.RHQPocket;
 import org.rhq.pocket.Refreshable;
-import org.rhq.pocket.ResourcePickerFragement;
+import org.rhq.pocket.ResourcePickerFragment;
 
 public class MetricChartActivity extends RHQActivity implements Refreshable
 {
@@ -109,7 +109,7 @@ public class MetricChartActivity extends RHQActivity implements Refreshable
             ft.addToBackStack(null);
 
             // Create and show the dialog.
-            newFragment = new ResourcePickerFragement();
+            newFragment = new ResourcePickerFragment();
             newFragment.setCancelable(true);
             newFragment.show(ft, "dialog");
             // No need to ft.commit()

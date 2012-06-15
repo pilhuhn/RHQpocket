@@ -60,7 +60,7 @@ public class OneAlertFragment extends Fragment implements View.OnClickListener {
                 fragment.setLogin("rhqadmin");
 
                 FragmentTransaction ft = fm.beginTransaction();
-                ft.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 ft.add(R.id.alert_detail_container,fragment);
                 ft.commit();
 
@@ -150,7 +150,7 @@ public class OneAlertFragment extends Fragment implements View.OnClickListener {
         Fragment fragment = fm.findFragmentById(R.id.alert_detail_container);
         if (fragment !=null) {
             FragmentTransaction ft = fm.beginTransaction();
-            ft.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
+            ft.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             ft.remove(fragment);
             ft.commit();
         }
