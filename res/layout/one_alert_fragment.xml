@@ -37,16 +37,11 @@
     <TextView style="@style/table_header" android:text="@string/ack" android:clickable="false"/>
     <CheckBox style="@style/text_std"  android:id="@+id/one_alert_ack"/>
     <TextView style="@style/table_header" android:text="@string/by"/>
-    <FrameLayout style="@style/text_std" android:id="@+id/one_alert_ack_frame"/>
+    <TextView style="@style/text_std" android:id="@+id/one_alert_ack_user" android:textStyle="bold"/>
   </TableRow>
 
-  <!--
-    <Button style="@style/text_std" android:text="bla"
-            android:id="@+id/one_alert_details_button"
-        />
-  -->
 </TableLayout>
-    <TextView style="@style/text_std" android:hint="@string/Description" android:id="@+id/one_alert_descr"
+    <TextView style="@style/text_std" android:hint="@string/Description_not_provided" android:id="@+id/one_alert_descr"
         android:padding="4dp"/>
 
 </LinearLayout>

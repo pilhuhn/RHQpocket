@@ -7,13 +7,13 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +26,7 @@ import org.rhq.core.domain.rest.AlertDefinition;
 import org.rhq.core.domain.rest.AlertRest;
 
 /**
- * // TODO: Document this
+ * Fragment to show the details of one alert
  * @author Heiko W. Rupp
  */
 public class OneAlertFragment extends Fragment implements View.OnClickListener {
@@ -43,7 +43,6 @@ public class OneAlertFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
-        System.out.println("View " + view + " , " + view.getTag());
 
         String tag = (String) view.getTag();
         if (tag.equals("ack_userview")) {
@@ -74,6 +73,9 @@ public class OneAlertFragment extends Fragment implements View.OnClickListener {
                     try {
                         AlertDefinition definition1 = objectMapper.readValue(result,new TypeReference<AlertDefinition>() {} );
                         alert.setAlertDefinition(definition1);
+                        alert.setDefinitionEnabled(definition1.isEnabled());
+                        // update other alerts with the same definition
+                        updateOtherDefinitons(definition1);
                         fillFields();
                     } catch (IOException e) {
                         e.printStackTrace();  // TODO: Customise this generated block
@@ -88,32 +90,14 @@ public class OneAlertFragment extends Fragment implements View.OnClickListener {
             new TalkToServerTask(getActivity(), fcb,
                 "/alert/definition/" + alert.getAlertDefinition().getId(),"PUT").execute(definition);
 
-        } else if (tag.equals("ack_button")) {
-            alert.setAckBy(RHQPocket.getInstance().username);
-            alert.setAckTime(System.currentTimeMillis());
-            FinishCallback fcb = new FinishCallback() {
-                @Override
-                public void onSuccess(JsonNode result) {
-                    ObjectMapper objectMapper = new ObjectMapper();
-                    objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        }
+    }
 
-                    try {
-                        alert = objectMapper.readValue(result,new TypeReference<AlertRest>() {} );
-                        fillFields();
-                        hideDetails();
-                    } catch (IOException e) {
-                        e.printStackTrace();  // TODO: Customise this generated block
-                    }
-                }
-
-                @Override
-                public void onFailure(Exception e) {
-                    Toast.makeText(getActivity(),"Update failed " ,Toast.LENGTH_SHORT);
-                }
-            };
-            new TalkToServerTask(getActivity(), fcb
-                ,"/alert/" + alert.getId(),"PUT").execute(alert);
-
+    private void updateOtherDefinitons(AlertDefinition definition) {
+        FragmentManager fm = getFragmentManager();
+        AlertListFragment fragment = (AlertListFragment) fm.findFragmentById(R.id.alert_list_container);
+        if (fragment!=null) {
+            fragment.updateDefinitions(definition);
         }
     }
 
@@ -170,28 +154,27 @@ public class OneAlertFragment extends Fragment implements View.OnClickListener {
         CheckBox ack = (CheckBox)view.findViewById(R.id.one_alert_ack);
         boolean acked = alert.getAckTime()>0;
         ack.setChecked(acked);
-        FrameLayout ackLayout = (FrameLayout) view.findViewById(R.id.one_alert_ack_frame);
-        ackLayout.removeAllViews();
+        TextView tv = (TextView) view.findViewById(R.id.one_alert_ack_user);
         if (acked) {
-            TextView tv = new TextView(getActivity());
             tv.setText(alert.getAckBy());
             tv.setClickable(true);
             tv.setOnClickListener(this);
             tv.setTag("ack_userview");
-            tv.setTextSize(20); // TODO
+            tv.setPaintFlags(tv.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
-            ackLayout.addView(tv);
-        } else {
-            Button ab = new Button(getActivity());
-            ab.setText("Ack!");
-            ab.setOnClickListener(this);
-            ab.setTag("ack_button");
-            ackLayout.addView(ab);
+            ((AlertActivity)getActivity()).setAckMenuItemEnabled(false); // TODO make more generic
+        }
+        else {
+            ((AlertActivity)getActivity()).setAckMenuItemEnabled(true); // TODO make more generic
         }
     }
 
     public void setAlert(AlertRest alert) {
 
         this.alert = alert;
+    }
+
+    public AlertRest getAlert() {
+        return alert;
     }
 }

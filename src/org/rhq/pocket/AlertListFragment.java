@@ -1,7 +1,6 @@
 package org.rhq.pocket;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -13,8 +12,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import org.codehaus.jackson.JsonNode;
@@ -22,8 +19,8 @@ import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 
+import org.rhq.core.domain.rest.AlertDefinition;
 import org.rhq.core.domain.rest.AlertRest;
-import org.rhq.core.domain.rest.MetricSchedule;
 
 /**
  * Show the list of alerts
@@ -99,5 +96,14 @@ public class AlertListFragment extends ListFragment {
 
         }
 
+    }
+
+    public void updateDefinitions(AlertDefinition definition) {
+        for (AlertRest al : alertList) {
+            if (al.getAlertDefinition().getId() == definition.getId()) {
+                al.setAlertDefinition(definition);
+                al.setDefinitionEnabled(definition.isEnabled());
+            }
+        }
     }
 }

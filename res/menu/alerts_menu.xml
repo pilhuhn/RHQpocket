@@ -7,8 +7,15 @@
         android:showAsAction="always"/>
 
 
-    <item android:title="@string/preferences"
-          android:id="@+id/preferences"
-          android:icon="@drawable/ic_menu_preferences"
-          />
+  <item android:title="@string/preferences"
+        android:id="@+id/preferences"
+        android:icon="@drawable/ic_menu_preferences"
+      />
+  <item android:title="@string/ack_alert"
+        android:id="@+id/alert_ack_alert"
+      />
+
+  <item android:title="@string/delete_alert"
+        android:id="@+id/alert_delete_alert"
+      />
 </menu>
