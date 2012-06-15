@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <item android:id="@+id/progress_thing"
+        android:actionLayout="@layout/progress_thingy"
+        android:showAsAction="always"/>
+
+
+  <item android:title="@string/preferences"
+        android:id="@+id/preferences"
+        android:icon="@drawable/ic_menu_preferences"
+      />
+
+  <item android:title="@string/RemoveFavorite"
+        android:id="@+id/remove_from_favorites"
+        />
+
+  <item android:title="Show metrics"
+        android:id="@+id/show_metrics"
+        android:enabled="false"
+        />
+
+  <item android:title="List alerts"
+        android:id="@+id/list_alerts"
+        android:enabled="false"
+      />
+</menu>

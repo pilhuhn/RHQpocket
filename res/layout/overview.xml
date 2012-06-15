@@ -7,15 +7,25 @@
               android:gravity="center"
     >
 
-  <Button style="@style/text_std"
+  <Button style="@style/wrap_content"
             android:id="@+id/overview_alert_count"
             android:onClick="listAlerts"
+            android:drawableLeft="@drawable/flag_blue24"
+            android:text="@string/Alerts"
             />
 
 
-  <Button style="@style/text_std"
-          android:text="Metrics"
+  <Button style="@style/wrap_content"
+          android:text="@string/Metrics"
+          android:drawableLeft="@drawable/monitor24"
           android:onClick="showMetrics"/>
+
+  <Button style="@style/wrap_content"
+               android:onClick="showFavorites"
+               android:drawableLeft="@drawable/favorite24selected"
+               android:contentDescription="@string/Favorites"
+               android:text="@string/Favorites"
+               />
 
 
 </LinearLayout>
