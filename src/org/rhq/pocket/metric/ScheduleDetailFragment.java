@@ -1,4 +1,4 @@
-package org.rhq.pocket;
+package org.rhq.pocket.metric;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -15,6 +15,9 @@ import android.widget.TextView;
 import org.codehaus.jackson.JsonNode;
 
 import org.rhq.core.domain.rest.MetricSchedule;
+import org.rhq.pocket.FinishCallback;
+import org.rhq.pocket.R;
+import org.rhq.pocket.TalkToServerTask;
 
 /**
  * Show details about a schedule

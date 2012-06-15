@@ -1,4 +1,4 @@
-package org.rhq.pocket;
+package org.rhq.pocket.alert;
 
 import java.io.IOException;
 
@@ -20,12 +20,18 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 
 import org.rhq.core.domain.rest.AlertRest;
+import org.rhq.pocket.FinishCallback;
+import org.rhq.pocket.alert.OneAlertFragment;
+import org.rhq.pocket.R;
+import org.rhq.pocket.RHQActivity;
+import org.rhq.pocket.Refreshable;
+import org.rhq.pocket.TalkToServerTask;
 
 /**
  * Activity to show alerts
  * @author Heiko W. Rupp
  */
-public class AlertActivity extends RHQActivity implements Refreshable{
+public class AlertActivity extends RHQActivity implements Refreshable {
 
     private Menu menu;
 

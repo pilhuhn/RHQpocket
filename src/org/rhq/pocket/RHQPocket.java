@@ -9,7 +9,7 @@ import org.rhq.pocket.helper.DisplayRange;
  */
 public class RHQPocket {
     private static RHQPocket ourInstance = new RHQPocket();
-    MetricSchedule currentSchedule;
+    public MetricSchedule currentSchedule;
     public String password;
     public String username
             ;

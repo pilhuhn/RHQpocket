@@ -1,4 +1,4 @@
-package org.rhq.pocket;
+package org.rhq.pocket.alert;
 
 import java.io.IOException;
 import java.util.Date;
@@ -24,6 +24,12 @@ import org.codehaus.jackson.type.TypeReference;
 
 import org.rhq.core.domain.rest.AlertDefinition;
 import org.rhq.core.domain.rest.AlertRest;
+import org.rhq.pocket.FinishCallback;
+import org.rhq.pocket.R;
+import org.rhq.pocket.TalkToServerTask;
+import org.rhq.pocket.user.UserDetailFragment;
+import org.rhq.pocket.alert.AlertActivity;
+import org.rhq.pocket.alert.AlertListFragment;
 
 /**
  * Fragment to show the details of one alert

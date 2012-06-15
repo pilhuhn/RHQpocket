@@ -1,4 +1,4 @@
-package org.rhq.pocket;
+package org.rhq.pocket.user;
 
 
 import android.app.Fragment;
@@ -16,6 +16,9 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 
 import org.rhq.core.domain.rest.UserRest;
+import org.rhq.pocket.FinishCallback;
+import org.rhq.pocket.R;
+import org.rhq.pocket.TalkToServerTask;
 
 /**
  * Display details of a user

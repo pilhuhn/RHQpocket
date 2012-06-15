@@ -1,4 +1,4 @@
-package org.rhq.pocket;
+package org.rhq.pocket.metric;
 
 import java.io.IOException;
 
@@ -16,6 +16,10 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import org.rhq.core.domain.rest.MetricAggregate;
 import org.rhq.core.domain.rest.MetricSchedule;
+import org.rhq.pocket.FinishCallback;
+import org.rhq.pocket.R;
+import org.rhq.pocket.RHQPocket;
+import org.rhq.pocket.TalkToServerTask;
 import org.rhq.pocket.helper.DisplayRange;
 
 /**

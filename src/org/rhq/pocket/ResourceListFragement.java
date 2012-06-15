@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import org.rhq.core.domain.rest.ResourceWithType;
+import org.rhq.pocket.metric.ScheduleListFragment;
 
 /**
  * Fragment that shows a list of resources

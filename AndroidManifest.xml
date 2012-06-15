@@ -21,8 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MetricChartActivity" android:screenOrientation="landscape"/>
-        <activity android:name=".AlertActivity" android:screenOrientation="landscape"/>
+        <activity android:name=".metric.MetricChartActivity" android:screenOrientation="landscape"/>
+        <activity android:name=".alert.AlertActivity" android:screenOrientation="landscape"/>
         <activity android:name=".OverviewActivity" android:screenOrientation="landscape"/>
         <activity android:name=".Preferences"/>
       <activity android:name=".user.FavoritesActivity"/>

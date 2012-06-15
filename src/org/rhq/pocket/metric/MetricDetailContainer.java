@@ -1,4 +1,4 @@
-package org.rhq.pocket;
+package org.rhq.pocket.metric;
 
 import org.rhq.core.domain.rest.MetricSchedule;
 

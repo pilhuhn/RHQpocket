@@ -1,4 +1,4 @@
-package org.rhq.pocket;
+package org.rhq.pocket.metric;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -12,6 +12,9 @@ import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import org.rhq.pocket.R;
+import org.rhq.pocket.RHQPocket;
+import org.rhq.pocket.Refreshable;
 import org.rhq.pocket.helper.DisplayRange;
 
 /**

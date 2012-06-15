@@ -15,6 +15,8 @@ import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 
+import org.rhq.pocket.alert.AlertActivity;
+import org.rhq.pocket.metric.MetricChartActivity;
 import org.rhq.pocket.user.FavoritesActivity;
 
 /**

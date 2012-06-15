@@ -1,4 +1,4 @@
-package org.rhq.pocket;
+package org.rhq.pocket.alert;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import org.rhq.core.domain.rest.AlertDefinition;
 import org.rhq.core.domain.rest.AlertRest;
+import org.rhq.pocket.R;
 
 /**
  * View Adapter for single AlertList items

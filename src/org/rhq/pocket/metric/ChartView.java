@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-package org.rhq.pocket;
+package org.rhq.pocket.metric;
 
 import java.util.Date;
 
@@ -35,6 +35,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import org.rhq.core.domain.measurement.MeasurementUnits;
 import org.rhq.core.domain.rest.MetricAggregate;
+import org.rhq.pocket.RHQPocket;
 import org.rhq.pocket.helper.MetricsUnitConverter;
 
 /**

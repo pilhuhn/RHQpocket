@@ -1,4 +1,4 @@
-package org.rhq.pocket;
+package org.rhq.pocket.metric;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,12 +17,17 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import org.rhq.core.domain.rest.MetricSchedule;
+import org.rhq.pocket.R;
+import org.rhq.pocket.RHQActivity;
+import org.rhq.pocket.RHQPocket;
+import org.rhq.pocket.Refreshable;
+import org.rhq.pocket.ResourcePickerFragement;
 
 public class MetricChartActivity extends RHQActivity implements Refreshable
 {
 
     SharedPreferences preferences ;
-    Dialog dialog;
+    public Dialog dialog;
 
     /** Called when the activity is first created. */
     @Override

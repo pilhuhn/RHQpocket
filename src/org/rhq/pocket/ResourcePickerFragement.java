@@ -26,6 +26,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 
 import org.rhq.core.domain.rest.ResourceWithType;
+import org.rhq.pocket.metric.MetricChartActivity;
+import org.rhq.pocket.metric.ScheduleListFragment;
 
 /**
  * Fragment that allows to pick a resource
