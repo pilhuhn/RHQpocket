@@ -3,3 +3,5 @@ gen/
 bin/
 tmp/
 out/
+.DS_Store
+*.iws
