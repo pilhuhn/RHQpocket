@@ -99,6 +99,6 @@ public class FavoritesListFragment extends ListFragment {
             ft.commit();
         }
 
-        fragment.setFavorite(favorite);
+        fragment.setResource(favorite);
     }
 }

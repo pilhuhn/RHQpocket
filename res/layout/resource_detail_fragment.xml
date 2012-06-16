@@ -1,22 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:orientation="vertical"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="fill_parent"
+             android:layout_height="fill_parent"
+             android:shrinkColumns="*"
+             android:stretchColumns="*"
     >
+  <TableRow style="@style/wrap_content">
+    <TextView style="@style/table_header"
+              android:text="@string/Availability"
+              />
+    <TextView style="@style/text_std"
+              android:hint="@string/Availability"
+              android:id="@+id/availability_view"
+              android:drawableRight="@drawable/availability_grey_24"
+              />
+  </TableRow>
 
-  <TextView android:id="@+id/resource_name"
-            style="@style/text_std"
-            android:hint="Resource name"
-            />
-  <TextView android:id="@+id/resource_id"
-            style="@style/text_std"
-            android:hint="Resource id"
-            />
-  <TextView android:id="@+id/resource_ancestry"
-            style="@style/text_std"
-            android:hint="Resource ancestry"
-            />
 
-</LinearLayout>
+  <TableRow style="@style/wrap_content">
+    <TextView
+        style="@style/table_header"
+        android:text="@string/Name"
+        />
+    <TextView android:id="@+id/resource_name"
+              style="@style/text_std"
+              android:hint="@string/Name"
+        />
+  </TableRow>
+  <TableRow style="@style/wrap_content">
+    <TextView
+        style="@style/table_header"
+        android:text="@string/Resource_id"
+        />
+    <TextView android:id="@+id/resource_id"
+              style="@style/text_std"
+              android:hint="@string/Resource_id"
+        />
+  </TableRow>
+  <TableRow style="@style/wrap_content">
+    <TextView
+        style="@style/table_header"
+        android:text="@string/Ancestry"
+        />
+    <TextView android:id="@+id/resource_ancestry"
+              style="@style/text_std"
+              android:hint="@string/Ancestry"
+        />
+  </TableRow>
+  <TableRow>
+    <TextView style="@style/table_header"
+              android:text="@string/ResourceType"/>
+    <TextView android:hint="@string/ResourceType"
+              android:id="@+id/resource_type_text"
+              style="@style/table_cell"/>
+  </TableRow>
+  <TableRow>
+    <TextView style="@style/table_header"
+              android:text="@string/Plugin"/>
+    <TextView android:hint="@string/Plugin"
+              android:id="@+id/plugin_text"
+              style="@style/table_cell"/>
+  </TableRow>
+</TableLayout>

@@ -54,4 +54,9 @@
   <string name="Metrics">Metrics</string>
   <string name="Alerts">Alerts</string>
   <string name="RemoveFavorite">Remove from Favorites</string>
+  <string name="Plugin">Plugin</string>
+  <string name="Resource_id">Resource id</string>
+  <string name="Ancestry">Ancestry</string>
+  <string name="ResourceType">Resource Type</string>
+  <string name="Availability">Availability</string>
 </resources>

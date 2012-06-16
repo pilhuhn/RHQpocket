@@ -77,7 +77,7 @@ public class FavoritesActivity extends RHQActivity {
         FragmentManager fm = getFragmentManager();
         ResourceDetailFragment detailFragment = (ResourceDetailFragment) fm.findFragmentById(R.id.detail_container);
         if (detailFragment!=null) {
-            favorite = detailFragment.getFavorite();
+            favorite = detailFragment.getResource();
         }
 
         if (favorite==null) {
@@ -110,7 +110,7 @@ public class FavoritesActivity extends RHQActivity {
         FragmentManager fm = getFragmentManager();
         ResourceDetailFragment detailFragment = (ResourceDetailFragment) fm.findFragmentById(R.id.detail_container);
         if (detailFragment!=null) {
-            ResourceWithType favorite = detailFragment.getFavorite();
+            ResourceWithType favorite = detailFragment.getResource();
             FragmentTransaction ft = fm.beginTransaction();
             ft.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             ft.remove(detailFragment);
