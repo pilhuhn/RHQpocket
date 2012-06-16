@@ -25,4 +25,9 @@
   <item android:title="@string/pick_display_range"
         android:id="@+id/pick_display_range"
         />
+
+  <!-- TODO move to a better place -->
+  <item android:title="Add to favorites"
+        android:id="@+id/add_to_favorites"
+        />
 </menu>

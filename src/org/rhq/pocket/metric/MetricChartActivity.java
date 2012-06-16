@@ -16,12 +16,16 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import org.codehaus.jackson.JsonNode;
+
 import org.rhq.core.domain.rest.MetricSchedule;
+import org.rhq.pocket.FinishCallback;
 import org.rhq.pocket.R;
 import org.rhq.pocket.RHQActivity;
 import org.rhq.pocket.RHQPocket;
 import org.rhq.pocket.Refreshable;
 import org.rhq.pocket.ResourcePickerFragment;
+import org.rhq.pocket.TalkToServerTask;
 
 public class MetricChartActivity extends RHQActivity implements Refreshable
 {
@@ -161,7 +165,7 @@ public class MetricChartActivity extends RHQActivity implements Refreshable
             newFragment.setCancelable(true);
             newFragment.show(ft,"dialog");
 
-        case android.R.id.home:
+        case android.R.id.home: // TODO use a different ActionBar icon
             // check if the schedule picker is visible and toggle its state
             viewHideScheduleList();
             // trigger a repaint of the chart view
@@ -176,11 +180,33 @@ public class MetricChartActivity extends RHQActivity implements Refreshable
 
             break;
 
+        case R.id.add_to_favorites:
+            addToFavorites(resourceId);
+            break;
 
         default:
             return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    private void addToFavorites(int resourceId) {
+        if (resourceId==-1) {
+            Toast.makeText(this,"Select a resource first",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        new TalkToServerTask(this,new FinishCallback() {
+            @Override
+            public void onSuccess(JsonNode result) {
+                Toast.makeText(MetricChartActivity.this,"Added as favorite",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                Toast.makeText(MetricChartActivity.this,"Adding as favorite failed: " + e.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
+            }
+        },"/user/favorites/resource/"+resourceId,"PUT").execute();
     }
 
     private void viewHideScheduleList() {
