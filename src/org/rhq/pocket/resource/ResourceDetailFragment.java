@@ -87,7 +87,7 @@ public class ResourceDetailFragment extends Fragment {
                     } else if (avail.getType().equals("DISABLED"))
                         d=getResources().getDrawable(R.drawable.availability_orange_24);
 
-                    float dim = 44.0f; // TODO
+                    float dim = getResources().getDimension(R.dimen.avail_icon);
                     d.setBounds(0,0,(int)dim,(int)dim);
                     view.setCompoundDrawables(null,null,d,null);
                 } catch (Exception e) {
