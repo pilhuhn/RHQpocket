@@ -79,6 +79,8 @@ public abstract class RHQActivity extends Activity implements Refreshable {
     }
 
     public void enableMenuItem(int id, boolean enabled) {
+        if (menu==null)
+            return;
         MenuItem item = menu.findItem(id);
         if (item!=null)
             item.setEnabled(enabled);

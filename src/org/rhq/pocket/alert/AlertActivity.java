@@ -31,8 +31,6 @@ import org.rhq.pocket.TalkToServerTask;
  */
 public class AlertActivity extends RHQActivity implements Refreshable {
 
-    private Menu menu;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +46,13 @@ public class AlertActivity extends RHQActivity implements Refreshable {
             ft.add(R.id.alert_list_container,alertListFragment);
 
             ft.commit();
+        }
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle!=null && bundle.containsKey("resourceId")) {
+            String name = bundle.getString("resourceName");
+            if (name!=null)
+                getActionBar().setSubtitle(name);
         }
     }
 
@@ -100,7 +105,7 @@ public class AlertActivity extends RHQActivity implements Refreshable {
             new TalkToServerTask(AlertActivity.this, fcb
                 ,"/alert/" + alert[0].getId(),"PUT").execute(alert[0]);
             break;
-        case R.id.alert_delete_alert:
+        case R.id.trash_this:
             fcb = new FinishCallback() {
                 @Override
                 public void onSuccess(JsonNode result) {
@@ -114,6 +119,8 @@ public class AlertActivity extends RHQActivity implements Refreshable {
 
                     AlertListFragment listFragment = (AlertListFragment) fm.findFragmentById(R.id.alert_list_container);
                     listFragment.fetchAlerts(); // We could just locally remove ,but lets check for new stuff
+                    enableMenuItem(R.id.alert_ack_alert,false);
+                    enableMenuItem(R.id.trash_this,false);
                 }
 
                 @Override

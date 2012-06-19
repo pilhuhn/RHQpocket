@@ -13,9 +13,14 @@
       />
   <item android:title="@string/ack_alert"
         android:id="@+id/alert_ack_alert"
+        android:enabled="false"
       />
 
   <item android:title="@string/delete_alert"
-        android:id="@+id/alert_delete_alert"
+        android:id="@+id/trash_this"
+        android:icon="@drawable/ic_menu_delete"
+        android:showAsAction="always|withText"
+        android:enabled="false"
+        android:titleCondensed="@string/Delete"
       />
 </menu>

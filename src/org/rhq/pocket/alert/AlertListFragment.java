@@ -3,7 +3,6 @@ package org.rhq.pocket.alert;
 import java.io.IOException;
 import java.util.List;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -23,6 +22,7 @@ import org.rhq.core.domain.rest.AlertDefinition;
 import org.rhq.core.domain.rest.AlertRest;
 import org.rhq.pocket.FinishCallback;
 import org.rhq.pocket.R;
+import org.rhq.pocket.RHQActivity;
 import org.rhq.pocket.TalkToServerTask;
 
 /**
@@ -89,7 +89,7 @@ public class AlertListFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
 
-        Activity activity =getActivity();
+        RHQActivity activity = (RHQActivity) getActivity();
         FragmentManager fm = activity.getFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.one_alert_container);
         if(fragment ==null) {
@@ -113,6 +113,7 @@ public class AlertListFragment extends ListFragment {
             fragment1.hideDetails();
 
         }
+        activity.enableMenuItem(R.id.trash_this,true);
 
     }
 
