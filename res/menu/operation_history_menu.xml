@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <item android:id="@+id/progress_thing"
+        android:actionLayout="@layout/progress_thingy"
+        android:showAsAction="always"
+      />
+
+  <item android:id="@+id/trash_this"
+        android:showAsAction="always|withText"
+        android:icon="@drawable/ic_menu_delete"
+        android:title="@string/DeleteItem"
+        android:titleCondensed="@string/Delete"
+        android:enabled="false"
+        />
+
+</menu>

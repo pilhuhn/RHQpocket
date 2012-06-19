@@ -165,6 +165,7 @@ public class MetricChartActivity extends RHQActivity implements Refreshable
             newFragment.setCancelable(true);
             newFragment.show(ft,"dialog");
 
+/*
         case android.R.id.home: // TODO use a different ActionBar icon
             // check if the schedule picker is visible and toggle its state
             viewHideScheduleList();
@@ -172,6 +173,7 @@ public class MetricChartActivity extends RHQActivity implements Refreshable
             MetricDetailContainer cont = (MetricDetailContainer) getFragmentManager().findFragmentById(R.id.chart_container);
             cont.update();
             break;
+*/
 
         case R.id.progress_thing:
             MetricDetailContainer mcont = (MetricDetailContainer) getFragmentManager().findFragmentById(

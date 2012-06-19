@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical"
+    >
+  <TextView android:id="@+id/operation_name"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@color/some_blue"
+            android:gravity="center"
+            android:padding="3dp"
+            />
+
+  <ImageView android:id="@+id/statusView"
+             style="@style/wrap_content"
+             android:layout_gravity="right"
+             android:src="@drawable/availability_grey_24"
+             android:contentDescription="State of the operation creation"
+             />
+
+  <ScrollView style="@style/wrap_content" android:layout_weight="1">
+    <TableLayout style="@style/wrap_content"
+                 android:shrinkColumns="*"
+                 android:stretchColumns="*"
+                 android:id="@+id/opsParamsTable"
+                 >
+      <TableRow>
+        <TextView style="@style/table_header"
+                  android:text="@string/Name"
+                  />
+        <TextView style="@style/table_header"
+                  android:text="@string/Value"
+                  />
+      </TableRow>
+    </TableLayout>
+  </ScrollView>
+
+  <LinearLayout android:orientation="horizontal"
+                style="@style/wrap_content"
+                android:id="@+id/button_bar"
+                android:gravity="bottom">
+
+                <Button android:id="@+id/check_button"
+                        style="@style/wrap_content"
+                        android:text="Check"
+                />
+    </LinearLayout>
+
+</LinearLayout>

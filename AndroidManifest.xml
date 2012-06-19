@@ -6,11 +6,23 @@
       android:installLocation="preferExternal"
     >
 
+  <uses-sdk android:minSdkVersion="11"
+            android:targetSdkVersion="11"/>
+
+  <supports-screens android:largeScreens="true"/>
+  <supports-screens android:xlargeScreens="true"/>
+
+
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+  <uses-permission android:name="android.permission.INTERNET"/>
+
+
     <application android:label="RHQ Pocket" android:icon="@drawable/rhq_icon"
                  android:debuggable="true"
                  android:allowBackup="true"
                  android:description="@string/app_description"
                  android:hardwareAccelerated="true"
+                 android:screenOrientation="landscape"
 
         >
         <activity android:name=".SplashActivity"
@@ -26,17 +38,12 @@
         <activity android:name=".OverviewActivity" android:screenOrientation="landscape"/>
         <activity android:name=".Preferences"/>
       <activity android:name=".user.FavoritesActivity" android:screenOrientation="landscape"/>
+      <activity android:name=".operation.OperationActivity"/>
+      <activity android:name=".operation.OperationHistoryActivity"/>
 
 
     </application>
 
-    <uses-sdk android:minSdkVersion="11"
-              android:targetSdkVersion="11"/>
 
-    <supports-screens android:largeScreens="true"/>
-    <supports-screens android:xlargeScreens="true"/>
-
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>

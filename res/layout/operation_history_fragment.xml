@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical"
+    >
+
+  <TextView android:id="@+id/operation_name"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@color/some_blue"
+            android:gravity="center"
+            android:padding="3dp"
+      />
+
+  <LinearLayout android:orientation="horizontal" style="@style/wrap_content">
+    <TextView style="@style/table_header" android:text="@string/Status" android:paddingRight="3dp"/>
+    <TextView android:id="@+id/statusView"
+              style="@style/table_text"
+        />
+  </LinearLayout>
+
+  <ScrollView style="@style/wrap_content"
+              android:layout_weight="1" android:layout_height="0dp">
+
+    <TextView android:id="@+id/resultView"
+              style="@style/table_cell"
+              android:singleLine="false"
+        />
+  </ScrollView>
+
+  <LinearLayout android:orientation="horizontal" style="@style/wrap_content">
+
+    <TextView style="@style/table_header" android:text="@string/Errors" android:paddingRight="3dp"/>
+    <TextView android:id="@+id/errorView"
+              style="@style/table_cell"/>
+  </LinearLayout>
+</LinearLayout>

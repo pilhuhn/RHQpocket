@@ -59,4 +59,15 @@
   <string name="Ancestry">Ancestry</string>
   <string name="ResourceType">Resource Type</string>
   <string name="Availability">Availability</string>
+  <string name="Run_operation">Run operation</string>
+  <string name="List_alerts">List alerts</string>
+  <string name="Show_metrics">Show metrics</string>
+  <string name="Value">Value</string>
+  <string name="OperationHistories">Operation History</string>
+  <string name="SuccessfullyDeleted">Deleted successfully</string>
+  <string name="DeleteFailed">Delete failed:</string>
+  <string name="DeleteItem">Delete item</string>
+  <string name="Delete">Delete</string>
+  <string name="Status">Status</string>
+  <string name="Errors">Errors</string>
 </resources>

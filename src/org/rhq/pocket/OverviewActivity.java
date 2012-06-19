@@ -17,6 +17,7 @@ import org.codehaus.jackson.type.TypeReference;
 
 import org.rhq.pocket.alert.AlertActivity;
 import org.rhq.pocket.metric.MetricChartActivity;
+import org.rhq.pocket.operation.OperationHistoryActivity;
 import org.rhq.pocket.user.FavoritesActivity;
 
 /**
@@ -97,6 +98,11 @@ public class OverviewActivity extends RHQActivity implements Refreshable {
 
     public void showFavorites(View v) {
         Intent i = new Intent(this,FavoritesActivity.class);
+        startActivity(i);
+    }
+
+    public void showOperationHistory(View v) {
+        Intent i = new Intent(this,OperationHistoryActivity.class);
         startActivity(i);
     }
 }

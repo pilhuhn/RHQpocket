@@ -16,11 +16,19 @@
         android:id="@+id/remove_from_favorites"
         />
 
-  <item android:title="Show metrics"
+  <item android:title="@string/Show_metrics"
         android:id="@+id/show_metrics"
         />
 
-  <item android:title="List alerts"
+  <item android:title="@string/List_alerts"
         android:id="@+id/list_alerts"
       />
+
+  <item android:id="@+id/schedule_ops"
+        android:title="@string/Run_operation"
+        />
+
+  <item android:id="@+id/operation_history"
+        android:title="@string/OperationHistories"
+        />
 </menu>

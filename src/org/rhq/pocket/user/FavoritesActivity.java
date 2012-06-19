@@ -21,6 +21,8 @@ import org.rhq.pocket.RHQActivity;
 import org.rhq.pocket.TalkToServerTask;
 import org.rhq.pocket.alert.AlertActivity;
 import org.rhq.pocket.metric.MetricChartActivity;
+import org.rhq.pocket.operation.OperationActivity;
+import org.rhq.pocket.operation.OperationHistoryActivity;
 import org.rhq.pocket.resource.ResourceDetailFragment;
 
 /**
@@ -93,12 +95,26 @@ public class FavoritesActivity extends RHQActivity {
         case R.id.list_alerts:
             intent = new Intent(this, AlertActivity.class);
             intent.putExtra("resourceId",favorite.getResourceId());
+            intent.putExtra("resourceName", favorite.getResourceName());
             startActivity(intent);
             return true;
 
         case R.id.show_metrics:
             intent = new Intent(this, MetricChartActivity.class);
             intent.putExtra("resourceId", favorite.getResourceId());
+            intent.putExtra("resourceName", favorite.getResourceName());
+            startActivity(intent);
+            return true;
+        case R.id.schedule_ops:
+            intent = new Intent(this, OperationActivity.class);
+            intent.putExtra("resourceId", favorite.getResourceId());
+            intent.putExtra("resourceName", favorite.getResourceName());
+            startActivity(intent);
+            return true;
+        case R.id.operation_history:
+            intent = new Intent(this, OperationHistoryActivity.class);
+            intent.putExtra("resourceId", favorite.getResourceId());
+            intent.putExtra("resourceName", favorite.getResourceName());
             startActivity(intent);
             return true;
         }

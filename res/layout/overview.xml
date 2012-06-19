@@ -27,5 +27,11 @@
                android:text="@string/Favorites"
                />
 
-
+  <Button style="@style/wrap_content"
+          android:onClick="showOperationHistory"
+          android:drawableLeft="@drawable/operation_24"
+          android:contentDescription="@string/OperationHistories"
+          android:text="@string/OperationHistories"
+          android:drawablePadding="2dp"
+        />
 </LinearLayout>

@@ -2,6 +2,7 @@ package org.rhq.pocket;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +18,15 @@ public abstract class RHQActivity extends Activity implements Refreshable {
 
     protected FrameLayout progressLayout;
     protected Menu menu;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (!(this instanceof OverviewActivity)) {
+            getActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
 
     @Override
     public void showProgress() {
@@ -58,6 +68,19 @@ public abstract class RHQActivity extends Activity implements Refreshable {
             return true;
         }
 
+        if (item.getItemId()==android.R.id.home) {
+            Intent i = new Intent(this,OverviewActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    public void enableMenuItem(int id, boolean enabled) {
+        MenuItem item = menu.findItem(id);
+        if (item!=null)
+            item.setEnabled(enabled);
     }
 }
