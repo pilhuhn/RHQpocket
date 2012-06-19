@@ -3,6 +3,8 @@ package org.rhq.pocket.operation;
 import java.util.Map;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -115,6 +117,16 @@ public class OperationHistoryDetailFragment extends Fragment {
                 Toast.makeText(activity,getString(R.string.SuccessfullyDeleted),Toast.LENGTH_SHORT).show();
                 activity.refresh(null);
                 activity.enableMenuItem(R.id.trash_this,false);
+
+                // remove the details fragment
+                FragmentManager fm = getFragmentManager();
+                Fragment fragment = fm.findFragmentById(R.id.detail_container);
+                if (fragment!=null) {
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ft.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                    ft.remove(fragment);
+                    ft.commit();
+                }
             }
 
             @Override
