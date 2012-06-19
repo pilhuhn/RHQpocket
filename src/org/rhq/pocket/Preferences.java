@@ -36,11 +36,40 @@ public class Preferences extends PreferenceActivity  implements SharedPreference
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
 //        getPreferences(MODE_PRIVATE).registerOnSharedPreferenceChangeListener(this);
-        getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+        SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+
+        setSummaries(sharedPreferences,"host");
+        setSummaries(sharedPreferences,"port");
+        setSummaries(sharedPreferences,"username");
+        setPasswordSummary(sharedPreferences,findPreference("password"));
     }
+
+
 
     public void onSharedPreferenceChanged(final SharedPreferences sharedPreferences, String key) {
 
+        final Preference p = setSummaries(sharedPreferences, key);
+
+        if (key.equals("password")) {
+
+            new TalkToServerTask(this,new FinishCallback() {
+                @Override
+                public void onSuccess(JsonNode result) {
+                    setPasswordSummary(sharedPreferences, p);
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+                    p.setSummary(R.string.invalid);
+                }
+            },"/status").execute();
+
+
+        }
+    }
+
+    private Preference setSummaries(SharedPreferences sharedPreferences, String key) {
         final Preference p = findPreference(key);
         if (key.equals("host")) {
             p.setSummary(sharedPreferences.getString("host",""));
@@ -53,28 +82,8 @@ public class Preferences extends PreferenceActivity  implements SharedPreference
         if (key.equals("username")) {
             p.setSummary(sharedPreferences.getString("username",""));
         }
-
-        if (key.equals("password")) {
-
-            new TalkToServerTask(this,new FinishCallback() {
-                @Override
-                public void onSuccess(JsonNode result) {
-                    setPasswordSummary(sharedPreferences, p);
-//                    Toast.makeText(Preferences.this,R.string.set,Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onFailure(Exception e) {
-//                    Toast.makeText(Preferences.this,"Login failed",Toast.LENGTH_SHORT).show();
-                    p.setSummary(R.string.invalid);
-                }
-            },"status").execute();
-
-
-        }
+        return p;
     }
-
-
 
     private void setPasswordSummary(SharedPreferences sharedPreferences, Preference p) {
         String ril_password = sharedPreferences.getString("password", "");

@@ -56,12 +56,6 @@ public class SplashActivity extends Activity
 
             ////////////// do the initialization work here vvvvvvvv
 
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-            String username = preferences.getString("username", "-notset-");
-            String password = preferences.getString("password","-notset-");
-
-            RHQPocket.getInstance().username = username;
-            RHQPocket.getInstance().password = password;
 
             RHQPocket.getInstance().displayRangeUnits= DisplayRange.HOUR;
             RHQPocket.getInstance().displayRangeValue=8;

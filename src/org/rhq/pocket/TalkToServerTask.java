@@ -43,6 +43,7 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
     private String jsonSent;
     private String jsonReceived;
     private boolean isError=false;
+    private SharedPreferences sharedPreferences;
 
     public TalkToServerTask(Context ctx, FinishCallback callback, String subUrl) {
 
@@ -53,8 +54,10 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
         if (ctx instanceof Refreshable)
             refreshable = (Refreshable) ctx;
 
-        String username = RHQPocket.getInstance().username;
-        String password = RHQPocket.getInstance().password;
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ctx);
+
+        String username = sharedPreferences.getString("username","-notset-");
+        String password = sharedPreferences.getString("password","-notset-");
 
         String s = username + ":" + password;
         this.encodedCredentials = Base64.encodeToString(s.getBytes(), Base64.NO_WRAP);
@@ -124,6 +127,9 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
 
             int responseCode = conn.getResponseCode();
             Log.d(CNAME,"response code was "+ responseCode);
+            if (responseCode == HttpURLConnection.HTTP_UNAUTHORIZED) {
+                throw new ConnectException("Authentication needed");
+            }
             if (responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
                 // Fake a response for further processing
                 inputStream = new ByteArrayInputStream("{\"value\":\"ok\"}".getBytes());
@@ -202,7 +208,7 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
         if (storedException!=null) {
             Log.w(CNAME,storedException);
             if (storedException instanceof ConnectException) {
-                Toast.makeText(ctx,ctx.getString(R.string.can_not_connect_to_server),Toast.LENGTH_LONG).show();
+                Toast.makeText(ctx,ctx.getString(R.string.can_not_connect_to_server, storedException.getLocalizedMessage()),Toast.LENGTH_LONG).show();
             } else {
                 callback.onFailure(storedException);
             }
@@ -220,9 +226,8 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
 
 
     String getHostPort() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
-        String host = prefs.getString("host","172.31.7.7");
-        String port = prefs.getString("port","7080");
+        String host = sharedPreferences.getString("host", "172.31.7.7");
+        String port = sharedPreferences.getString("port", "7080");
 
         return "http://"+host+":"+port; // TODO make https the default
     }
