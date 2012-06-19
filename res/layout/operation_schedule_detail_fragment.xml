@@ -44,7 +44,7 @@
 
                 <Button android:id="@+id/check_button"
                         style="@style/wrap_content"
-                        android:text="Check"
+                        android:text="@string/Check"
                 />
     </LinearLayout>
 

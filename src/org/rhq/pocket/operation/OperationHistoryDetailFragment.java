@@ -2,15 +2,12 @@ package org.rhq.pocket.operation;
 
 import java.util.Map;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,11 +17,9 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 
 import org.rhq.core.domain.rest.OperationHistoryRest;
-import org.rhq.core.domain.rest.OperationRest;
 import org.rhq.pocket.FinishCallback;
 import org.rhq.pocket.R;
 import org.rhq.pocket.RHQActivity;
-import org.rhq.pocket.Refreshable;
 import org.rhq.pocket.TalkToServerTask;
 
 /**

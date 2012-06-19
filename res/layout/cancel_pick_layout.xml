@@ -6,12 +6,12 @@
               android:orientation="horizontal"
     >
   <Button android:id="@+id/back"
-          android:text="Back"
+          android:text="@string/Back"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
       />
   <Button android:id="@+id/pick_resource"
-          android:text="Pick"
+          android:text="@string/Pick"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:enabled="true"

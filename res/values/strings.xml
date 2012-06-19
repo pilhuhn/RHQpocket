@@ -70,4 +70,7 @@
   <string name="Delete">Delete</string>
   <string name="Status">Status</string>
   <string name="Errors">Errors</string>
+  <string name="Back">Back</string>
+  <string name="Pick">Pick</string>
+  <string name="Check">Check</string>
 </resources>
