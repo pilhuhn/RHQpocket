@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <item android:id="@+id/progress_thing"
+        android:actionLayout="@layout/progress_thingy"
+        android:showAsAction="always"/>
+
+
+
+  <item android:title="@string/AddFavorite"
+        android:id="@+id/add_to_favorites"
+        android:enabled="false"
+        />
+
+  <item android:title="@string/Show_metrics"
+        android:id="@+id/show_metrics"
+        android:enabled="false"
+        />
+
+  <item android:title="@string/List_alerts"
+        android:id="@+id/list_alerts"
+        android:enabled="false"
+      />
+
+  <item android:id="@+id/schedule_ops"
+        android:title="@string/Run_operation"
+        android:enabled="false"
+        />
+
+  <item android:id="@+id/operation_history"
+        android:title="@string/OperationHistories"
+        android:enabled="false"
+        />
+</menu>

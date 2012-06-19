@@ -1,9 +1,9 @@
-package org.rhq.pocket.user;
+package org.rhq.pocket.resource;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
@@ -20,39 +20,34 @@ import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 
-import org.rhq.core.domain.rest.ResourceWithType;
+import org.rhq.core.domain.rest.GroupRest;
 import org.rhq.pocket.FinishCallback;
 import org.rhq.pocket.R;
 import org.rhq.pocket.TalkToServerTask;
-import org.rhq.pocket.resource.ResourceDetailFragment;
 
 /**
- * List the favorites
+ * List resource groups
  * @author Heiko W. Rupp
  */
-public class FavoritesListFragment extends ListFragment {
+public class GroupListFragment extends ListFragment {
 
-    private List<ResourceWithType> favoriteList;
+    private List<GroupRest> groupList;
     private View layout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         layout = inflater.inflate(R.layout.generic_list_fragment, container, false);
         return layout;
-
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
-        loadFavorites();
+        setupGroupList();
 
     }
 
-    protected void loadFavorites() {
-
+    public void setupGroupList() {
         new TalkToServerTask(getActivity(),new FinishCallback() {
             @Override
             public void onSuccess(JsonNode result) {
@@ -60,46 +55,52 @@ public class FavoritesListFragment extends ListFragment {
                 objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
                 try {
-                    favoriteList = objectMapper.readValue(result,new TypeReference<List<ResourceWithType>>() {});
-                    List<String> resourceNames = new ArrayList<String>(favoriteList.size());
-                    for (ResourceWithType resource : favoriteList) {
-                        resourceNames.add(resource.getResourceName());
+                    groupList = objectMapper.readValue(result,new TypeReference<List<GroupRest>>() {});
+                    List<String> groupNames = new ArrayList<String>(groupList.size());
+
+                    for (GroupRest group : groupList) {
+                        groupNames.add(group.getName());
                     }
+
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                            android.R.layout.simple_list_item_1, resourceNames);
+                            android.R.layout.simple_list_item_1, groupNames);
                     setListAdapter(adapter);
 
                     // Remove the progress indicator below the list now that we have returned from the server call
                     ProgressBar pb = (ProgressBar) layout.findViewById(R.id.list_progress);
                     if (pb!=null)
                         pb.setVisibility(View.GONE);
-
-                } catch (IOException e) {
-                    e.printStackTrace();  // TODO: Customise this generated block
+                    getListView().requestLayout();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-
             }
 
             @Override
             public void onFailure(Exception e) {
+                e.printStackTrace();
             }
-        },"/user/favorites/resource").execute();
+        },"/group").execute();
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        ResourceWithType favorite = favoriteList.get(position);
+        GroupRest group = groupList.get(position);
 
         FragmentManager fm = getFragmentManager();
-        ResourceDetailFragment fragment = (ResourceDetailFragment) fm.findFragmentById(R.id.detail_container);
-        if (fragment==null) {
-            fragment = new ResourceDetailFragment();
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-            ft.add(R.id.detail_container,fragment);
-            ft.commit();
-        }
+        Fragment fragment = fm.findFragmentById(R.id.detail_container);
 
-        fragment.setResource(favorite);
+
+        GroupDetailFragment gdfragment = new GroupDetailFragment();
+        gdfragment.setGroup(group);
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        if (fragment==null)
+            ft.add(R.id.detail_container,gdfragment);
+        else
+            ft.replace(R.id.detail_container,gdfragment);
+        ft.commit();
+
+
     }
 }
