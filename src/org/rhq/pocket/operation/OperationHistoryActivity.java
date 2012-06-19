@@ -21,6 +21,7 @@ public class OperationHistoryActivity extends RHQActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.list_one_detail_layout);
+        getActionBar().setTitle(R.string.OperationHistories);
 
         FragmentManager fm = getFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.list_container);

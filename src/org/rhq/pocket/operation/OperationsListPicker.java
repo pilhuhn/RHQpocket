@@ -35,6 +35,11 @@ public class OperationsListPicker extends ListFragment {
     private View layout;
     private List<OperationDefinitionRest> operationDefList;
 
+    @SuppressWarnings("unused")
+    public OperationsListPicker() {
+        // for Android internal use
+    }
+
     public OperationsListPicker(int resourceId) {
         this.resourceId = resourceId;
     }

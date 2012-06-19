@@ -74,7 +74,7 @@ public class OperationHistoryDetailFragment extends Fragment {
 
             @Override
             public void onFailure(Exception e) {
-                // TODO: Customise this generated block
+                Toast.makeText(getActivity(),"Got no result, try refreshing in a few seconds",Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
         },"/operation/history/" + historyId).execute();
@@ -115,7 +115,9 @@ public class OperationHistoryDetailFragment extends Fragment {
             public void onSuccess(JsonNode result) {
                 RHQActivity activity = (RHQActivity) getActivity();
                 Toast.makeText(activity,getString(R.string.SuccessfullyDeleted),Toast.LENGTH_SHORT).show();
-                activity.refresh(null);
+                if (activity instanceof OperationHistoryActivity) {
+                    activity.refresh(null);
+                }
                 activity.enableMenuItem(R.id.trash_this,false);
 
                 // remove the details fragment

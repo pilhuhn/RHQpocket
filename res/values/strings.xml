@@ -63,7 +63,7 @@
   <string name="List_alerts">List alerts</string>
   <string name="Show_metrics">Show metrics</string>
   <string name="Value">Value</string>
-  <string name="OperationHistories">Operation History</string>
+  <string name="OperationHistories">Operation Hist.</string>
   <string name="SuccessfullyDeleted">Deleted successfully</string>
   <string name="DeleteFailed">Delete failed:</string>
   <string name="DeleteItem">Delete item</string>
@@ -73,4 +73,7 @@
   <string name="Back">Back</string>
   <string name="Pick">Pick</string>
   <string name="Check">Check</string>
+  <string name="Resources">Resources</string>
+  <string name="Groups">Groups</string>
+  <string name="AddFavorite">Add to favorites</string>
 </resources>

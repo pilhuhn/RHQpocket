@@ -17,7 +17,7 @@
   <uses-permission android:name="android.permission.INTERNET"/>
 
 
-    <application android:label="RHQ Pocket" android:icon="@drawable/rhq_icon"
+    <application android:label="RHQPocket" android:icon="@drawable/rhq_icon"
                  android:debuggable="true"
                  android:allowBackup="true"
                  android:description="@string/app_description"
@@ -38,8 +38,10 @@
         <activity android:name=".OverviewActivity" android:screenOrientation="landscape"/>
         <activity android:name=".Preferences"/>
       <activity android:name=".user.FavoritesActivity" android:screenOrientation="landscape"/>
-      <activity android:name=".operation.OperationActivity"/>
-      <activity android:name=".operation.OperationHistoryActivity"/>
+      <activity android:name=".operation.OperationActivity" android:screenOrientation="landscape"/>
+      <activity android:name=".operation.OperationHistoryActivity" android:screenOrientation="landscape"/>
+      <activity android:name=".resource.ResourceActivity" android:screenOrientation="landscape"/>
+      <activity android:name=".resource.GroupActivity" android:screenOrientation="landscape"/>
 
 
     </application>

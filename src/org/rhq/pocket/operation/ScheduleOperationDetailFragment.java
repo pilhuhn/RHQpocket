@@ -50,8 +50,9 @@ public class ScheduleOperationDetailFragment extends Fragment implements View.On
     private String historyLink;
     private ImageView statusView;
 
+    @SuppressWarnings("unused")
     public ScheduleOperationDetailFragment() {
-
+        // For Android internal use
     }
 
     public ScheduleOperationDetailFragment(OperationDefinitionRest definition, int resourceId) {

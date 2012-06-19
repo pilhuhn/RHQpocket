@@ -31,6 +31,7 @@ public class OperationActivity extends RHQActivity {
         }
 
         setContentView(R.layout.list_one_detail_layout);
+        getActionBar().setTitle(R.string.Run_operation);
 
         FragmentManager fm = getFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.list_container);

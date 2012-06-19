@@ -40,6 +40,7 @@ public class MetricChartActivity extends RHQActivity implements Refreshable
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.metric_chart_layout);
+        getActionBar().setTitle(R.string.Metrics);
 
         FragmentManager fm = getFragmentManager();
         MetricDetailContainer container= (MetricDetailContainer) fm.findFragmentById(R.id.chart_container);

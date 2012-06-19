@@ -7,8 +7,13 @@
         android:showAsAction="always"/>
 
 
-  <item android:title="@string/RemoveFavorite"
-        android:id="@+id/remove_from_favorites"
+  <item android:title="@string/pick_resource"
+        android:id="@+id/pick_resource"
+        android:showAsAction="always"
+      />
+
+  <item android:title="@string/AddFavorite"
+        android:id="@+id/add_to_favorites"
         />
 
   <item android:title="@string/Show_metrics"

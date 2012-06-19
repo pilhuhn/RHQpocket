@@ -37,6 +37,7 @@ public class FavoritesActivity extends RHQActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.list_one_detail_layout);
+        getActionBar().setTitle(R.string.Favorites);
 
     }
 
@@ -73,6 +74,9 @@ public class FavoritesActivity extends RHQActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId()==android.R.id.home)
+            return super.onOptionsItemSelected(item);
 
         ResourceWithType favorite=null;
         Intent intent;

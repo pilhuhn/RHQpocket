@@ -152,22 +152,27 @@ public class ResourcePickerFragment extends DialogFragment implements AdapterVie
             editor.putString("currentResourceName",selectedResource.getResourceName());
             editor.commit();
 
-            MetricChartActivity activity= (MetricChartActivity) getActivity();
-            activity.getActionBar().setSubtitle(selectedResource.getResourceName());
-            if (activity.dialog!=null)
-                activity.dialog.cancel();
+            if (getActivity() instanceof MetricChartActivity) {
+                // TODO clean this up
+                MetricChartActivity activity= (MetricChartActivity) getActivity();
+                activity.getActionBar().setSubtitle(selectedResource.getResourceName());
+                if (activity.dialog!=null)
+                    activity.dialog.cancel();
 
-            ScheduleListFragment fragment  =
-                (ScheduleListFragment) getFragmentManager().findFragmentById(R.id.left_picker);
+                ScheduleListFragment fragment  =
+                    (ScheduleListFragment) getFragmentManager().findFragmentById(R.id.left_picker);
 
-            if (fragment==null) {
-                Log.d("ResPicker", "Did not find the target fragment");
-            } else {
-                fragment.setResourceId(selectedResource.getResourceId());
-                FrameLayout parent = (FrameLayout) fragment.getView().getParent();
-                if (parent.getVisibility()==View.GONE) {
-                    parent.setVisibility(View.VISIBLE);
+                if (fragment==null) {
+                    Log.d("ResPicker", "Did not find the target fragment");
+                } else {
+                    fragment.setResourceId(selectedResource.getResourceId());
+                    FrameLayout parent = (FrameLayout) fragment.getView().getParent();
+                    if (parent.getVisibility()==View.GONE) {
+                        parent.setVisibility(View.VISIBLE);
+                    }
                 }
+            } else if (getActivity() instanceof RHQActivity) {
+                ((RHQActivity) getActivity()).refresh(null);
             }
 
         }

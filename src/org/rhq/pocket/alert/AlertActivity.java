@@ -36,6 +36,7 @@ public class AlertActivity extends RHQActivity implements Refreshable {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.alert_action_layout);
+        getActionBar().setTitle(R.string.Alerts);
 
         FragmentManager fm = getFragmentManager();
         AlertListFragment alertListFragment = (AlertListFragment) fm.findFragmentById(R.id.alert_list_container);

@@ -18,6 +18,8 @@ import org.codehaus.jackson.type.TypeReference;
 import org.rhq.pocket.alert.AlertActivity;
 import org.rhq.pocket.metric.MetricChartActivity;
 import org.rhq.pocket.operation.OperationHistoryActivity;
+import org.rhq.pocket.resource.GroupActivity;
+import org.rhq.pocket.resource.ResourceActivity;
 import org.rhq.pocket.user.FavoritesActivity;
 
 /**
@@ -84,25 +86,29 @@ public class OverviewActivity extends RHQActivity implements Refreshable {
         getNumberOfAlerts();
     }
 
-    public void listAlerts(View v) {
-        Intent i = new Intent(this,AlertActivity.class);
+    public void start(View v) {
+        Intent i;
+        String tag = (String) v.getTag();
+        if ("alerts".equals(tag))
+            i = new Intent(this,AlertActivity.class);
+        else if ("resources".equals(tag)) {
+            i = new Intent(this,ResourceActivity.class);
+        }
+        else if ("groups".equals(tag)) {
+            i = new Intent(this,GroupActivity.class);
+        }
+        else if ("favorites".equals(tag)) {
+            i = new Intent(this,FavoritesActivity.class);
+        }
+        else if ("metrics".equals(tag)) {
+            i = new Intent(this,MetricChartActivity.class);
+        } else if ("operationHistories".equals(tag)) {
+            i = new Intent(this,OperationHistoryActivity.class);
+        }
+        else
+            throw new IllegalArgumentException("Unknown tag, check overview.xml");
+
         startActivity(i);
 
-    }
-
-    public void showMetrics(View v) {
-
-        Intent i = new Intent(this,MetricChartActivity.class);
-        startActivity(i);
-    }
-
-    public void showFavorites(View v) {
-        Intent i = new Intent(this,FavoritesActivity.class);
-        startActivity(i);
-    }
-
-    public void showOperationHistory(View v) {
-        Intent i = new Intent(this,OperationHistoryActivity.class);
-        startActivity(i);
     }
 }
