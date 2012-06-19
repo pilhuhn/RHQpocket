@@ -7,4 +7,12 @@
         android:showAsAction="always"
       />
 
+  <item android:id="@+id/trash_this"
+        android:showAsAction="always|withText"
+        android:icon="@drawable/ic_menu_delete"
+        android:title="@string/DeleteItem"
+        android:titleCondensed="@string/Delete"
+        android:enabled="false"
+        />
+
 </menu>

@@ -80,7 +80,7 @@ public class OperationHistoryDetailFragment extends Fragment {
                 // TODO: Customise this generated block
                 e.printStackTrace();
             }
-        },"/operation/history" + historyId).execute();
+        },"/operation/history/" + historyId).execute();
     }
 
     private void fillFields() {
@@ -102,6 +102,7 @@ public class OperationHistoryDetailFragment extends Fragment {
             sb.append(entry.getValue().toString());
             sb.append("<br/>");
         }
+        ((RHQActivity)getActivity()).enableMenuItem(R.id.trash_this,true);
 
         tv.setText(Html.fromHtml(sb.toString()));
     }

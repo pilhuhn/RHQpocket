@@ -146,7 +146,7 @@ public class ScheduleOperationDetailFragment extends Fragment implements View.On
             int i = historyLink.lastIndexOf("/");
             Log.i("bla", historyLink); // TODO
             if (i>-1) {
-                historyLink = historyLink.substring(i);
+                historyLink = historyLink.substring(i+1);
             }
             OperationHistoryDetailFragment fragment = new OperationHistoryDetailFragment();
             fragment.setHistoryId(historyLink);

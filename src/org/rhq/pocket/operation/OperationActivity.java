@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -53,6 +54,21 @@ public class OperationActivity extends RHQActivity {
 
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==R.id.trash_this) {
+
+            FragmentManager fm = getFragmentManager();
+            Fragment fragment = fm.findFragmentById(R.id.detail_container);
+            if (fragment!=null && fragment instanceof OperationHistoryDetailFragment) {
+                ((OperationHistoryDetailFragment)fragment).deleteCurrent();
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     @Override
     public void refresh(View v) {
