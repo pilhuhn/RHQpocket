@@ -16,7 +16,7 @@ import org.rhq.pocket.RHQActivity;
  * Activity to deal with operation scheduling
  * @author Heiko W. Rupp
  */
-public class OperationActivity extends RHQActivity {
+public class OperationActivity extends AbstractOperationActivity {
     private int resourceId=-1;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -55,21 +55,6 @@ public class OperationActivity extends RHQActivity {
 
         return true;
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId()==R.id.trash_this) {
-
-            FragmentManager fm = getFragmentManager();
-            Fragment fragment = fm.findFragmentById(R.id.detail_container);
-            if (fragment!=null && fragment instanceof OperationHistoryDetailFragment) {
-                ((OperationHistoryDetailFragment)fragment).deleteCurrent();
-            }
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
 
     @Override
     public void refresh(View v) {
