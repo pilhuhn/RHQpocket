@@ -5,12 +5,14 @@
              android:layout_height="fill_parent"
              android:shrinkColumns="*"
              android:stretchColumns="*"
+             android:padding="3dp"
+             android:paddingLeft="5dp"
     >
   <TableRow style="@style/wrap_content">
     <TextView style="@style/table_header"
               android:text="@string/Availability"
               />
-    <TextView style="@style/text_std"
+    <TextView style="@style/table_cell"
               android:hint="@string/Availability"
               android:id="@+id/availability_view"
               android:drawableRight="@drawable/availability_grey_24"
@@ -24,7 +26,7 @@
         android:text="@string/Name"
         />
     <TextView android:id="@+id/resource_name"
-              style="@style/text_std"
+              style="@style/table_cell"
               android:hint="@string/Name"
         />
   </TableRow>
@@ -34,7 +36,7 @@
         android:text="@string/Resource_id"
         />
     <TextView android:id="@+id/resource_id"
-              style="@style/text_std"
+              style="@style/table_cell"
               android:hint="@string/Resource_id"
         />
   </TableRow>
@@ -44,7 +46,7 @@
         android:text="@string/Ancestry"
         />
     <TextView android:id="@+id/resource_ancestry"
-              style="@style/text_std"
+              style="@style/table_cell"
               android:hint="@string/Ancestry"
         />
   </TableRow>

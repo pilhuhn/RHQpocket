@@ -5,12 +5,11 @@
               android:layout_height="fill_parent"
               android:orientation="vertical"
     >
-  <TextView android:id="@+id/name_view" style="@style/table_header"
+  <TextView android:id="@+id/name_view" style="@style/table_header_large"
             android:paddingLeft="2dp"
             android:paddingRight="2dp"
             />
-  <TextView android:id="@+id/resource_view" style="@style/table_text"
-            android:textSize="11dp"
+  <TextView android:id="@+id/resource_view" style="@style/table_text_large"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
 

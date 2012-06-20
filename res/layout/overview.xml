@@ -8,13 +8,13 @@
     >
 
   <TableRow android:gravity="center_horizontal">
-    <Button style="@style/wrap_content"
+    <Button style="@style/pic_button"
             android:text="@string/Resources"
             android:onClick="start"
             android:drawableLeft="@drawable/inventory24"
             android:tag="resources"
             />
-    <Button style="@style/wrap_content"
+    <Button style="@style/pic_button"
             android:text="@string/Metrics"
             android:drawableLeft="@drawable/monitor24"
             android:tag="metrics"
@@ -22,14 +22,14 @@
 
   </TableRow>
   <TableRow android:gravity="center">
-  <Button style="@style/wrap_content"
+  <Button style="@style/pic_button"
             android:id="@+id/overview_alert_count"
             android:onClick="start"
             android:tag="alerts"
             android:drawableLeft="@drawable/flag_blue24"
             android:text="@string/Alerts"
             />
-    <Button style="@style/wrap_content"
+    <Button style="@style/pic_button"
             android:text="@string/Groups"
             android:onClick="start"
             android:tag="groups"
@@ -39,7 +39,7 @@
   </TableRow>
 
   <TableRow android:gravity="center">
-  <Button style="@style/wrap_content"
+  <Button style="@style/pic_button"
                android:onClick="start"
                android:drawableLeft="@drawable/favorite24selected"
                android:contentDescription="@string/Favorites"
@@ -47,13 +47,13 @@
                android:tag="favorites"
                />
 
-  <Button style="@style/wrap_content"
+  <Button style="@style/pic_button"
           android:onClick="start"
           android:tag="operationHistories"
           android:drawableLeft="@drawable/operation_24"
           android:contentDescription="@string/OperationHistories"
           android:text="@string/OperationHistories"
-          android:drawablePadding="2dp"
+          android:drawablePadding="4dp"
         />
   </TableRow>
 </TableLayout>

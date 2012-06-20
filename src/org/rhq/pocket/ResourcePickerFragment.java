@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.SharedPreferences;
@@ -40,6 +41,7 @@ public class ResourcePickerFragment extends DialogFragment implements AdapterVie
     TextView selectedResourceView;
     ResourceWithType selectedResource;
     ListView listView;
+    TalkToServerTask ttst;
 
 
 
@@ -55,7 +57,7 @@ public class ResourcePickerFragment extends DialogFragment implements AdapterVie
         pickButton.setOnClickListener(this);
 
 
-        new TalkToServerTask(getActivity(),new FinishCallback() {
+        ttst = new TalkToServerTask(getActivity(),new FinishCallback() {
             public void onSuccess(JsonNode result) {
                 ObjectMapper objectMapper = new ObjectMapper();
                 objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -85,7 +87,8 @@ public class ResourcePickerFragment extends DialogFragment implements AdapterVie
                 // TODO: Customise this generated block
                 e.printStackTrace();
             }
-        },"/resource/platforms").execute();
+        },"/resource/platforms");
+        ttst.execute();
 
         return view;
 
@@ -105,7 +108,7 @@ public class ResourcePickerFragment extends DialogFragment implements AdapterVie
         selectedResourceView.setText(selectedResource.getResourceName());
         pickButton.setEnabled(true);
 
-        new TalkToServerTask(getActivity(),new FinishCallback() {
+        ttst = new TalkToServerTask(getActivity(),new FinishCallback() {
             public void onSuccess(JsonNode result) {
                 ObjectMapper objectMapper = new ObjectMapper();
                 objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -120,8 +123,11 @@ public class ResourcePickerFragment extends DialogFragment implements AdapterVie
                         resourcesWithTypes.add(rwt);
                     }
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, names);
-                    listView.setAdapter(adapter);
+                    Activity activity = getActivity();
+                    if (activity!=null) {
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1, names);
+                        listView.setAdapter(adapter);
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();  // TODO: Customise this generated block
                 }
@@ -131,7 +137,8 @@ public class ResourcePickerFragment extends DialogFragment implements AdapterVie
                 // TODO: Customise this generated block
                 e.printStackTrace();
             }
-        },"/resource/" + selectedResource.getResourceId() +"/children").execute();
+        },"/resource/" + selectedResource.getResourceId() +"/children");
+        ttst.execute();
     }
 
     public void onClick(View view) {
@@ -168,6 +175,8 @@ public class ResourcePickerFragment extends DialogFragment implements AdapterVie
             }
 
         }
+        if (ttst!=null)
+            ttst.cancel(true);
         dismiss(); // close the dialog
     }
 }

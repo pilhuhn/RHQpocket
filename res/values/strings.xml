@@ -82,4 +82,5 @@
   <string name="Explicit_resources">Explicit resources</string>
   <string name="Implicit_resources">Implicit resources</string>
   <string name="no_data_available">No data available</string>
+  <string name="provide_parameters">Provide parameters if needed</string>
 </resources>

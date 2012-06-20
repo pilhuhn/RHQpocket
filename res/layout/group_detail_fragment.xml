@@ -16,12 +16,12 @@
   </TableRow>
   <TableRow>
   <CheckBox android:text="@string/Recursive"
-            style="@style/wrap_content"
+            style="@style/text_std"
             android:clickable="false"
             android:id="@+id/recursive_mark"
             />
   <CheckBox android:text="@string/DynaGroup"
-            style="@style/wrap_content"
+            style="@style/text_std"
             android:clickable="false"
             android:id="@+id/dynagroup_mark"
             />

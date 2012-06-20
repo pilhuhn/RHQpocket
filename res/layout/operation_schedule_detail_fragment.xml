@@ -6,7 +6,7 @@
               android:orientation="vertical"
     >
   <TextView android:id="@+id/operation_name"
-            android:layout_height="wrap_content"
+            style="@style/table_header_large"
             android:layout_width="match_parent"
             android:background="@color/some_blue"
             android:gravity="center"
@@ -18,7 +18,14 @@
              android:layout_gravity="right"
              android:src="@drawable/availability_grey_24"
              android:contentDescription="State of the operation creation"
+             android:padding="4dp"
              />
+
+  <TextView android:text="@string/provide_parameters"
+            style="@style/table_header_large"
+            android:gravity="center"
+            android:padding="3dp"
+            />
 
   <ScrollView style="@style/wrap_content" android:layout_weight="1">
     <TableLayout style="@style/wrap_content"
@@ -43,8 +50,9 @@
                 android:gravity="bottom">
 
                 <Button android:id="@+id/check_button"
-                        style="@style/wrap_content"
+                        style="@style/button"
                         android:text="@string/Check"
+                        android:gravity="right"
                 />
     </LinearLayout>
 

@@ -10,41 +10,35 @@
       >
     <TableRow>
 
-      <TextView android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
+      <TextView style="@style/table_header"
                 android:text="@string/name"
           />
 
       <TextView android:id="@+id/schedule_name"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
+                style="@style/table_cell"
                 android:text="@string/name"
           />
     </TableRow>
     <TableRow>
-      <TextView android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
+      <TextView style="@style/table_header"
                 android:text="@string/interval_sec"
           />
 
       <EditText android:id="@+id/schedule_interval"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
+                style="@style/table_cell"
                 android:hint="@string/collection_interval_sec"
                 android:editable="true"
 
           />
     </TableRow>
     <TableRow>
-      <TextView android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
+      <TextView style="@style/table_header"
                 android:text="@string/enabled"
           />
 
 
       <CheckBox android:id="@+id/schedule_enabled"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
+                style="@style/table_cell"
           />
     </TableRow>
     <TableRow>

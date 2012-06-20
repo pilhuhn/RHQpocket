@@ -12,10 +12,11 @@
             android:background="@color/some_blue"
             android:gravity="center"
             android:padding="3dp"
+            style="@style/table_header_large"
       />
 
-  <LinearLayout android:orientation="horizontal" style="@style/wrap_content">
-    <TextView style="@style/table_header" android:text="@string/Status" android:paddingRight="3dp"/>
+  <LinearLayout android:orientation="horizontal" style="@style/wrap_content" android:padding="3dp">
+    <TextView style="@style/table_header" android:text="@string/Status" android:paddingRight="5dp"/>
     <TextView android:id="@+id/statusView"
               style="@style/table_text"
         />
@@ -30,9 +31,9 @@
         />
   </ScrollView>
 
-  <LinearLayout android:orientation="horizontal" style="@style/wrap_content">
+  <LinearLayout android:orientation="horizontal" style="@style/wrap_content" android:padding="5dp">
 
-    <TextView style="@style/table_header" android:text="@string/Errors" android:paddingRight="3dp"/>
+    <TextView style="@style/table_header" android:text="@string/Errors" android:paddingRight="5dp"/>
     <TextView android:id="@+id/errorView"
               style="@style/table_cell"/>
   </LinearLayout>

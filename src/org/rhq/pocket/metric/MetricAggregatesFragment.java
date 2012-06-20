@@ -90,6 +90,7 @@ public class MetricAggregatesFragment extends Fragment implements MetricDetailCo
             row.setTag(schedule.getScheduleId());
             TextView nameView = new TextView(getActivity());
             nameView.setText(schedule.getDisplayName());
+            nameView.setTextAppearance(getActivity(),R.style.table_header);
             row.addView(nameView);
 
             for (String name : columnNames) {

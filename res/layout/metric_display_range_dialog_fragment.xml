@@ -12,7 +12,10 @@
            />
 
   <TextView android:id="@+id/valueView"
-            style="@style/text_std"
+            style="@style/text_bold"
+            android:textSize="18dp"
+            android:paddingLeft="8dp"
+            android:padding="4dp"
             />
 
   <RadioGroup android:id="@+id/unit_selector"
