@@ -38,6 +38,7 @@ import org.rhq.pocket.operation.OperationHistoryActivity;
 public class ResourceActivity extends RHQActivity {
     private int resourceId=-1;
     private ResourceWithType resource;
+    private SharedPreferences preferences;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,14 +61,14 @@ public class ResourceActivity extends RHQActivity {
     protected void onResume() {
         super.onResume();
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         // If the user has previously picked a resource, re-use it
         // If we got a resource in (e.g. from favs), don't use the one from prevs
         if (resourceId==-1 )
-            resourceId = preferences.getInt("currentResourceId",-1);
+            resourceId = preferences.getInt("currentResourceId", -1);
         if (resourceId !=-1) {
-            String resourceName = preferences.getString("currentResourceName","");
+            String resourceName = preferences.getString("currentResourceName", "");
             if (!resourceName.equals("")) {
                 getActionBar().setSubtitle(resourceName);
             }
@@ -98,6 +99,15 @@ public class ResourceActivity extends RHQActivity {
 
     @Override
     public void refresh(View v) {
+
+        if (resourceId==-1)
+            resourceId = preferences.getInt("currentResourceId",-1);
+        if (resourceId !=-1) {
+            String resourceName = preferences.getString("currentResourceName", "");
+            if (!resourceName.equals("")) {
+                getActionBar().setSubtitle(resourceName);
+            }
+        }
 
         new TalkToServerTask(this, new FinishCallback() {
             @Override

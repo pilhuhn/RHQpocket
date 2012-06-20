@@ -13,7 +13,6 @@ import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 
-import org.rhq.core.domain.rest.AlertRest;
 import org.rhq.core.domain.rest.AvailabilityRest;
 import org.rhq.core.domain.rest.ResourceWithType;
 import org.rhq.pocket.FinishCallback;
