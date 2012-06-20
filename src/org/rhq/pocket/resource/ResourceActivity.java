@@ -100,8 +100,7 @@ public class ResourceActivity extends RHQActivity {
     @Override
     public void refresh(View v) {
 
-        if (resourceId==-1)
-            resourceId = preferences.getInt("currentResourceId",-1);
+        resourceId = preferences.getInt("currentResourceId",-1);
         if (resourceId !=-1) {
             String resourceName = preferences.getString("currentResourceName", "");
             if (!resourceName.equals("")) {

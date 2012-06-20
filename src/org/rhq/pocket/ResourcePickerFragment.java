@@ -107,16 +107,12 @@ public class ResourcePickerFragment extends DialogFragment implements AdapterVie
 
         new TalkToServerTask(getActivity(),new FinishCallback() {
             public void onSuccess(JsonNode result) {
-                System.out.println("got data :" +  result.toString());
-                System.out.println("is array. " + result.isArray());
-                System.out.println("is object. " + result.isObject());
                 ObjectMapper objectMapper = new ObjectMapper();
-                objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false); // TODO disable when REST API is stable
+                objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
                 List<String> names = new ArrayList<String>();
 
                 try {
                     List<ResourceWithType> resources = objectMapper.readValue(result,new TypeReference<List<ResourceWithType>>() {});
-                    System.out.println(resources);
                     resourcesWithTypes.clear();
 
                     for (ResourceWithType rwt :resources ) {
@@ -129,9 +125,6 @@ public class ResourcePickerFragment extends DialogFragment implements AdapterVie
                 } catch (IOException e) {
                     e.printStackTrace();  // TODO: Customise this generated block
                 }
-
-
-                // TODO: Customise this generated block
             }
 
             public void onFailure(Exception e) {
@@ -139,7 +132,6 @@ public class ResourcePickerFragment extends DialogFragment implements AdapterVie
                 e.printStackTrace();
             }
         },"/resource/" + selectedResource.getResourceId() +"/children").execute();
-
     }
 
     public void onClick(View view) {
