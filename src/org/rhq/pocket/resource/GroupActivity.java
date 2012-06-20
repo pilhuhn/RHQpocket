@@ -21,7 +21,7 @@ public class GroupActivity extends RHQActivity {
         super.onCreate(savedInstanceState);
 
         getActionBar().setTitle(R.string.Groups);
-        setContentView(R.layout.list_one_detail_layout);
+        setContentView(R.layout.wide_list_one_detail_layout);
 
         FragmentManager fm = getFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.list_container);

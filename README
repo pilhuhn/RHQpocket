@@ -1,11 +1,10 @@
 Testbed to create an application for Andorid(TM)-based devices
 as management frontend for RHQ (http://rhq-project.org/).
 
-The client runs against RHQ 4.4 and later. 
+The client runs against RHQ 4.4 and later and required Android 3.0+.
 
 Classes in org.rhq.core.domain are copied over manually
 and the JaxB Annotations are stripped off (if needed )
 as Android can not (directly) use JAXB classes.
-This file was modified by IntelliJ IDEA 10.0.2 for binding GitHub repository
 
 See http://vimeo.com/29740860 for a demo video of the state end of Sept. 2011.

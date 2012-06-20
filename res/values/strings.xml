@@ -76,4 +76,9 @@
   <string name="Resources">Resources</string>
   <string name="Groups">Groups</string>
   <string name="AddFavorite">Add to favorites</string>
+  <string name="Category">Category</string>
+  <string name="Recursive">Recursive</string>
+  <string name="DynaGroup">DynaGroup</string>
+  <string name="Explicit_resources">Explicit resources</string>
+  <string name="Implicit_resources">Implicit resources</string>
 </resources>

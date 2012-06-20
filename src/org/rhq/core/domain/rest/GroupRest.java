@@ -15,6 +15,10 @@ public class GroupRest {
     private Integer resourceTypeId;
     private boolean recursive;
     private GroupCategory category;
+    private int dynaGroupDefinitionId;
+    private int explicitCount;
+    private int implicitCount;
+
 
     List<Link> links = new ArrayList<Link>();
 
@@ -71,5 +75,29 @@ public class GroupRest {
 
     public void setLinks(List<Link> links) {
         this.links = links;
+    }
+
+    public int getDynaGroupDefinitionId() {
+        return dynaGroupDefinitionId;
+    }
+
+    public void setDynaGroupDefinitionId(int dynaGroupDefinitionId) {
+        this.dynaGroupDefinitionId = dynaGroupDefinitionId;
+    }
+
+    public int getExplicitCount() {
+        return explicitCount;
+    }
+
+    public void setExplicitCount(int explicitCount) {
+        this.explicitCount = explicitCount;
+    }
+
+    public int getImplicitCount() {
+        return implicitCount;
+    }
+
+    public void setImplicitCount(int implicitCount) {
+        this.implicitCount = implicitCount;
     }
 }

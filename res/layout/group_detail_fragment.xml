@@ -1,26 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:orientation="vertical"
+              android:shrinkColumns="*"
+              android:stretchColumns="*"
     >
 
+  <TableRow>
   <TextView style="@style/table_header"
             android:text="@string/Name"/>
   <TextView android:id="@+id/name_view"
-            style="@style/wrap_content"/>
-
-  <CheckBox android:text="Recursive"
+            style="@style/table_cell"/>
+  </TableRow>
+  <TableRow>
+  <CheckBox android:text="@string/Recursive"
             style="@style/wrap_content"
             android:clickable="false"
             android:id="@+id/recursive_mark"
             />
-
+  <CheckBox android:text="@string/DynaGroup"
+            style="@style/wrap_content"
+            android:clickable="false"
+            android:id="@+id/dynagroup_mark"
+            />
+  </TableRow>
+  <TableRow>
   <TextView style="@style/table_header"
-            android:text="Category"/>
+            android:text="@string/Category"/>
   <TextView android:id="@+id/category_view"
-            style="@style/wrap_content"/>
+            style="@style/table_cell"/>
+  </TableRow>
+  <TableRow>
+    <TextView style="@style/table_header"
+              android:text="@string/Explicit_resources"/>
+    <TextView android:id="@+id/explicit_view"
+              style="@style/table_cell"/>
 
+  </TableRow>
+  <TableRow>
+    <TextView style="@style/table_header"
+              android:text="@string/Implicit_resources"/>
+    <TextView android:id="@+id/implicit_view"
+              style="@style/table_cell"/>
+  </TableRow>
 
-</LinearLayout>
+</TableLayout>

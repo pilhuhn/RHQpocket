@@ -46,5 +46,11 @@ public class GroupDetailFragment extends Fragment {
         tv.setText(group.getCategory().toString());
         CheckBox cb = (CheckBox) layout.findViewById(R.id.recursive_mark);
         cb.setChecked(group.isRecursive());
+        cb = (CheckBox) layout.findViewById(R.id.dynagroup_mark);
+        cb.setChecked(group.getDynaGroupDefinitionId()>0);
+        tv = (TextView) layout.findViewById(R.id.explicit_view);
+        tv.setText("" + group.getExplicitCount());
+        tv = (TextView) layout.findViewById(R.id.implicit_view);
+        tv.setText(""+ group.getImplicitCount());
     }
 }
