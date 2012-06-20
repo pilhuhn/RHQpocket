@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.DeserializationConfig;
@@ -33,13 +34,14 @@ public class AlertListFragment extends ListFragment {
 
     private List<AlertRest> alertList;
     private int resourceId = -1;
+    private View layout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.alert_list_fragment,container,false);
+        layout = inflater.inflate(R.layout.generic_list_fragment,container,false);
 
-        return view;
+        return layout;
     }
 
     @Override
@@ -72,6 +74,14 @@ public class AlertListFragment extends ListFragment {
                 try {
                     alertList = objectMapper.readValue(result,new TypeReference<List<AlertRest>>() {});
                     setListAdapter(new AlertListItemAdapter(getActivity(),R.layout.alert_list_item,alertList));
+
+                    // Remove the progress indicator below the list now that we have returned from the server call
+                    ProgressBar pb = (ProgressBar) layout.findViewById(R.id.list_progress);
+                    if (pb!=null)
+                        pb.setVisibility(View.GONE);
+                    getListView().requestLayout();
+
+
                     getListView().requestLayout();
                 } catch (IOException e) {
                     e.printStackTrace();  // TODO: Customise this generated block
