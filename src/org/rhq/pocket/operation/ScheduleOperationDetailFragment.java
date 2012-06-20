@@ -8,6 +8,7 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -163,11 +164,12 @@ public class ScheduleOperationDetailFragment extends Fragment implements View.On
     }
 
     private boolean validateFields() {
+        TableLayout tl = (TableLayout) layout.findViewById(R.id.opsParamsTable);
         for (SimplePropDef spd : definition.getParams()) {
             if (spd.isRequired() && !(spd.getType()== PropertyType.BOOLEAN)) {
                 String name =spd.getName();
-                TextView tv = (TextView) layout.findViewWithTag(name);
-                if (tv.getText()==null || tv.getText().length()==0)
+                TextView tv = (TextView) tl.findViewWithTag(name);
+                if (tv==null||tv.getText()==null || tv.getText().length()==0)
                     return false;
             }
         }
@@ -208,11 +210,13 @@ public class ScheduleOperationDetailFragment extends Fragment implements View.On
             tl.addView(row);
 
             TextView nameView = new TextView(getActivity());
+            nameView.setTextAppearance(getActivity(),R.style.table_header);
             String name = spd.getName();
+            String displayName = name;
             if (spd.isRequired())
-                name +="*";
+                displayName +="*";
 
-            nameView.setText(name);
+            nameView.setText(displayName);
             row.addView(nameView);
 
             if (spd.getType()==PropertyType.BOOLEAN) {
@@ -223,6 +227,7 @@ public class ScheduleOperationDetailFragment extends Fragment implements View.On
                 row.addView(cb);
             } else {
                 EditText et = new EditText(getActivity());
+                et.setTextAppearance(getActivity(),R.style.table_cell);
                 et.setTag(name);
 
                 if(PropertyType.isNumeric(spd.getType())) {
@@ -245,6 +250,8 @@ public class ScheduleOperationDetailFragment extends Fragment implements View.On
         historyButton.setText("Show history");
         historyButton.setId(0xdeadbeef);
         historyButton.setOnClickListener(this);
+        historyButton.setGravity(Gravity.RIGHT);
+        historyButton.setTextAppearance(getActivity(),R.style.button);
         buttonBar.addView(historyButton);
 
         checkButton.setEnabled(false); // The operation has been scheduled
@@ -253,9 +260,10 @@ public class ScheduleOperationDetailFragment extends Fragment implements View.On
 
     private void fillOperationParamsFromUI() {
         Map<String,Object> params = operation.getParams();
+        TableLayout tl = (TableLayout) layout.findViewById(R.id.opsParamsTable);
         for (SimplePropDef spd:definition.getParams()) {
             String name = spd.getName();
-            View v = layout.findViewWithTag(name);
+            View v = tl.findViewWithTag(name);
 
             if (v instanceof TextView) {
                 // TODO differentiate numeric types
