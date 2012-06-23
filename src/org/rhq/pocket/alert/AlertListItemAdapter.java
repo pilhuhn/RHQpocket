@@ -50,7 +50,7 @@ public class AlertListItemAdapter extends ArrayAdapter<AlertRest> {
 
         AlertRest alertRest = alertList.get(position);
         AlertDefinition definition = alertRest.getAlertDefinition();
-        if (definition!=null) {
+        if (definition!=null && definition.getPriority()!=null) {
             if (definition.getPriority().equals("MEDIUM"))
                 convertView.setBackgroundColor(Color.rgb(120,120,0));
             else if (definition.getPriority().equals("HIGH"))
@@ -59,7 +59,9 @@ public class AlertListItemAdapter extends ArrayAdapter<AlertRest> {
                 convertView.setBackgroundColor(Color.DKGRAY);
         }
         viewHolder.nameView.setText(alertRest.getName());
-        viewHolder.resourceView.setText(alertRest.getResource().getResourceName());
+        if (alertRest.getResource()!=null && alertRest.getResource().getResourceName()!=null) {
+            viewHolder.resourceView.setText(alertRest.getResource().getResourceName());
+        }
 
         return convertView;
     }
