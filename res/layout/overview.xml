@@ -54,6 +54,7 @@
           android:contentDescription="@string/OperationHistories"
           android:text="@string/OperationHistories"
           android:drawablePadding="4dp"
+          android:id="@+id/opsHistoryButton"
         />
   </TableRow>
 </TableLayout>

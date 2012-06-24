@@ -5,9 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
+import org.rhq.pocket.json.OperationRestSerializer;
+
 /**
  * @author Heiko W. Rupp
  */
+@JsonSerialize(using = OperationRestSerializer.class)
 public class OperationRest {
 
     int id;

@@ -12,6 +12,7 @@ public class RHQPocket {
     public MetricSchedule currentSchedule;
     public int displayRangeValue;
     public DisplayRange displayRangeUnits;
+    public String serverVersion;
 
     public static RHQPocket getInstance() {
         return ourInstance;
@@ -26,5 +27,9 @@ public class RHQPocket {
 
     public void setCurrentSchedule(MetricSchedule currentSchedule) {
         this.currentSchedule = currentSchedule;
+    }
+
+    public static boolean is44() {
+        return ourInstance.serverVersion!=null && ourInstance.serverVersion.startsWith("4.4");
     }
 }

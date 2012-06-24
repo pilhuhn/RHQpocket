@@ -1,9 +1,10 @@
 package org.rhq.pocket;
 
-import java.io.IOException;
+import java.util.Map;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -45,30 +46,11 @@ public class OverviewActivity extends RHQActivity implements Refreshable {
 
         // Get number of alerts
         // TODO list by category
-        getNumberOfAlerts();
-    }
+        getServerStatus();
+        if (RHQPocket.is44()) {
+            disableFeatures();
+        }
 
-    private void getNumberOfAlerts() {
-        new TalkToServerTask(this,new FinishCallback() {
-            @Override
-            public void onSuccess(JsonNode result) {
-                ObjectMapper objectMapper = new ObjectMapper();
-                objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-                try {
-                    Integer count = objectMapper.readValue(result,new TypeReference<Integer>() {});
-                    alertCountView.setText(getString(R.string.number_of_alerts,count));
-                } catch (IOException e) {
-                    e.printStackTrace();  // TODO: Customise this generated block
-                }
-
-            }
-
-            @Override
-            public void onFailure(Exception e) {
-                // TODO: Customise this generated block
-            }
-        },"/alert/count").execute();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -80,10 +62,52 @@ public class OverviewActivity extends RHQActivity implements Refreshable {
     }
 
 
-
     @Override
     public void refresh(View v) {
-        getNumberOfAlerts();
+        getServerStatus();
+    }
+
+    private void getServerStatus() {
+
+        new TalkToServerTask(this, new FinishCallback() {
+            @Override
+            public void onSuccess(JsonNode result) {
+                ObjectMapper objectMapper = new ObjectMapper();
+                objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+                try {
+                    Map<String,Object> map = objectMapper.readValue(result,new TypeReference<Map<String,Object>>() {});
+                    if (map.containsKey("values")) {
+                        Map<String,String> inner = (Map<String, String>) map.get("values");
+                        if (inner.containsKey("SERVER_VERSION")) {
+                            RHQPocket.getInstance().serverVersion=inner.get("SERVER_VERSION");
+                        }
+                        if (RHQPocket.getInstance().serverVersion.startsWith("4.4")) {
+                            disableFeatures();
+                        }
+                        Log.d("OverviewActivity", "Server version: " + RHQPocket.getInstance().serverVersion);
+                        if (inner.containsKey("AlertCount")) {
+                            int alertCount = Integer.valueOf(inner.get("AlertCount"));
+                            alertCountView.setText(getString(R.string.number_of_alerts,alertCount));
+                        }
+                    }
+                }
+                catch (Exception e) {
+                    e.printStackTrace(); // TODO
+                }
+
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                // TODO: Customise this generated block
+            }
+        },"/status").execute();
+    }
+
+    private void disableFeatures() {
+        View v = findViewById(R.id.opsHistoryButton);
+        v.setEnabled(false);
     }
 
     public void start(View v) {
