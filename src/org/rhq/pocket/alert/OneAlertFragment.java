@@ -57,7 +57,7 @@ public class OneAlertFragment extends Fragment implements View.OnClickListener {
             if(fm.findFragmentById(R.id.alert_detail_container)==null) {
 
                 UserDetailFragment fragment = new UserDetailFragment();
-                fragment.setLogin("rhqadmin");
+                fragment.setLogin(alert.getAckBy());
 
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
