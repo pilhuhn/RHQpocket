@@ -154,6 +154,12 @@ public class ResourceActivity extends RHQActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         Intent intent;
+
+        if (item.getItemId()==R.id.pick_resource) {
+            pickResource();
+            return true;
+        }
+
         switch (item.getItemId()) {
         case R.id.list_alerts:
             intent = new Intent(this, AlertActivity.class);
@@ -181,10 +187,7 @@ public class ResourceActivity extends RHQActivity {
             startActivity(intent);
             return true;
         case R.id.add_to_favorites:
-            addToFavorites(resource.getResourceId());
-            return true;
-        case R.id.pick_resource:
-            pickResource();
+            addToFavorites(resource);
             return true;
         }
 
@@ -192,8 +195,8 @@ public class ResourceActivity extends RHQActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void addToFavorites(int resourceId) {
-        if (resourceId==-1) {
+    private void addToFavorites(ResourceWithType resource) {
+        if (resource==null || resource.getResourceId()==-1) {
             Toast.makeText(this, "Select a resource first", Toast.LENGTH_SHORT).show();
             return;
         }
