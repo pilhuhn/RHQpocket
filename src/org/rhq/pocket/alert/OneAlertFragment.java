@@ -131,12 +131,16 @@ public class OneAlertFragment extends Fragment implements View.OnClickListener {
         CheckBox enabled = (CheckBox) view.findViewById(R.id.one_alert_enabled);
         enabled.setChecked(alert.isDefinitionEnabled());
         Button enableButton = (Button) view.findViewById(R.id.one_alert_button_enable);
-        enableButton.setOnClickListener(this);
-        enableButton.setTag("enable_button");
+        if (!RHQPocket.is44()) {
+            enableButton.setOnClickListener(this);
+            enableButton.setTag("enable_button");
+        } else {
+            enableButton.setEnabled(false);
+        }
+
         if (alert.isDefinitionEnabled()) {
             enableButton.setText(getString(R.string.Disable));
-        }
-        else {
+        } else {
             enableButton.setText(getString(R.string.Enable));
         }
 
