@@ -30,6 +30,7 @@ import org.rhq.pocket.user.FavoritesActivity;
 public class OverviewActivity extends RHQActivity implements Refreshable {
 
     private TextView alertCountView;
+    private TextView pssView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class OverviewActivity extends RHQActivity implements Refreshable {
 
         setContentView(R.layout.overview);
         alertCountView = (TextView) findViewById(R.id.overview_alert_count);
+        pssView = (TextView) findViewById(R.id.pss_text);
 
     }
 
@@ -90,6 +92,12 @@ public class OverviewActivity extends RHQActivity implements Refreshable {
                             int alertCount = Integer.valueOf(inner.get("AlertCount"));
                             alertCountView.setText(getString(R.string.number_of_alerts,alertCount));
                         }
+                        int platforms = Integer.valueOf(inner.get("PlatformCount"));
+                        int servers = Integer.valueOf(inner.get("ServerCount"));
+                        int services = Integer.valueOf(inner.get("ServiceCount"));
+                        int scheds = Integer.valueOf(inner.get("SchedulesPerMinute"));
+                        String s = getString(R.string.psss,platforms,servers,services,scheds);
+                        pssView.setText(s);
                     }
                 }
                 catch (Exception e) {

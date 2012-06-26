@@ -83,4 +83,5 @@
   <string name="Implicit_resources">Implicit resources</string>
   <string name="no_data_available">No data available</string>
   <string name="provide_parameters">Provide parameters if needed</string>
+  <string name="psss">%1$d Platforms, %2$d Servers, %3$d Services , %4$d Metrics/min</string>
 </resources>
