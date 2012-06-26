@@ -157,11 +157,4 @@ public class AlertActivity extends RHQActivity implements Refreshable {
             alertListFragment.fetchAlerts();
         }
     }
-
-    public void setAckMenuItemEnabled(boolean enabled) {
-        MenuItem item = menu.findItem(R.id.alert_ack_alert);
-        item.setEnabled(enabled);
-    }
-
-
 }

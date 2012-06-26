@@ -26,10 +26,10 @@ import org.rhq.core.domain.rest.AlertDefinition;
 import org.rhq.core.domain.rest.AlertRest;
 import org.rhq.pocket.FinishCallback;
 import org.rhq.pocket.R;
+import org.rhq.pocket.RHQActivity;
+import org.rhq.pocket.RHQPocket;
 import org.rhq.pocket.TalkToServerTask;
 import org.rhq.pocket.user.UserDetailFragment;
-import org.rhq.pocket.alert.AlertActivity;
-import org.rhq.pocket.alert.AlertListFragment;
 
 /**
  * Fragment to show the details of one alert
@@ -81,7 +81,7 @@ public class OneAlertFragment extends Fragment implements View.OnClickListener {
                         alert.setAlertDefinition(definition1);
                         alert.setDefinitionEnabled(definition1.isEnabled());
                         // update other alerts with the same definition
-                        updateOtherDefinitons(definition1);
+                        updateOtherDefinitions(definition1);
                         fillFields();
                     } catch (IOException e) {
                         e.printStackTrace();  // TODO: Customise this generated block
@@ -99,7 +99,7 @@ public class OneAlertFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void updateOtherDefinitons(AlertDefinition definition) {
+    private void updateOtherDefinitions(AlertDefinition definition) {
         FragmentManager fm = getFragmentManager();
         AlertListFragment fragment = (AlertListFragment) fm.findFragmentById(R.id.alert_list_container);
         if (fragment!=null) {
@@ -163,15 +163,24 @@ public class OneAlertFragment extends Fragment implements View.OnClickListener {
         TextView tv = (TextView) view.findViewById(R.id.one_alert_ack_user);
         if (acked) {
             tv.setText(alert.getAckBy());
-            tv.setClickable(true);
-            tv.setOnClickListener(this);
-            tv.setTag("ack_userview");
-            tv.setPaintFlags(tv.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
-            ((AlertActivity)getActivity()).setAckMenuItemEnabled(false); // TODO make more generic
+            if (RHQPocket.is44()) {
+                tv.setClickable(false);
+                tv.setTag("ack_userview");
+                tv.setPaintFlags(tv.getPaintFlags() | ~Paint.UNDERLINE_TEXT_FLAG);
+            }
+            else {
+                tv.setClickable(true);
+                tv.setOnClickListener(this);
+                tv.setTag("ack_userview");
+                tv.setPaintFlags(tv.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+            }
+
+            ((RHQActivity)getActivity()).enableMenuItem(R.id.alert_ack_alert,false);
         }
         else {
-            ((AlertActivity)getActivity()).setAckMenuItemEnabled(true); // TODO make more generic
+            ((RHQActivity)getActivity()).enableMenuItem(R.id.alert_ack_alert, true);
+            tv.setText(""); // reset to empty
         }
     }
 
