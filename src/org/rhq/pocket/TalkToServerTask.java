@@ -45,15 +45,9 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
     private boolean isError=false;
     private SharedPreferences sharedPreferences;
 
-    public TalkToServerTask(Context ctx, FinishCallback callback, String subUrl) {
-
-        this.ctx = ctx;
-        this.callback = callback;
+    public TalkToServerTask(String subUrl,Context ctx) {
         this.subUrl = subUrl;
-
-        if (ctx instanceof Refreshable)
-            refreshable = (Refreshable) ctx;
-
+        this.ctx = ctx;
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ctx);
 
         String username = sharedPreferences.getString("username","-notset-");
@@ -61,6 +55,17 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
 
         String s = username + ":" + password;
         this.encodedCredentials = Base64.encodeToString(s.getBytes(), Base64.NO_WRAP);
+
+    }
+
+    public TalkToServerTask(Context ctx, FinishCallback callback, String subUrl) {
+
+        this(subUrl,ctx);
+        this.callback = callback;
+
+        if (ctx instanceof Refreshable)
+            refreshable = (Refreshable) ctx;
+
     }
 
     public TalkToServerTask(Context ctx, FinishCallback callback, String subUrl, String mode) {
@@ -78,6 +83,10 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
 
     protected JsonNode doInBackground(Object... objects) {
 
+        return getJsonNodes(mode, objects);
+    }
+
+    public JsonNode getJsonNodes(String mode, Object[] objects) {
         if (mode.equals("DELETE") && objects!=null && objects.length>0)
             throw new IllegalArgumentException("DELETE supports not attached objects");
 
@@ -90,7 +99,7 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
             String urlString = getHostPort() + "/rest/1"; // TODO put into preferences
             urlString =urlString + subUrl;
             URL url = new URL(urlString);
-            Log.d(CNAME,"Going for " +mode + " " + urlString);
+            Log.d(CNAME, "Going for " + mode + " " + urlString);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod(mode);
@@ -129,6 +138,9 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
             Log.d(CNAME,"response code was "+ responseCode);
             if (responseCode == HttpURLConnection.HTTP_UNAUTHORIZED) {
                 throw new ConnectException("Authentication needed");
+            }
+            if (responseCode == HttpURLConnection.HTTP_INTERNAL_ERROR) {
+                throw new ConnectException("Endpoint unknown");
             }
             if (responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
                 // Fake a response for further processing
@@ -180,7 +192,6 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
         }
         return null;
     }
-
 
     protected void onPreExecute() {
 

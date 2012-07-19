@@ -60,6 +60,9 @@ public class SplashActivity extends Activity
             RHQPocket.getInstance().displayRangeUnits= DisplayRange.HOUR;
             RHQPocket.getInstance().displayRangeValue=8;
 
+            Intent serviceIntent = new Intent().setClass(SplashActivity.this,AlertCheckService.class);
+            startService(serviceIntent);
+
             ////////////// do the initialization work here ^^^^^^^^
 
 

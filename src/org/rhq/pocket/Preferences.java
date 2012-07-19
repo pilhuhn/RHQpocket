@@ -18,10 +18,13 @@
  */
 package org.rhq.pocket;
 
+import java.net.ConnectException;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.widget.Toast;
 
 import org.codehaus.jackson.JsonNode;
 
@@ -61,9 +64,20 @@ public class Preferences extends PreferenceActivity  implements SharedPreference
 
                 @Override
                 public void onFailure(Exception e) {
-                    p.setSummary(R.string.invalid);
+                    if (e instanceof ConnectException) {
+                        if (e.getMessage().contains("Authentication")) {
+                            p.setSummary(R.string.invalid);
+                            Toast.makeText(getApplicationContext(),"Invalid user/password",Toast.LENGTH_SHORT).show();
+                        }
+                        else if (e.getMessage().contains("unknown")) {
+                            Toast.makeText(getApplicationContext(),"If this is a RHQ 4.4 / JON 3.1 server, the password may be valid",Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(),"Error: " + e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+                        }
+                    }
                 }
-            },"/status").execute();
+            },"/status/server").execute();
 
 
         }
