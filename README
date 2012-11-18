@@ -1,4 +1,4 @@
-Testbed to create an application for Andorid(TM)-based devices
+Testbed to create an application for Android(TM)-based devices
 as management frontend for RHQ (http://rhq-project.org/).
 
 The client runs against RHQ 4.4 and later and required Android 3.0+.
