@@ -96,7 +96,7 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
         try {
             // Example remote url
             //   http://localhost:7080/rest/1/resource/10001
-            String urlString = getHostPort() + "/rest/1"; // TODO put into preferences
+            String urlString = getHostPort() + "/rest"; // TODO put into preferences
             urlString =urlString + subUrl;
             URL url = new URL(urlString);
             Log.d(CNAME, "Going for " + mode + " " + urlString);
