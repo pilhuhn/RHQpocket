@@ -96,7 +96,7 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
         try {
             // Example remote url
             //   http://localhost:7080/rest/1/resource/10001
-            String urlString = getHostPort() + "/rest"; // TODO put into preferences
+            String urlString = getRestBase() ;
             urlString =urlString + subUrl;
             URL url = new URL(urlString);
             Log.d(CNAME, "Going for " + mode + " " + urlString);
@@ -236,10 +236,15 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
     }
 
 
-    String getHostPort() {
+    String getRestBase() {
         String host = sharedPreferences.getString("host", "172.31.7.7");
         String port = sharedPreferences.getString("port", "7080");
+        String endpoint = sharedPreferences.getString("endpoint","rest");
+        if (endpoint.startsWith("/"))
+            endpoint = endpoint.substring(1);
+        if (endpoint.endsWith("/"))
+            endpoint= endpoint.substring(0,endpoint.length());
 
-        return "http://"+host+":"+port; // TODO make https the default
+        return "http://"+host+":"+port + "/" + endpoint; // TODO make https the default
     }
 }

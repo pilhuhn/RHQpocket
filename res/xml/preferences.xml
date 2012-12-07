@@ -23,4 +23,14 @@
                                        android:inputType="textVisiblePassword"
                                        android:summary="Password to connect with"
                                        />
+    <EditTextPreference android:defaultValue="rest"
+                        android:key="endpoint"
+                        android:title="Endpoint"
+                        android:summary="Set this to 'rest/1' for RHQ before 4.6 and JBossON before 3.1.x, 'rest' for later versions"
+                        />
+
+    <CheckBoxPreference android:key="alert_service"
+                        android:title="Alert Check service"
+                        android:defaultValue="false"
+                        />
 </PreferenceScreen>

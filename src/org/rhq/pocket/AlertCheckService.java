@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 
@@ -110,12 +111,19 @@ public class AlertCheckService extends Service {
         Context context = getApplicationContext();
         NotificationManager mNotificationManager = (NotificationManager) getApplicationContext().getSystemService(ns);
         mNotificationManager.cancelAll();
-        Notification notification = new Notification.Builder(context)
+        Notification.Builder builder = new Notification.Builder(context)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setSmallIcon(R.drawable.rhq_icon)
                 .setContentTitle("New alerts")
                 .setContentText("There are " + alertList.size() + " new alerts")
-                .getNotification();
+                .setNumber(alertList.size())
+                .setLights(0xaa555, 3, 2)
+                ;
+        if (Build.VERSION.SDK_INT>16) {
+            builder.setNumber(alertList.size());
+        }
+
+        Notification notification = builder.getNotification();
 
 
         //contentView.setImageViewResource(R.id.image, R.drawable.notification_image);
