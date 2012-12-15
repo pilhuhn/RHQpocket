@@ -38,7 +38,12 @@ public class AlertCheckService extends Service {
     public void onStart(Intent intent, int startId) {
         super.onStart(intent, startId);
 
-        minutes=intent.getIntExtra("intervalMinutes",5);
+        if (intent!=null) { // Services may get restarted
+            minutes=intent.getIntExtra("intervalMinutes",5);
+        }
+        else {
+            minutes = 5;
+        }
 
         if (isRunning)
             return;
