@@ -60,8 +60,18 @@ public class SplashActivity extends Activity
             RHQPocket.getInstance().displayRangeUnits= DisplayRange.HOUR;
             RHQPocket.getInstance().displayRangeValue=8;
 
-            Intent serviceIntent = new Intent().setClass(SplashActivity.this,AlertCheckService.class);
-            startService(serviceIntent);
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            boolean runChecker = prefs.getBoolean("alert_service",false);
+
+            if (runChecker) {
+                String tmp = prefs.getString("alert_check_interval_minutes","5");
+                Integer interval = Integer.valueOf(tmp);
+                Intent serviceIntent = new Intent().setClass(SplashActivity.this,AlertCheckService.class);
+                if (interval!=null) {
+                    serviceIntent.putExtra("intervalMinutes",interval);
+                }
+                startService(serviceIntent);
+            }
 
             ////////////// do the initialization work here ^^^^^^^^
 

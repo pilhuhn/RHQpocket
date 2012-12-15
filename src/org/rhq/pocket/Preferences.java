@@ -45,6 +45,7 @@ public class Preferences extends PreferenceActivity  implements SharedPreference
         setSummaries(sharedPreferences,"host");
         setSummaries(sharedPreferences,"port");
         setSummaries(sharedPreferences,"username");
+        setSummaries(sharedPreferences,"alert_check_interval_minutes");
         setPasswordSummary(sharedPreferences,findPreference("password"));
     }
 
@@ -95,6 +96,9 @@ public class Preferences extends PreferenceActivity  implements SharedPreference
 
         if (key.equals("username")) {
             p.setSummary(sharedPreferences.getString("username",""));
+        }
+        if (key.equals("alert_check_interval_minutes")) {
+            p.setSummary(sharedPreferences.getString("alert_check_interval_minutes","5"));
         }
         return p;
     }

@@ -8,7 +8,7 @@
                                        />
     <EditTextPreference android:defaultValue="7080"
                                        android:key="port"
-                                       android:inputType="number"
+                                       android:inputType="numberDecimal"
                                        android:title="Remote Port "
                                        android:summary="Remote server port to connect to"
                                        />
@@ -29,8 +29,17 @@
                         android:summary="Set this to 'rest/1' for RHQ before 4.6 and JBossON before 3.1.x, 'rest' for later versions"
                         />
 
+
+  <PreferenceScreen android:title="Alert check service"
+                    android:summary="Run a background service to check for fired alerts">
     <CheckBoxPreference android:key="alert_service"
-                        android:title="Alert Check service"
+                        android:title="Enabled"
                         android:defaultValue="false"
                         />
+    <EditTextPreference android:key="alert_check_interval_minutes"
+                        android:title="Check interval in minutes"
+                        android:inputType="numberDecimal"
+                        android:defaultValue="5"
+                        />
+  </PreferenceScreen>
 </PreferenceScreen>

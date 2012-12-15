@@ -28,6 +28,7 @@ public class AlertCheckService extends Service {
     private boolean isRunning = false;
     private boolean shouldRun = true;
     private long since = -1;
+    private int minutes;
 
     public IBinder onBind(Intent intent) {
         return null;
@@ -36,6 +37,8 @@ public class AlertCheckService extends Service {
     @Override
     public void onStart(Intent intent, int startId) {
         super.onStart(intent, startId);
+
+        minutes=intent.getIntExtra("intervalMinutes",5);
 
         if (isRunning)
             return;
@@ -96,7 +99,7 @@ public class AlertCheckService extends Service {
 
 
                 try {
-                    Thread.sleep(1000 * 60 * 1); // 1 minute TODO make configurable
+                    Thread.sleep(1000 * 60 * minutes); // 1 minute TODO make configurable
                 } catch (InterruptedException e) {
                     shouldRun = false;
                 }
