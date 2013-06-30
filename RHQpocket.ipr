@@ -398,8 +398,23 @@
     </profiles>
     <list size="0" />
   </component>
-  <component name="AntConfiguration">
-    <defaultAnt bundledAnt="true" />
+  <component name="ArtifactManager">
+    <artifact type="apk" name="RHQpocket">
+      <output-path>$PROJECT_DIR$/out/artifacts/RHQpocket</output-path>
+      <properties id="android-properties">
+        <options>
+          <option name="keyAlias" value="key0" />
+          <option name="keyPassword" value="YW5kcm9pZDg3" />
+          <option name="keyStorePassword" value="YW5kcm9pZA==" />
+          <option name="keyStoreUrl" value="file://$USER_HOME$/android-keystore" />
+          <option name="proGuardCfgFileUrl" value="file://$PROJECT_DIR$/proguard.cfg" />
+          <option name="signingMode" value="RELEASE_SIGNED" />
+        </options>
+      </properties>
+      <root id="archive" name="RHQpocket.apk">
+        <element id="android-final-package" facet="RHQpocket/android/Android" />
+      </root>
+    </artifact>
   </component>
   <component name="BuildJarProjectSettings">
     <option name="BUILD_JARS_ON_MAKE" value="false" />
@@ -439,8 +454,12 @@
   </component>
   <component name="EclipseCodeFormatter">
     <option name="defaultSettings" value="true" />
+    <option name="formatter" value="ECLIPSE" />
     <option name="id" value="1334484810667" />
+    <option name="importOrderConfigFilePath" value="$PROJECT_DIR$/../c-geo-opensource/main/.settings/org.eclipse.jdt.ui.prefs" />
+    <option name="importOrderFromFile" value="true" />
     <option name="name" value="default (1)" />
+    <option name="pathToConfigFileJava" value="$PROJECT_DIR$/../c-geo-opensource/main/.settings/org.eclipse.jdt.core.prefs" />
   </component>
   <component name="EclipseCompilerSettings">
     <option name="GENERATE_NO_WARNINGS" value="true" />
@@ -649,7 +668,7 @@
   <component name="ProjectResources">
     <default-html-doctype>http://www.w3.org/1999/xhtml</default-html-doctype>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="Android 4.0.3 Platform" project-jdk-type="Android SDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="Android 4.2 Platform" project-jdk-type="Android SDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="SuppressionsComponent">
@@ -666,9 +685,23 @@
   </component>
   <component name="libraryTable">
     <library name="libs">
+      <CLASSES />
+      <JAVADOC />
+      <SOURCES />
+    </library>
+    <library name="org.codehaus.jackson:jackson-core-asl:1.9.12" type="repository">
+      <properties maven-id="org.codehaus.jackson:jackson-core-asl:1.9.12" />
       <CLASSES>
-        <root url="jar://$PROJECT_DIR$/libs/jackson-core-asl-1.7.4.jar!/" />
-        <root url="jar://$PROJECT_DIR$/libs/jackson-mapper-asl-1.7.4.jar!/" />
+        <root url="jar://$M2_REPO$/org/codehaus/jackson/jackson-core-asl/1.9.12/jackson-core-asl-1.9.12.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
+    <library name="org.codehaus.jackson:jackson-mapper-asl:1.9.12" type="repository">
+      <properties maven-id="org.codehaus.jackson:jackson-mapper-asl:1.9.12" />
+      <CLASSES>
+        <root url="jar://$M2_REPO$/org/codehaus/jackson/jackson-mapper-asl/1.9.12/jackson-mapper-asl-1.9.12.jar!/" />
+        <root url="jar://$M2_REPO$/org/codehaus/jackson/jackson-core-asl/1.9.12/jackson-core-asl-1.9.12.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />

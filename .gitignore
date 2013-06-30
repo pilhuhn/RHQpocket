@@ -5,3 +5,5 @@ tmp/
 out/
 .DS_Store
 *.iws
+build/
+.gradle/

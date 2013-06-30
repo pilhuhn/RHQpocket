@@ -6,6 +6,13 @@
         android:actionLayout="@layout/progress_thingy"
         android:showAsAction="always"/>
 
+<!--
+  <item android:id="@+id/menu_search"
+        android:icon="@drawable/action_search"
+        android:showAsAction="always"
+        android:actionViewClass="android.widget.SearchView"
+        />
+-->
 
   <item android:title="@string/pick_resource"
         android:id="@+id/pick_resource"

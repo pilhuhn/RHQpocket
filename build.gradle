@@ -1,0 +1,25 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+       classpath 'com.android.tools.build:gradle:0.4.2'
+    }
+}
+
+apply plugin: 'android'
+apply plugin: 'idea'
+repositories {
+        mavenCentral()
+}
+dependencies {
+	compile 'org.codehaus.jackson:jackson-core-asl:1.9.12'
+	compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.12'
+}
+
+
+android {
+    compileSdkVersion 17
+    buildToolsVersion "17.0"
+}
