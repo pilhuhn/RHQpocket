@@ -13,6 +13,12 @@
                                        android:summary="Remote server port to connect to"
                                        />
     <EditTextPreference
+                                       android:key="schema"
+                                       android:title="Schema"
+                                       android:summary="Connection schema (http,https)"
+                                       android:defaultValue="https"
+                                       />
+    <EditTextPreference
                                        android:key="username"
                                        android:title="RHQ user"
                                        android:summary="User to connect as"

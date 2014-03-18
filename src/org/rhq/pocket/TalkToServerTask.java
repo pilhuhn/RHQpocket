@@ -10,6 +10,10 @@ import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSession;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -101,7 +105,19 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
             URL url = new URL(urlString);
             Log.d(CNAME, "Going for " + mode + " " + urlString);
 
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            HttpURLConnection conn;
+            if (urlString.startsWith("https")) {
+                conn = (HttpsURLConnection) url.openConnection();
+                ((HttpsURLConnection)conn).setHostnameVerifier(new HostnameVerifier() {
+                    @Override
+                    public boolean verify(String hostname, SSLSession session) {
+                        return true; // TODO big hack -- remove
+                    }
+                });
+            }
+            else {
+                conn = (HttpURLConnection) url.openConnection();
+            }
             conn.setRequestMethod(mode);
 
             conn.setDoInput(true);
@@ -240,11 +256,12 @@ public class TalkToServerTask extends AsyncTask<Object,Void,JsonNode> {
         String host = sharedPreferences.getString("host", "172.31.7.7");
         String port = sharedPreferences.getString("port", "7080");
         String endpoint = sharedPreferences.getString("endpoint","rest");
+        String schema = sharedPreferences.getString("schema","https");
         if (endpoint.startsWith("/"))
             endpoint = endpoint.substring(1);
         if (endpoint.endsWith("/"))
             endpoint= endpoint.substring(0,endpoint.length());
 
-        return "http://"+host+":"+port + "/" + endpoint; // TODO make https the default
+        return schema + "://"+host+":"+port + "/" + endpoint; // TODO make https the default
     }
 }
