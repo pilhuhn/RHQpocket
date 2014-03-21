@@ -56,13 +56,6 @@ public class ScheduleOperationDetailFragment extends Fragment implements View.On
         // For Android internal use
     }
 
-    public ScheduleOperationDetailFragment(OperationDefinitionRest definition, int resourceId) {
-
-        this.definition = definition;
-        this.resourceId = resourceId;
-    }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -289,5 +282,13 @@ public class ScheduleOperationDetailFragment extends Fragment implements View.On
                 ((CheckBox) v).setChecked((Boolean) params.get(name));
             }
         }
+    }
+
+    public void setDefinition(OperationDefinitionRest definition) {
+        this.definition = definition;
+    }
+
+    public void setResource(int resourceId) {
+        this.resourceId = resourceId;
     }
 }

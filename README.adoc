@@ -1,4 +1,4 @@
-= RHQPocket
+== RHQPocket
 Testbed to create an application for Android(TM)-based devices
 as management frontend for RHQ (http://jboss.org/rhq).
 
@@ -8,7 +8,7 @@ Classes in org.rhq.core.domain are copied over manually
 and the JaxB Annotations are stripped off (if needed )
 as Android can not (directly) use JAXB classes.
 
-== Building
+=== Building
 
 The build has now been moved over to the new Android tooling
 build system that uses Gradle. TO build the software you need to
@@ -16,7 +16,9 @@ install Gradle (or use it out of Android Studio) and run
 
   gradle build
 
-== See also
+=== License
+
+=== See also
 
 See http://vimeo.com/29740860 for a demo video of the state end of Sept. 2011.
 

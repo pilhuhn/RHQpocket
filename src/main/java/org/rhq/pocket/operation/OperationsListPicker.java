@@ -108,8 +108,10 @@ public class OperationsListPicker extends ListFragment {
             ft.remove(fragment);
         }
 
-        fragment = new ScheduleOperationDetailFragment(def, resourceId);
-        ft.add(R.id.detail_container,fragment);
+        ScheduleOperationDetailFragment sFragment = new ScheduleOperationDetailFragment();
+        sFragment.setDefinition(def);
+        sFragment.setResource(resourceId);
+        ft.add(R.id.detail_container,sFragment);
 
         ft.commit();
 

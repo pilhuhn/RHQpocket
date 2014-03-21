@@ -134,6 +134,7 @@ public class FavoritesActivity extends RHQActivity {
             FragmentTransaction ft = fm.beginTransaction();
             ft.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             ft.remove(detailFragment);
+            ft.commit();
 
             new TalkToServerTask(this,new FinishCallback() {
                 @Override

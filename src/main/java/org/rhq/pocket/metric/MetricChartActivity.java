@@ -87,7 +87,6 @@ public class MetricChartActivity extends RHQActivity implements Refreshable
         }
         if (resourceId!=-1) {
             // User has already picked one, lets use it
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
             ScheduleListFragment fragment  =
                 (ScheduleListFragment) getFragmentManager().findFragmentById(R.id.left_picker);
 

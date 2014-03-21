@@ -407,7 +407,6 @@
           <option name="keyPassword" value="YW5kcm9pZDg3" />
           <option name="keyStorePassword" value="YW5kcm9pZA==" />
           <option name="keyStoreUrl" value="file://$USER_HOME$/android-keystore" />
-          <option name="proGuardCfgFileUrl" value="file://$PROJECT_DIR$/proguard.cfg" />
           <option name="signingMode" value="RELEASE_SIGNED" />
         </options>
       </properties>
@@ -446,9 +445,7 @@
       </profile>
     </annotationProcessing>
   </component>
-  <component name="CopyrightManager" default="">
-    <module2copyright />
-  </component>
+  <component name="CopyrightManager" default="" />
   <component name="DependencyValidationManager">
     <option name="SKIP_IMPORT_STATEMENTS" value="false" />
   </component>
@@ -465,9 +462,7 @@
     <option name="GENERATE_NO_WARNINGS" value="true" />
     <option name="DEPRECATION" value="false" />
   </component>
-  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
-    <file url="file://$PROJECT_DIR$/res/drawable/operation_24.png" charset="ISO-8859-1" />
-  </component>
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
@@ -475,6 +470,23 @@
     <option name="make" value="true" />
     <option name="effort" value="default" />
     <option name="priority" value="Medium" />
+  </component>
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$" />
+  </component>
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="LOCAL" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="$PROJECT_DIR$/../tools/gradle-1.11" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
   </component>
   <component name="IdProvider" IDEtalkID="0C3141D307597BCAAE26D962F88131AF" />
   <component name="InspectionProjectProfileManager">
@@ -668,7 +680,7 @@
   <component name="ProjectResources">
     <default-html-doctype>http://www.w3.org/1999/xhtml</default-html-doctype>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="Android 4.2 Platform" project-jdk-type="Android SDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="1.6 (1)" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="SuppressionsComponent">
@@ -677,6 +689,7 @@
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
   <component name="WebServicesPlugin" addRequiredLibraries="true" />
   <component name="XPathView.XPathProjectComponent">
@@ -684,27 +697,48 @@
     <find-history />
   </component>
   <component name="libraryTable">
-    <library name="libs">
-      <CLASSES />
-      <JAVADOC />
-      <SOURCES />
-    </library>
-    <library name="org.codehaus.jackson:jackson-core-asl:1.9.12" type="repository">
-      <properties maven-id="org.codehaus.jackson:jackson-core-asl:1.9.12" />
+    <library name="aerogear-android-1.3.1">
       <CLASSES>
-        <root url="jar://$M2_REPO$/org/codehaus/jackson/jackson-core-asl/1.9.12/jackson-core-asl-1.9.12.jar!/" />
+        <root url="jar://$PROJECT_DIR$/build/exploded-aar/org.jboss.aerogear/aerogear-android/1.3.1/classes.jar!/" />
+        <root url="file://$PROJECT_DIR$/build/exploded-aar/org.jboss.aerogear/aerogear-android/1.3.1/res" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
     </library>
-    <library name="org.codehaus.jackson:jackson-mapper-asl:1.9.12" type="repository">
-      <properties maven-id="org.codehaus.jackson:jackson-mapper-asl:1.9.12" />
+    <library name="jackson-core-asl-1.9.12">
       <CLASSES>
-        <root url="jar://$M2_REPO$/org/codehaus/jackson/jackson-mapper-asl/1.9.12/jackson-mapper-asl-1.9.12.jar!/" />
-        <root url="jar://$M2_REPO$/org/codehaus/jackson/jackson-core-asl/1.9.12/jackson-core-asl-1.9.12.jar!/" />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.jackson/jackson-core-asl/1.9.12/ecfc6f73a841c4c3c653b59651a3f9d5f1286469/jackson-core-asl-1.9.12.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.jackson/jackson-core-asl/1.9.12/ed7928072c458d8576c969cc491af707151492fb/jackson-core-asl-1.9.12-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="jackson-mapper-asl-1.9.12">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.jackson/jackson-mapper-asl/1.9.12/8b290aae44213e2f6da00c07af59b0d442068f4d/jackson-mapper-asl-1.9.12.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.jackson/jackson-mapper-asl/1.9.12/446f3d18401f02ac6741ff980d1a7566786936c/jackson-mapper-asl-1.9.12-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="play-services-4.2.42">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/build/exploded-aar/com.google.android.gms/play-services/4.2.42/classes.jar!/" />
+        <root url="file://$PROJECT_DIR$/build/exploded-aar/com.google.android.gms/play-services/4.2.42/res" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
+    </library>
+    <library name="support-v4-19.0.1">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../android-sdk-mac_86/extras/android/m2repository/com/android/support/support-v4/19.0.1/support-v4-19.0.1.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../android-sdk-mac_86/extras/android/m2repository/com/android/support/support-v4/19.0.1/support-v4-19.0.1-sources.jar!/" />
+      </SOURCES>
     </library>
   </component>
 </project>
