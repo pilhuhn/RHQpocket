@@ -9,7 +9,7 @@
     <item name="android:textStyle">bold</item>
   </style>
   <style name="table_text" parent="text_std">
-    <item name="android:textSize">16dp</item>
+    <item name="android:textSize">16sp</item>
   </style>
   <style name="table_header" parent="table_text">
     <item name="android:textStyle">bold</item>
@@ -17,7 +17,7 @@
   <style name="table_cell" parent="table_text">
   </style>
   <style name="table_header_large" parent="table_header">
-    <item name="android:textSize">18dp</item>
+    <item name="android:textSize">18sp</item>
   </style>
   <style name="table_text_large" parent="table_text">
 

@@ -108,7 +108,7 @@ public class OperationRest {
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
+        int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + resourceId;
         result = 31 * result + definitionId;

@@ -16,6 +16,6 @@
               android:layout_width="160dp"
               android:layout_height="fill_parent"
               android:background="#220000"
-              android:text="Select a schedule"/>
+              android:text="@string/select_metric"/>
 
 </LinearLayout>

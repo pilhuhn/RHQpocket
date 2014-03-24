@@ -4,10 +4,10 @@
         <item name="android:layout_width">wrap_content</item>
     </style>
     <style name="text_std" parent="wrap_content">
-      <item name="android:textSize">16dp</item>
+      <item name="android:textSize">16sp</item>
     </style>
   <style name="table_text" parent="text_std">
-    <item name="android:textSize">18dp</item>
+    <item name="android:textSize">18sp</item>
   </style>
   <style name="text_bold" parent="text_std">
     <item name="android:textStyle">bold</item>
@@ -20,16 +20,16 @@
   </style>
 
   <style name="button" parent="wrap_content">
-    <item name="android:textSize">26dp</item>
+    <item name="android:textSize">26sp</item>
   </style>
   <style name="pic_button" parent="button">
-    <item name="android:textSize">28dp</item>
+    <item name="android:textSize">28sp</item>
   </style>
   <style name="table_header_large" parent="table_header">
-    <item name="android:textSize">22dp</item>
+    <item name="android:textSize">22sp</item>
   </style>
   <style name="table_text_large" parent="table_text">
-    <item name="android:textSize">22dp</item>
+    <item name="android:textSize">22sp</item>
   </style>
 
 

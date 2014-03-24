@@ -13,7 +13,7 @@
 
   <TextView android:id="@+id/valueView"
             style="@style/text_bold"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:paddingLeft="8dp"
             android:padding="4dp"
             />

@@ -90,7 +90,7 @@ public class OneAlertFragment extends Fragment implements View.OnClickListener {
 
                 @Override
                 public void onFailure(Exception e) {
-                    Toast.makeText(getActivity(),"Update failed " ,Toast.LENGTH_SHORT);
+                    Toast.makeText(getActivity(),"Update failed " ,Toast.LENGTH_SHORT).show();
                 }
             };
             new TalkToServerTask(getActivity(), fcb,
