@@ -10,11 +10,31 @@ as Android can not (directly) use JAXB classes.
 
 === Building
 
-The build has now been moved over to the new Android tooling
-build system that uses Gradle. TO build the software you need to
-install Gradle (or use it out of Android Studio) and run
+==== System Requirements
 
-  gradle build
+* link:http://www.oracle.com/technetwork/java/javase/downloads/index.html[Java 7]
+* link:http://www.gradle.org/[Gradle 2.2.1]
+* Latest link:https://developer.android.com/sdk/index.html[Android SDK] and link:http://developer.android.com/tools/revisions/platforms.html[Platform version 21]
+
+==== Build Application
+
+```shell
+$ cd /path/to/appFolder
+$ gradle clean build
+```
+
+==== Run Application
+
+To deploy, run and debug the application on an Android device attached to your system, on the command line enter the following:
+
+* Install generated apk to device
+
+```shell
+$ cd /path/to/appFolder
+$ gradle installDebug
+```
+
+* Open app on device
 
 === License
 
